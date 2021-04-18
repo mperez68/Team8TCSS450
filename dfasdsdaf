@@ -1,0 +1,72 @@
+[33mcommit 024cc88cfbc2a29b4736cf4ca8f0f4cdefb4471f[m[33m ([m[1;36mHEAD -> [m[1;32mbrandon[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/brandon[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 974ce55 49125f2
+Author: NicoRoberts <33466452+NicoRoberts@users.noreply.github.com>
+Date:   Mon Apr 12 12:18:04 2021 -0700
+
+    Merge pull request #2 from mperez68/marc
+    
+    Initial Commit, Marc Perez branch
+
+[33mcommit 49125f25b1e3dfcdb4ecb05225f4de82c63d5e26[m[33m ([m[1;31morigin/marc[m[33m)[m
+Merge: d7cf512 974ce55
+Author: NicoRoberts <33466452+NicoRoberts@users.noreply.github.com>
+Date:   Mon Apr 12 12:17:56 2021 -0700
+
+    Merge branch 'master' into marc
+
+[33mcommit 974ce55b229c0a982b187f8cb8a4a4f056e27ca7[m
+Merge: 6262270 c380096
+Author: Tiarnan <tkmarsten@gmail.com>
+Date:   Mon Apr 12 12:16:36 2021 -0700
+
+    Merge pull request #3 from mperez68/tien_branch
+    
+    let's hope this shit works
+
+[33mcommit 6262270f6fd8e11e3a74d684d780cbdb77be125d[m
+Merge: 3fac383 789661d
+Author: Marc P <73920587+mperez68@users.noreply.github.com>
+Date:   Mon Apr 12 12:15:42 2021 -0700
+
+    Merge pull request #1 from mperez68/branch_tiarnan
+    
+    Initial!
+
+[33mcommit 3fac38372435f0f79ea8d60a8391c981a28293af[m
+Merge: 67cdffd c5e8a89
+Author: NicoRoberts <33466452+NicoRoberts@users.noreply.github.com>
+Date:   Mon Apr 12 12:14:43 2021 -0700
+
+    Merge pull request #4 from mperez68/NicoTestBranch
+    
+    Comment
+
+[33mcommit c5e8a892155040e20610c4837b712b982e08ae27[m[33m ([m[1;31morigin/NicoTestBranch[m[33m)[m
+Author: NicoRoberts <33466452+NicoRoberts@users.noreply.github.com>
+Date:   Mon Apr 12 12:13:52 2021 -0700
+
+    Comment
+
+[33mcommit c38009669abbcae96212a0420a8253b3f8b607e8[m[33m ([m[1;31morigin/tien_branch[m[33m)[m
+Author: Tien Tang <tientang@uw.edu>
+Date:   Mon Apr 12 12:09:48 2021 -0700
+
+    let's hope this shit works
+
+[33mcommit 789661da15801e5373030bce37709b1c64a9aabf[m[33m ([m[1;31morigin/branch_tiarnan[m[33m)[m
+Author: tkmarsten <tkmarsten@gmail.com>
+Date:   Mon Apr 12 12:08:27 2021 -0700
+
+    Initial
+
+[33mcommit d7cf51238bea8ed26425d77a5b7b5c59347ed40c[m
+Author: Marc Perez <marc.perez.dev@gmail.com>
+Date:   Mon Apr 12 12:07:45 2021 -0700
+
+    Initial Commit, Marc Perez branch
+
+[33mcommit 67cdffdc211df11171799d8d75a167d012761180[m
+Author: Marc Perez <marc.perez.dev@gmail.com>
+Date:   Mon Apr 12 11:56:39 2021 -0700
+
+    Initial commit; copy from the fragment lab assignment.

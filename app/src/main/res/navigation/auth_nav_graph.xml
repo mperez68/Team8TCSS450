@@ -16,6 +16,14 @@
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -30,5 +38,12 @@
         android:id="@+id/mainActivity"
         android:name="edu.uw.tcss450.team8tcss450.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="jwt"
+            app:argType="string" />
+    </activity>
 </navigation>

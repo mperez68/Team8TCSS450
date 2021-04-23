@@ -1,7 +1,6 @@
 package edu.uw.tcss450.team8tcss450.ui.auth.register;
 
 import android.app.Application;
-import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,7 +9,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -21,11 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
-import com.example.edu.uw.tcss450.mylabapptiarnanm.io.RequestQueueSingleton;
 
 public class RegisterViewModel extends AndroidViewModel {
 

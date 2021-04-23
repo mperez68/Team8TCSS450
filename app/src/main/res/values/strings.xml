@@ -8,6 +8,10 @@
     <string name="button_first_blue">Blue Fragment</string>
     <string name="textlabel_color_text">Color</string>
     <string name="title_activity_auth">AuthActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_weather">Weather</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

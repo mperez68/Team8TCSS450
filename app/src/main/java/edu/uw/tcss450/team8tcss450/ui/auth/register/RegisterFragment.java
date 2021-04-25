@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentRegisterBinding;
+
 import edu.uw.tcss450.team8tcss450.utils.PasswordValidator;
 
 import org.json.JSONException;
@@ -123,8 +124,8 @@ public class RegisterFragment extends Fragment {
     }
 
     private void navigateToLogin() {
-        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
-                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
+        RegisterFragmentDirections.ActionRegisterFragmentToSignInFragment directions =
+                RegisterFragmentDirections.actionRegisterFragmentToSignInFragment();
 
         directions.setEmail(binding.editEmail.getText().toString());
         directions.setPassword(binding.editPassword1.getText().toString());

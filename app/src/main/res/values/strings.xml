@@ -7,6 +7,7 @@
     <string name="hint_first">First Name</string>
     <string name="hint_last">Last Name</string>
     <string name="hint_email">Email</string>
+    <string name="hint_nickname">Nickname</string>
     <string name="hint_password">Password</string>
     <string name="hint_password_again">Retype Password</string>
     <string name="action_register_short">Register</string>

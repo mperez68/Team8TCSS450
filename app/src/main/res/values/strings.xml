@@ -1,4 +1,6 @@
 <resources>
+    <!-- viewtype_location_description -->
+    <string name="textlabel_color_text">Color</string>
     <string name="app_name">Team 8 App</string>
 
     <!-- viewtype_location_description -->
@@ -10,6 +12,9 @@
     <string name="hint_password_again">Retype Password</string>
     <string name="action_register_short">Register</string>
     <string name="title_activity_auth">AuthActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_signin">Sign In</string>
+    <string name="title_register">Register</string>
     <string name="title_home">Home</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_chat">Chat</string>

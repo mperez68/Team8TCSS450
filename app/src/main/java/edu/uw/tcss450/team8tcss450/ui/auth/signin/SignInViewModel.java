@@ -41,10 +41,6 @@ public class SignInViewModel extends AndroidViewModel {
         mResponse.observe(owner, observer);
     }
 
-
-
-
-
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -70,7 +66,7 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     public void connect(final String email, final String password) {
-        String url = "https://cfb3-tcss450-labs-2021sp.herokuapp.com/auth";
+        String url = "https://team8-tcss450-app.herokuapp.com/auth";
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -90,14 +86,14 @@ public class SignInViewModel extends AndroidViewModel {
                 return headers;
             }
         };
+
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //Instantiate the RequestQueue and add the request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
-
 }

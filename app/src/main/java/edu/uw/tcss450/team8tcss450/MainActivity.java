@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team8tcss450;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -7,11 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-
-import android.os.Bundle;
-
 import com.auth0.android.jwt.JWT;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
@@ -28,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
-        //Import com.auth0.android.jwt.JWT
-
         JWT jwt = new JWT(args.getJwt());
-
 
         // Check to see if the web token is still valid or not. To make a JWT expire after a
         // longer or shorter time period, change the expiration time when the JWT is
@@ -41,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
                     this,
                     new UserInfoViewModel.UserInfoViewModelFactory(jwt))
                     .get(UserInfoViewModel.class);
-
-
-
         } else {
             //In production code, add in your own error handling/flow for when the JWT is expired
             throw new IllegalStateException("JWT is expired!");

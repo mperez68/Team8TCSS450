@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.signin;
+package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.os.Bundle;
 
@@ -14,9 +14,9 @@ import edu.uw.tcss450.team8tcss450.R;
  * TODO Filler Class, alter as needed.
  * A simple {@link Fragment} subclass.
  */
-public class SignInFragment extends Fragment {
+public class ContactsFragment extends Fragment {
 
-    public SignInFragment() {
+    public ContactsFragment() {
         // Required empty public constructor
     }
 
@@ -24,6 +24,6 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false);
+        return inflater.inflate(R.layout.fragment_contacts, container, false);
     }
 }

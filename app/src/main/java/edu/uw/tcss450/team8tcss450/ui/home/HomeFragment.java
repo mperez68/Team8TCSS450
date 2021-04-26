@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentHomeBinding binding =FragmentHomeBinding.bind(getView());
+        FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
 
         binding.textView.setText("Welcome Home");
     }

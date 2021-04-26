@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_end="365dp" />
 
     <EditText
         android:id="@+id/edit_first"
@@ -68,7 +68,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
-        android:hint="@string/hint_last"
+        android:hint="@string/hint_nickname"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/edit_password_1"
         app:layout_constraintEnd_toEndOf="parent"

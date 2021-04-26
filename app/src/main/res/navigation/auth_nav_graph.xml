@@ -30,5 +30,12 @@
         android:id="@+id/mainActivity"
         android:name="edu.uw.tcss450.team8tcss450.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="jwt"
+            app:argType="string" />
+    </activity>
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.signin.SignInFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -16,10 +16,18 @@
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.signin.RegisterFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action

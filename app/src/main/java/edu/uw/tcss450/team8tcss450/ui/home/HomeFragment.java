@@ -20,6 +20,8 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  */
 public class HomeFragment extends Fragment {
 
+    private FragmentHomeBinding binding;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -31,7 +33,6 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Local access to the ViewBinding object. No need to create as Instance Var as it is only

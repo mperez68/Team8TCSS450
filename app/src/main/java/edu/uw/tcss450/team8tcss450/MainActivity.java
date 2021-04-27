@@ -10,12 +10,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import com.auth0.android.jwt.JWT;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
+import com.auth0.android.jwt.JWT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,14 +35,11 @@ public class MainActivity extends AppCompatActivity {
         // Check to see if the web token is still valid or not. To make a JWT expire after a
         // longer or shorter time period, change the expiration time when the JWT is
         // created on the web service.
-        if(!jwt.isExpired(0)) {
+        if(!jwt.isExpired(UserInfoViewModel.mLeeway)) {
             new ViewModelProvider(
                     this,
                     new UserInfoViewModel.UserInfoViewModelFactory(jwt))
                     .get(UserInfoViewModel.class);
-
-
-
         } else {
             //In production code, add in your own error handling/flow for when the JWT is expired
             throw new IllegalStateException("JWT is expired!");

@@ -14,14 +14,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="500dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.987" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_weather"
@@ -30,8 +30,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="450dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_email"
+        android:layout_marginBottom="444dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -123,11 +123,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="250dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="350dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_email"
+        android:layout_marginBottom="302dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88">
 
         <TextView
             android:id="@+id/notifications_title"
@@ -213,14 +214,14 @@
         android:layout_width="374dp"
         android:layout_height="117dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="435dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_email"
+        android:layout_marginBottom="179dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/chats_title"

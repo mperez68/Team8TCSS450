@@ -12,13 +12,294 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="500dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="356dp"
+        android:layout_marginBottom="50dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.987" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_weather"
+        android:layout_width="374dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="444dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/weather_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Amber_Primary"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/title_weather"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <TextView
+            android:id="@+id/text_weather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Tacoma, WA"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/button_weather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_title"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <ImageButton
+            android:id="@+id/button_weather"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/text_weather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_weather_black_24dp"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="24dp" />
+
+        <TextView
+            android:id="@+id/text_preview_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_weather"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <Button
+            android:id="@+id/expand_weather"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Weather"
+            android:textColor="@color/Amber_Accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_preview_weather"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="96dp"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_notifications"
+        android:layout_width="374dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="302dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88">
+
+        <TextView
+            android:id="@+id/notifications_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Amber_Primary"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:text="Notifications"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <TextView
+            android:id="@+id/text_notifications"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="2 Notifications"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/button_notifications"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notifications_title"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <ImageButton
+            android:id="@+id/button_notifications"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/text_notifications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_contacts_black_24dp"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="24dp" />
+
+        <TextView
+            android:id="@+id/text_preview_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_notifications"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <Button
+            android:id="@+id/expand_notifications"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="NOTIFICATIONS"
+            android:textColor="@color/Amber_Accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_preview_notifications"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="96dp"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_chats"
+        android:layout_width="374dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="435dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="179dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/chats_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/Amber_Primary"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:text="Recent Chats"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <TextView
+            android:id="@+id/text_chats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Team 8"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/button_chats"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chats_title"
+            tools:layout_conversion_absoluteHeight="30dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <ImageButton
+            android:id="@+id/button_chats"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/text_chats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_chat_black_24dp"
+            tools:layout_conversion_absoluteHeight="24dp"
+            tools:layout_conversion_absoluteWidth="24dp" />
+
+        <TextView
+            android:id="@+id/text_preview_chats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_chats"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <Button
+            android:id="@+id/expand_chats"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="CHATS"
+            android:textColor="@color/Amber_Accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_preview_chats"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="96dp"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

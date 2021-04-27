@@ -8,6 +8,10 @@ import com.auth0.android.jwt.JWT;
 
 public class UserInfoViewModel extends ViewModel {
 
+    /**
+     * Constant variable used for connection timeouts when pinging for JWT.
+     */
+    public static final int mLeeway = 5;
     private final JWT mJwt;
 
     private UserInfoViewModel(JWT jwt) {
@@ -44,7 +48,7 @@ public class UserInfoViewModel extends ViewModel {
      * @return true if the JWT stored in this ViewModel is expired, false otherwise
      */
     public boolean isExpired() {
-        return mJwt.isExpired(0);
+        return mJwt.isExpired(mLeeway);
     }
 
     /**
@@ -55,7 +59,7 @@ public class UserInfoViewModel extends ViewModel {
      *      happen in this lab)
      */
     public String getEmail() {
-        if (!mJwt.isExpired(0)) {
+        if (!mJwt.isExpired(mLeeway)) {
             return mJwt.getClaim("email").asString();
         } else {
             throw new IllegalStateException("JWT is expired!");

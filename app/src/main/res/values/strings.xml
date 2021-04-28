@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FragmentsLab</string>
+    <string name="app_name">Team 8 Group Project</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- viewtype_location_description -->
@@ -8,11 +8,76 @@
     <string name="button_first_blue">Blue Fragment</string>
     <string name="textlabel_color_text">Color</string>
     <string name="title_activity_auth">AuthActivity</string>
+
+    <!-- Navigation Labels -->
     <string name="title_home">Home</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
-    <!--
+    <string name="title_contact_search">Search Contacts</string>
+
+    <!-- Chat Fragment Labels -->
+    <string name="start_new_chat">New Chat</string>
+    <string name="open_existing_chat">Open Chat</string>
+    <string name="send_chat">Send</string>
+
+    <!-- Chat Post Fragment Labels -->
+    <string name="time_and_date_chat_post">[Time and Date of Post]</string>
+    <string name="post_context_chat_post">[Post Context]</string>
+
+    <!-- Chat Post Card Fragment Labels -->
+    <string name="full_post_action_chat_card">Full Post</string>
+
+    <!-- Contacts Fragment Labels -->
+    <string name="search_contacts">Search</string>
+    <string name="header_contacts">Contacts</string>
+
+    <!-- Contact Search Fragment Labels -->
+    <string name="header_contact_search">Search Contacts</string>
+    <string name="email_contact_search">Email</string>
+    <string name="name_contact_search">Name</string>
+    <string name="username_contact_search">Username</string>
+
+    <!-- Contact Card Fragment Labels -->
+    <string name="email_contact_card">[email]</string>
+    <string name="username_contact_card">[username]</string>
+    <string name="name_contact_card">[name]</string>
+    <string name="first_name_contact_card">[first_name]</string>
+    <string name="last_name_contact_card">[last_name]</string>
+    <string name="image_content_description_contact_card">Image Icon Visually Identifies the Contact Individual</string>
+
+    <!-- Weather Fragment Labels -->
+    <string name="header_weather">Weather</string>
+    <string name="search_tab_weather">Search</string>
+    <string name="search_by_zipcode_weather">Enter Zipcode</string>
+    <string name="zipcode_tab_weather">Zipcode:</string>
+    <string name="zipcode_weather">[zipcode]</string>
+    <string name="twenty_four_hour_forecast_weather">24-Hour Forecast</string>
+    <string name="five_day_forecast_weather">5-Day Forecast</string>
+    <string name="ten_day_forecast_weather">10-Day Forecast</string>
+    <string name="view_map_forecast_weather">View Map</string>
+
+    <!-- Weather Current Labels -->
+    <string name="temperature_weather_current">Temperature:</string>
+    <string name="temperature_reading_weather_current">- -</string>
+    <string name="outlook_weather_current">Outlook:</string>
+    <string name="humidity_weather_current">Humidity:</string>
+    <string name="humidity_reading_weather_current">__%</string>
+    <string name="wind_weather_current">Wind:</string>
+    <string name="wind_reading_weather_current">__ MPH</string>
+
+    <!-- Weather Prediction Card Labels -->
+    <string name="hour_o_clock_weather_hour_prediction_card">[--:-- am/pm]</string>
+    <string name="day_weather_day_prediction_card">[mm/dd]</string>
+    <string name="temperature_weather_prediction_card">Temperature</string>
+    <string name="temperature_reading_weather_prediction_card">- -</string>
+    <string name="high_temperature_weather_prediction_card">High:</string>
+    <string name="low_temperature_weather_prediction_card">Low:</string>
+    <string name="outlook_weather_prediction_card">Outlook</string>
+
+    <!-- Weather Map Labels -->
+    <string name="header_weather_map">Weather Map</string>
+
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->

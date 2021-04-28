@@ -1,6 +1,9 @@
 package edu.uw.tcss450.team8tcss450;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,6 +55,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_main_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            //TODO open a settings fragment
+            Log.d("SETTINGS", "Clicked");
+            return true;
+        }
+        else if (id == R.id.action_sign_out) {
+            //TODO open a sign out fragment
+            Log.d("SIGN OUT", "Clicked");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

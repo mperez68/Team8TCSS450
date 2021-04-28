@@ -1,19 +1,32 @@
 <resources>
+
     <string name="app_name">Team 8 Group Project</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!-- viewtype_location_description -->
-    <string name="button_first_red">Red Fragment</string>
-    <string name="button_first_green">Green Fragment</string>
-    <string name="button_first_blue">Blue Fragment</string>
     <string name="textlabel_color_text">Color</string>
+    <string name="app_name">Team 8 App</string>
+
+    <!-- viewtype_location_description -->
+    <string name="hint_first">First Name</string>
+    <string name="hint_last">Last Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_nickname">Nickname</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_password_again">Retype Password</string>
+    <string name="action_register_short">Register</string>
     <string name="title_activity_auth">AuthActivity</string>
 
     <!-- Navigation Labels -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_signin">Sign In</string>
+    <string name="title_register">Register</string>
     <string name="title_home">Home</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
+
     <string name="title_contact_search">Search Contacts</string>
 
     <!-- Chat Fragment Labels -->
@@ -78,8 +91,23 @@
     <!-- Weather Map Labels -->
     <string name="header_weather_map">Weather Map</string>
 
+    <!-- Strings used in Login -->
+    <string name="editEmail_signIn">Enter email</string>
+    <string name="editPassword_signIn">Enter password</string>
+    <string name="loadHome_signIn">Sign In</string>
+    <string name="loadRegister_signIn">Register</string>
+
+    <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings used for toolbar -->
+    <string name="settings_toolbar">Settings</string>
+    <string name="sign_out_toolbar">Sign Out</string>
+
 </resources>

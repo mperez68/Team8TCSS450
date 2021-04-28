@@ -29,10 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
-        //Import com.auth0.android.jwt.JWT
-
         JWT jwt = new JWT(args.getJwt());
-
 
         // Check to see if the web token is still valid or not. To make a JWT expire after a
         // longer or shorter time period, change the expiration time when the JWT is

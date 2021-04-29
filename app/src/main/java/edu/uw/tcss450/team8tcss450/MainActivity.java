@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team8tcss450;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -76,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.action_sign_out) {
-            //TODO open a sign out fragment
+
+            Intent auth = new Intent(this, AuthActivity.class);
+            startActivity(auth);
+            this.finish();
+
             Log.d("SIGN OUT", "Clicked");
             return true;
         }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,30 @@ public class ContactSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentContactSearchBinding.inflate(inflater);
-        return binding.getRoot();
+//        binding = FragmentContactSearchBinding.inflate(inflater);
+//        return binding.getRoot();
+
+        View view = inflater.inflate(R.layout.fragment_contact_search, container, false);
+
+        if (view instanceof RecyclerView) {
+            //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
+            //cards on display
+//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+            //Try out horizontal scrolling. Adjust the widths of the card so that it is
+            //obvious that there are more cards in either direction. i.e. don't have the cards
+            //span the entire witch of the screen. Also, when considering horizontal scroll
+            //on recycler view, ensure that thre is other content to fill the screen.
+//            ((LinearLayoutManager)((RecyclerView) view).getLayoutManager())
+//                    .setOrientation(LinearLayoutManager.HORIZONTAL);
+            // RecyclerView rvContacts = (RecyclerView) findViewById(R.id.contact_search_list_root);
+            ((RecyclerView) view).setAdapter(
+                    new ContactsAdapter(ContactGenerator.getBlogList()));
+        }
+        return view;
+
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

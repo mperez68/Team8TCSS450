@@ -119,6 +119,7 @@ public class RegisterFragment extends Fragment {
         mRegisterModel.connect(
                 binding.editFirst.getText().toString(),
                 binding.editLast.getText().toString(),
+                binding.editNickname.getText().toString(),
                 binding.editEmail.getText().toString(),
                 binding.editPassword1.getText().toString());
     }

@@ -43,20 +43,21 @@ public class ChatListViewModel extends AndroidViewModel {
     }
 
     private void handleError(final VolleyError error) {
-        Log.e("CONNECTION ERROR", error.getLocalizedMessage());
-        throw new IllegalStateException(error.getMessage());
+        //Log.e("CONNECTION ERROR", error.getLocalizedMessage());
+        //throw new IllegalStateException(error.getMessage());      // TODO fix when server is set up
+        handleResult(null);
     }
 
     private void handleResult(final JSONObject result) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
-        try {
-            JSONObject root = result;
-            if (root.has(getString.apply(R.string.keys_json_blogs_response))) {
-                JSONObject response =
-                        root.getJSONObject(getString.apply(
-                                R.string.keys_json_blogs_response));
-                if (response.has(getString.apply(R.string.keys_json_blogs_data))) {
+//        try {
+//            JSONObject root = result;
+//            if (root.has(getString.apply(R.string.keys_json_blogs_response))) {
+//                JSONObject response =
+//                        root.getJSONObject(getString.apply(
+//                                R.string.keys_json_blogs_response));
+//                if (response.has(getString.apply(R.string.keys_json_blogs_data))) {
 //                    JSONArray data = response.getJSONArray(
 //                            getString.apply(R.string.keys_json_blogs_data));
 //                    for(int i = 0; i < data.length(); i++) {
@@ -82,22 +83,22 @@ public class ChatListViewModel extends AndroidViewModel {
                             mChatList.getValue().add(post);
                         }
                     }
-                } else {
-                    Log.e("ERROR!", "No data array");
-                }
-            } else {
-                Log.e("ERROR!", "No response");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("ERROR!", e.getMessage());
-        }
+//                } else {
+//                    Log.e("ERROR!", "No data array");
+//                }
+//            } else {
+//                Log.e("ERROR!", "No response");
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            Log.e("ERROR!", e.getMessage());
+//        }
         mChatList.setValue(mChatList.getValue());
     }
 
     public void connectGet(String jwt) {
         String url =
-                "https://cfb3-tcss450-labs-2021sp.herokuapp.com/phish/blog/get";    // TODO change to live data source
+                "https://team8-tcss450-app.herokuapp.com/auth";    // TODO change to live data source
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,

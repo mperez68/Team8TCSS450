@@ -15,7 +15,12 @@
     <color name="Amber_DarkPrimary">#FFA000</color>
     <color name="Amber_Primary">#FFC107</color>
     <color name="Amber_Accent">#FFC107</color>
+
+    <!--lab colors-->
     <color name="colorAccent">#03DAC5</color>
     <color name="colorOffWhite">#E9E9E9</color>
     <color name="colorPrimary">#6200EE</color>
+
+
+
 </resources>

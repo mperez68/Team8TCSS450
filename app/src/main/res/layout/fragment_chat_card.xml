@@ -1,107 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/chat_card_card_root"
-    android:layout_width="match_parent"  android:layout_height="wrap_content"
+    android:id="@+id/card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp">
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/chat_card_root_layout"
+        android:id="@+id/layout_inner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/text_sender"
+        app:layout_constraintTop_toTopOf="@+id/text_sender">
         <TextView
-            android:id="@+id/post_card_email"
+            android:id="@+id/text_datetime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/email_contact_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/post_card_user_icon"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_username" />
-
-        <TextView
-            android:id="@+id/post_card_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/name_contact_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/post_card_user_icon"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_data_and_time" />
-
-        <TextView
-            android:id="@+id/post_card_data_and_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/Brown_Accent"
-            android:text="@string/time_and_date_chat_post"
+            android:background="@color/Brown_Primary"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/post_card_user_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+        <TextView
+            android:id="@+id/text_sender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/button_more"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_data_and_time"
-            tools:srcCompat="@tools:sample/avatars" />
-
+            app:layout_constraintTop_toBottomOf="@+id/text_datetime" />
         <TextView
-            android:id="@+id/post_card_username"
+            android:id="@+id/text_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/username_contact_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/post_card_user_icon"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_name" />
-
-        <TextView
-            android:id="@+id/post_card_context_preview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="TextView"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
             android:textAppearance="?attr/textAppearanceListItem"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_more" />
-
-        <ImageView
+        <ImageButton
             android:id="@+id/button_more"
+            style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/text_sender"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_email"
-            app:srcCompat="@drawable/ic_chat_expand_post_down_arrow_black_24dp" />
-
+            app:srcCompat="@drawable/ic_more_grey_24dp" />
         <Button
             android:id="@+id/button_full_post"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/full_post_action_chat_card"
-            android:textColor="@color/teal_200"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/button_more"
-            app:layout_constraintTop_toBottomOf="@+id/post_card_context_preview" />
-
+            android:layout_marginEnd="16dp"
+            android:text="@string/action_conversation"
+            android:textColor="@color/Brown_Accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_message"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

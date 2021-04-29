@@ -11,38 +11,51 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.lifecycle.ViewModelProvider;
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentChatListBinding;
+import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
- * TODO Filler Class, alter as needed.
+ * Chat Fragment for a recycler list of chat messages.
  * A simple {@link Fragment} subclass.
  */
 public class ChatFragment extends Fragment {
+    private ChatListViewModel mModel;
 
-    public FragmentChatBinding binding;
+    //public FragmentChatBinding binding;
 
     public ChatFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UserInfoViewModel model = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+        mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
+        mModel.connectGet(model.getJWT().toString());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentChatBinding.inflate(inflater);
-        return binding.getRoot();
-        //return inflater.inflate(R.layout.fragment_chat, container, false);
+        return inflater.inflate(R.layout.fragment_chat_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.buttonOpenChat.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ChatFragmentDirections
-                                .actionNavigationChatToChatListFragment()
-                ));
+        FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
+        mModel.addChatListObserver(getViewLifecycleOwner(), blogList -> {
+            if (!blogList.isEmpty()) {
+                binding.listRoot.setAdapter(
+                        new ChatRecyclerViewAdapter(blogList)
+                );
+                binding.layoutWait.setVisibility(View.GONE);
+            }
+        });
     }
 }

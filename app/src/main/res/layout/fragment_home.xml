@@ -25,8 +25,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_weather"
-        android:layout_width="374dp"
-        android:layout_height="117dp"
+        android:layout_width="373dp"
+        android:layout_height="140dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.824">
 
         <TextView
             android:id="@+id/weather_title"
@@ -87,13 +87,14 @@
 
         <TextView
             android:id="@+id/text_preview_weather"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="0dp"
+            android:text="Sunny, 85 degrees"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_weather"
@@ -118,8 +119,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_notifications"
-        android:layout_width="374dp"
-        android:layout_height="117dp"
+        android:layout_width="369dp"
+        android:layout_height="137dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="250dp"
         android:layout_marginEnd="10dp"
@@ -128,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88">
+        app:layout_constraintVertical_bias="0.666">
 
         <TextView
             android:id="@+id/notifications_title"
@@ -180,13 +181,14 @@
 
         <TextView
             android:id="@+id/text_preview_notifications"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="0dp"
+            android:text="1 new connection, 1 new message"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_notifications"
@@ -211,17 +213,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_chats"
-        android:layout_width="374dp"
-        android:layout_height="117dp"
+        android:layout_width="373dp"
+        android:layout_height="140dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="435dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="179dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26">
 
         <TextView
             android:id="@+id/chats_title"
@@ -273,13 +276,14 @@
 
         <TextView
             android:id="@+id/text_preview_chats"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="0dp"
+            android:text='Team 8: "dummy message"'
             android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_chats"

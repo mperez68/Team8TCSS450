@@ -40,9 +40,9 @@ public class HomeFragment extends Fragment {
         FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
         //Note argument sent to the ViewModelProvider constructor. It is the Activity that
         //holds this fragment.
-//        UserInfoViewModel model = new ViewModelProvider(getActivity())
-//                .get(UserInfoViewModel.class);
-//        binding.textEmail.setText("Welcome Home " + model.getEmail() + "!"); //textEmail will change when fragment is created.
+        UserInfoViewModel model = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+        binding.textEmail.setText("Welcome Home " + model.getEmail() + "!"); //textEmail will change when fragment is created.
 
     }
 }

@@ -1,4 +1,7 @@
 <resources>
+
+
+    <!-- viewtype_location_description -->
     <string name="textlabel_color_text">Color</string>
     <string name="app_name">Team 8 App</string>
 
@@ -19,11 +22,12 @@
     <string name="title_home">Home</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_chat">Chat</string>
-    <string name="title_conversation">Conversation With...</string>
     <string name="title_weather">Weather</string>
-    <string name="action_conversation">Read/Reply</string>
-
     <string name="title_contact_search">Search Contacts</string>
+    <string name="title_weather_map">Weather Map</string>
+    <string name="title_ten_day_forecast">10-Day Forecast</string>
+    <string name="title_twenty_four_hour_forecast">24-Hour Forecast</string>
+
 
     <!-- Chat Fragment Labels -->
     <string name="start_new_chat">New Chat</string>
@@ -98,6 +102,7 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

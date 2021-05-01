@@ -5,7 +5,7 @@
     android:id="@+id/temp_high_and_low_layout_root"
     android:layout_width="200dp"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherTempHighAndLowFragment">
+    tools:context=".ui.weather.forecast.WeatherTempHighAndLowFragment">
 
     <TextView
         android:id="@+id/temp_high_and_low_temperature_tab"

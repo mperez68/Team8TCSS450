@@ -5,7 +5,7 @@
     android:id="@+id/hour_prediction_list_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherHourPredictionListFragment">
+    tools:context=".ui.weather.forecast.hours.WeatherHourPredictionListFragment">
 
     <TextView
         android:id="@+id/hour_prediction_list_zipcode_tab"
@@ -42,5 +42,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hour_prediction_list_zipcode_tab"
+        tools:context=".ui.weather.forecast.hours.WeatherHourPredictionListFragment"
         tools:listitem="@layout/fragment_weather_hour_prediction_card" />
 </androidx.constraintlayout.widget.ConstraintLayout>

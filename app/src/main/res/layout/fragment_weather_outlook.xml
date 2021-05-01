@@ -5,7 +5,7 @@
     android:id="@+id/outlook_layout_root"
     android:layout_width="200dp"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherOutlookFragment">
+    tools:context=".ui.weather.forecast.WeatherOutlookFragment">
 
     <TextView
         android:id="@+id/outlook_outlook_tab"

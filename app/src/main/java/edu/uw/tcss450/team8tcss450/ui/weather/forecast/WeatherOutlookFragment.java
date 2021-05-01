@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.weather;
+package edu.uw.tcss450.team8tcss450.ui.weather.forecast;
 
 import android.os.Bundle;
 
@@ -11,27 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherDayPredictionListBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherOutlookBinding;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeatherDayPredictionListFragment extends Fragment {
+public class WeatherOutlookFragment extends Fragment {
 
-    public FragmentWeatherDayPredictionListBinding binding;
+    public FragmentWeatherOutlookBinding binding;
 
-    public WeatherDayPredictionListFragment() {
+    public WeatherOutlookFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWeatherDayPredictionListBinding.inflate(inflater);
+        binding = FragmentWeatherOutlookBinding.inflate(inflater);
         return binding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -6,31 +6,18 @@
     android:id="@+id/weather_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherFragment">
-
-    <TextView
-        android:id="@+id/header_weather"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/header_weather"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.weather.WeatherMainFragment">
 
     <TextView
         android:id="@+id/weather_search_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/search_tab_weather"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/zipcode_search_field"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_weather" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/zipcode_search_field"
@@ -51,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/zipcode_tab_weather"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/zipcode_reading"
@@ -109,7 +96,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:text="@string/view_map_forecast_weather"
         app:layout_constraintEnd_toEndOf="parent"

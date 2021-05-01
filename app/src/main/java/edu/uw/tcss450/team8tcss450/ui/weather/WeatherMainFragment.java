@@ -1,35 +1,38 @@
 package edu.uw.tcss450.team8tcss450.ui.weather;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
 
 /**
  * TODO Filler Class, alter as needed.
  * A simple {@link Fragment} subclass.
  */
-public class WeatherFragment extends Fragment {
+public class WeatherMainFragment extends Fragment {
 
-    public FragmentWeatherBinding binding;
+    private FragmentWeatherMainBinding binding;
 
-    public WeatherFragment() {
+    public WeatherMainFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWeatherBinding.inflate(inflater);
+        binding = FragmentWeatherMainBinding.inflate(inflater);
         return binding.getRoot();
 
         // Inflate the layout for this fragment
@@ -42,7 +45,7 @@ public class WeatherFragment extends Fragment {
 
         binding.buttonTwentyFourHourForecast.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        WeatherFragmentDirections
+                        WeatherMainFragmentDirections
                                 .actionNavigationWeatherToWeatherHourPredictionListFragment()
                 )
         );
@@ -50,7 +53,7 @@ public class WeatherFragment extends Fragment {
 
         binding.buttonTenDayForecast.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        WeatherFragmentDirections
+                        WeatherMainFragmentDirections
                                 .actionNavigationWeatherToWeatherDayPredictionListFragment()
                 )
         );
@@ -58,7 +61,7 @@ public class WeatherFragment extends Fragment {
 
         binding.buttonWeatherMap.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        WeatherFragmentDirections
+                        WeatherMainFragmentDirections
                                 .actionNavigationWeatherToWeatherMapFragment()
                 )
         );

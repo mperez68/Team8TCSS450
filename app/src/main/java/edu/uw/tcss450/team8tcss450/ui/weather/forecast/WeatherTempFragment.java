@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.weather;
+package edu.uw.tcss450.team8tcss450.ui.weather.forecast;
 
 import android.os.Bundle;
 
@@ -10,24 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherHourPredictionCardBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherTempBinding;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeatherHourPredictionCardFragment extends Fragment {
+public class WeatherTempFragment extends Fragment {
 
-    public FragmentWeatherHourPredictionCardBinding binding;
+    public FragmentWeatherTempBinding binding;
 
-    public WeatherHourPredictionCardFragment() {
+    public WeatherTempFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWeatherHourPredictionCardBinding.inflate(inflater);
+        binding = FragmentWeatherTempBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -36,5 +35,4 @@ public class WeatherHourPredictionCardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
-
 }

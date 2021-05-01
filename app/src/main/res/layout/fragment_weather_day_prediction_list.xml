@@ -5,7 +5,7 @@
     android:id="@+id/day_prediction_list_root_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherDayPredictionListFragment">
+    tools:context=".ui.weather.forecast.days.WeatherDayPredictionListFragment">
 
     <TextView
         android:id="@+id/day_prediction_list_zipcode_tab"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.uw.tcss450.team8tcss450">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,21 +14,26 @@
         android:theme="@style/Theme.Team8GroupProject">
 
         <activity
-            android:name=".AuthActivity"
-            android:label="@string/title_activity_auth">
+            android:name=".AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+
+
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main">
+        </activity>
+
+
     </application>
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />

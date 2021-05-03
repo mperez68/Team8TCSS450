@@ -21,7 +21,7 @@ public final class ContactGenerator {
     static {
         BLOGS = new Contact[COUNT];
         for (int i = 0; i < BLOGS.length; i++) {
-            BLOGS[i] = new Contact("Person " + ++lastContactId, "UserName " + ++lastContactId, "Email " + ++lastContactId,  i <= BLOGS.length / 2);
+            //BLOGS[i] = new Contact("Person " + ++lastContactId, "UserName " + ++lastContactId, "Email " + ++lastContactId,  i <= BLOGS.length / 2);
         }
     }
 

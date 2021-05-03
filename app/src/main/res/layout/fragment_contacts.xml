@@ -20,14 +20,27 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contacts_list_root"
+
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
         android:layout_marginTop="140dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         tools:listitem="@layout/fragment_contact_card" />
+<!--        android:layout_marginTop="140dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+
 
     <TextView
         android:id="@+id/contacts_title"

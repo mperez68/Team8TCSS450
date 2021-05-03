@@ -27,6 +27,7 @@
     <string name="title_weather_map">Weather Map</string>
     <string name="title_ten_day_forecast">10-Day Forecast</string>
     <string name="title_twenty_four_hour_forecast">24-Hour Forecast</string>
+    <string name="action_conversation">Read/Reply</string>
 
 
     <!-- Chat Fragment Labels -->

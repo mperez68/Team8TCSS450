@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.Team8GroupProject" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Brown_DarkPrimary</item>
-        <item name="colorPrimaryVariant">@color/Brown_Primary</item>
-        <item name="colorOnPrimary">@color/Brown_Accent</item>
+        <item name="colorPrimary">@color/DarkPrimary</item>
+        <item name="colorPrimaryVariant">@color/Primary</item>
+        <item name="colorOnPrimary">@color/Accent</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/Amber_DarkPrimary</item>
         <item name="colorSecondaryVariant">@color/Amber_Primary</item>
         <item name="colorOnSecondary">@color/Amber_Accent</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>

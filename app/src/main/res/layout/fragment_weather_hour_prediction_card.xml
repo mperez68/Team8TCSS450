@@ -29,7 +29,7 @@
             android:id="@+id/hour_prediction_card_hour"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/Brown_Accent"
+            android:background="@color/Accent"
             android:text="@string/hour_o_clock_weather_hour_prediction_card"
             android:textColor="@color/white"
             android:textSize="18sp"

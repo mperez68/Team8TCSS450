@@ -44,7 +44,6 @@ public class UserInfoViewModel extends ViewModel {
     /**
      * Asks if the JWT stored in this ViewModel is expired.
      *
-     *
      * @return true if the JWT stored in this ViewModel is expired, false otherwise
      */
     public boolean isExpired() {
@@ -52,10 +51,10 @@ public class UserInfoViewModel extends ViewModel {
     }
 
     /**
-     * Get the email address that is stored in teh payload of the JWT this ViewModel holds.
+     * Get the email address that is stored in the payload of the JWT this ViewModel holds.
      *
      * @return the email stored in the JWT this ViewModel holds
-     * @throws IllegalStateException when the JWT stored in thsi ViewModel is expired (Will not
+     * @throws IllegalStateException when the JWT stored in this ViewModel is expired (Will not
      *      happen in this lab)
      */
     public String getEmail() {
@@ -65,7 +64,4 @@ public class UserInfoViewModel extends ViewModel {
             throw new IllegalStateException("JWT is expired!");
         }
     }
-
-
-
 }

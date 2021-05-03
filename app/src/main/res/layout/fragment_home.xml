@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
@@ -41,7 +42,7 @@
             android:id="@+id/weather_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/Amber_Primary"
+            android:background="@color/Primary"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
@@ -108,13 +109,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Weather"
-            android:textColor="@color/Amber_Accent"
+            android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview_weather"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="96dp"
             tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +135,7 @@
             android:id="@+id/notifications_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/Amber_Primary"
+            android:background="@color/Primary"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
@@ -202,13 +202,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="NOTIFICATIONS"
-            android:textColor="@color/Amber_Accent"
+            android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview_notifications"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="96dp"
             tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -230,7 +229,7 @@
             android:id="@+id/chats_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/Amber_Primary"
+            android:background="@color/Primary"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
@@ -297,13 +296,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="CHATS"
-            android:textColor="@color/Amber_Accent"
+            android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview_chats"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="96dp"
             tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

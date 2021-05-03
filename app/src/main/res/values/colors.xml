@@ -7,13 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!-- Brown Palette; DARK PRIMARY COLOR, PRIMARY COLOR, ACCENT COLOR -->
-    <color name="Brown_DarkPrimary">#5D4037</color>
-    <color name="Brown_Primary">#795548</color>
-    <color name="Brown_Accent">#536DFE</color>
-    <!-- Amber Palette; DARK PRIMARY COLOR, PRIMARY COLOR, ACCENT COLOR -->
+
+    <!-- Main Palette -->
+    <color name="DarkPrimary">#242424</color>
+    <color name="Primary">#383838</color>
+    <color name="Accent">#828282</color>
+
+    <!-- Amber Palette -->
     <color name="Amber_DarkPrimary">#FFA000</color>
     <color name="Amber_Primary">#FFC107</color>
     <color name="Amber_Accent">#FFC107</color>
-
 </resources>

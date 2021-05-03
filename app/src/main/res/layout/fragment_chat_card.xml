@@ -17,7 +17,7 @@
             android:id="@+id/text_datetime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/Brown_Primary"
+            android:background="@color/Primary"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/action_conversation"
-            android:textColor="@color/Brown_Accent"
+            android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_message"
             tools:visibility="visible" />

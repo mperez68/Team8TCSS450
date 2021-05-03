@@ -27,7 +27,7 @@
             android:id="@+id/day_prediction_card_day_and_month"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/Brown_Accent"
+            android:background="@color/Accent"
             android:text="@string/day_weather_day_prediction_card"
             android:textColor="@color/white"
             android:textSize="18sp"

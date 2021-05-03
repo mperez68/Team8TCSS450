@@ -14,12 +14,19 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherOutlookBinding;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The weather outlook component for the forecast list
+ *
+ * @author Brandon Kennedy
+ * @version 30 April 2021
  */
 public class WeatherOutlookFragment extends Fragment {
 
+    // The binding of this class to the XML view fragment_weather_outlook.xml
     public FragmentWeatherOutlookBinding binding;
 
+    /**
+     * Constructor for the weather outlook display fragment
+     */
     public WeatherOutlookFragment() {
         // Required empty public constructor
     }

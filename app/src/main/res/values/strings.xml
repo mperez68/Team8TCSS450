@@ -4,9 +4,6 @@
     viewtype_description for view binding
     -->
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="textlabel_color_text">Color</string>
     <string name="app_name">Team 8 App</string>
 
@@ -41,6 +38,7 @@
     <string name="title_weather_map">Weather Map</string>
     <string name="title_ten_day_forecast">10-Day Forecast</string>
     <string name="title_twenty_four_hour_forecast">24-Hour Forecast</string>
+    <string name="action_conversation">Read/Reply</string>
 
     <!-- Chat Fragment Labels -->
     <string name="start_new_chat">New Chat</string>
@@ -110,10 +108,14 @@
     -->
     <string name="hello_world">Hello Square World!</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="action_link">Goto</string>
+
     <!-- Strings used for toolbar -->
     <string name="settings_toolbar">Settings</string>
     <string name="sign_out_toolbar">Sign Out</string>
-
-    <string name="action_conversation">Placeholder</string>
+    <string name="message_contact_card">Message</string>
 
 </resources>

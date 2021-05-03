@@ -66,7 +66,7 @@ public class SignInFragment extends Fragment {
                         SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
                 ));
 
-        binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
+        binding.buttonSignin.setOnClickListener(this::attemptSignIn);
 
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),

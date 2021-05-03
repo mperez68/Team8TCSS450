@@ -24,7 +24,7 @@
         android:id="@+id/layout_wait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Brown_DarkPrimary"
+        android:background="@color/DarkPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

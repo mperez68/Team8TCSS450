@@ -1,24 +1,36 @@
 <resources>
+    <!--
+    viewtype_location_description for no view binding
+    viewtype_description for view binding
+    -->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- viewtype_location_description -->
     <string name="textlabel_color_text">Color</string>
     <string name="app_name">Team 8 App</string>
 
-    <!-- viewtype_location_description -->
-    <string name="hint_first">First Name</string>
-    <string name="hint_last">Last Name</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_nickname">Nickname</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_password_again">Retype Password</string>
-    <string name="action_register_short">Register</string>
+    <!-- Activity labels -->
+    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_auth">AuthActivity</string>
 
+    <!-- Buttons -->
+    <string name="button_signin">Sign in</string>
+    <string name="button_register">Register</string>
+
+    <!-- Strings used in Login -->
+    <string name="edit_email">Enter email</string>
+    <string name="edit_password">Enter password</string>
+
+    <!-- Registration fragment -->
+    <string name="hint_first">First name</string>
+    <string name="hint_last">Last name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_nickname">Nickname</string>
+    <string name="hint_password_1">Password</string>
+    <string name="hint_password_2">Confirm password</string>
+
     <!-- Navigation Labels -->
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_signin">Sign In</string>
     <string name="title_register">Register</string>
     <string name="title_home">Home</string>
@@ -29,7 +41,6 @@
     <string name="title_weather_map">Weather Map</string>
     <string name="title_ten_day_forecast">10-Day Forecast</string>
     <string name="title_twenty_four_hour_forecast">24-Hour Forecast</string>
-
 
     <!-- Chat Fragment Labels -->
     <string name="start_new_chat">New Chat</string>
@@ -93,12 +104,6 @@
     <!-- Weather Map Labels -->
     <string name="header_weather_map">Weather Map</string>
 
-    <!-- Strings used in Login -->
-    <string name="editEmail_signIn">Enter email</string>
-    <string name="editPassword_signIn">Enter password</string>
-    <string name="loadHome_signIn">Sign In</string>
-    <string name="loadRegister_signIn">Register</string>
-
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -108,5 +113,7 @@
     <!-- Strings used for toolbar -->
     <string name="settings_toolbar">Settings</string>
     <string name="sign_out_toolbar">Sign Out</string>
+
+    <string name="action_conversation">Placeholder</string>
 
 </resources>

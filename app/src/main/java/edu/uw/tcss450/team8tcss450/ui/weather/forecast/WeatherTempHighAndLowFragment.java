@@ -10,31 +10,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherOutlookBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherTempHighAndLowBinding;
 
 /**
- * The weather outlook component for the forecast list
+ * The high-and-low temperature component for the forecast list
  *
  * @author Brandon Kennedy
  * @version 30 April 2021
  */
-public class WeatherOutlookFragment extends Fragment {
+public class WeatherTempHighAndLowFragment extends Fragment {
 
-    // The binding of this class to the XML view fragment_weather_outlook.xml
-    public FragmentWeatherOutlookBinding binding;
+    // The binding of this class to the XML view fragment_weather_temp_high_and_low.xml
+    public FragmentWeatherTempHighAndLowBinding binding;
 
     /**
-     * Constructor for the weather outlook display fragment
+     * Constructor for the high and low weather temperature
      */
-    public WeatherOutlookFragment() {
+    public WeatherTempHighAndLowFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWeatherOutlookBinding.inflate(inflater);
+        binding = FragmentWeatherTempHighAndLowBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -43,5 +42,6 @@ public class WeatherOutlookFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
 
 }

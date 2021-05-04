@@ -4,7 +4,6 @@
     viewtype_description for view binding
     -->
 
-
     <string name="textlabel_color_text">Color</string>
     <string name="app_name">Team 8 App</string>
 
@@ -109,12 +108,10 @@
     -->
     <string name="hello_world">Hello Square World!</string>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="action_link">Goto</string>
-
 
     <!-- Strings used for toolbar -->
     <string name="settings_toolbar">Settings</string>

@@ -13,12 +13,19 @@ import android.view.ViewGroup;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherTempBinding;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The weather temperature component for the forecast list
+ *
+ * @author Brandon Kennedy
+ * @version 30 April 2021
  */
 public class WeatherTempFragment extends Fragment {
 
+    // The binding of this class to the XML view fragment_weather_temp.xml
     public FragmentWeatherTempBinding binding;
 
+    /**
+     * Constructor for the weather temperature fragment
+     */
     public WeatherTempFragment() {
         // Required empty public constructor
     }

@@ -14,12 +14,19 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMapBinding;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The page for the weather map
+ *
+ * @author Brandon Kennedy
+ * @version 30 April 2021
  */
 public class WeatherMapFragment extends Fragment {
 
+    // The binding of this class to the XML view fragment_weather_map.xml
     public FragmentWeatherMapBinding binding;
 
+    /**
+     * Constructor for the weather map fragment
+     */
     public WeatherMapFragment() {
         // Required empty public constructor
     }

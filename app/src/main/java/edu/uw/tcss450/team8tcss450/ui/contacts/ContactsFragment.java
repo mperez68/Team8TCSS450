@@ -15,6 +15,11 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
+import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
+import edu.uw.tcss450.team8tcss450.ui.chat.ChatListViewModel;
+import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
+
+
 /**
  * TODO Filler Class, alter as needed.
  * A simple {@link Fragment} subclass.
@@ -33,8 +38,10 @@ public class ContactsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
+
         mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         mModel.connectGet(model.getJWT().toString());
+
     }
 
     @Override
@@ -48,10 +55,15 @@ public class ContactsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
+
+        //Listener for the contacts recycler view adapter.
+
+
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.contactsListRoot.setAdapter(
-                     new ContactsRecyclerViewAdapter(contactList)
+                     mModel.getViewAdapter()
+
                 );
 
             }
@@ -62,5 +74,6 @@ public class ContactsFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(
                         ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
                 ));
+
     }
 }

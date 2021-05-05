@@ -15,13 +15,22 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherCurrentBinding;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The fragment for the current-weather display
+ *
+ * @author Brandon Kennedy
+ * @version 30 April 2021
  */
 public class WeatherCurrentFragment extends Fragment {
 
+    // The binding of this class to the XML view fragment_weather_current.xml
     private FragmentWeatherCurrentBinding binding;
-    private WeatherCurrentViewModel mWeatherCurrentModel;
 
+    // The view model for this class.
+    private WeatherCurrentViewModel mWeatherCurrentViewModel;
+
+    /**
+     * Construct a new current weather fragement
+     */
     public WeatherCurrentFragment() {
         // Required empty public constructor
     }
@@ -29,7 +38,7 @@ public class WeatherCurrentFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mWeatherCurrentModel = new ViewModelProvider(getActivity())
+        mWeatherCurrentViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
     }
 

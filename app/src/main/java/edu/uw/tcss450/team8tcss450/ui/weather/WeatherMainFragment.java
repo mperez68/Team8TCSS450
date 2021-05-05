@@ -13,13 +13,19 @@ import androidx.navigation.Navigation;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
 
 /**
- * TODO Filler Class, alter as needed.
- * A simple {@link Fragment} subclass.
+ * The main page for the weather feature.
+ *
+ * @author Brandon Kennedy
+ * @version 30 April 2021
  */
 public class WeatherMainFragment extends Fragment {
 
+    // The binding of this class to the XML view fragment_weather_main.xml
     private FragmentWeatherMainBinding binding;
 
+    /**
+     * Construct the main weather fragment
+     */
     public WeatherMainFragment() {
         // Required empty public constructor
     }
@@ -43,6 +49,7 @@ public class WeatherMainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set the click listener for the 24-Hour Forecast button.
         binding.buttonTwentyFourHourForecast.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         WeatherMainFragmentDirections
@@ -50,7 +57,7 @@ public class WeatherMainFragment extends Fragment {
                 )
         );
 
-
+        // Set the click listener for the 10-Day Forecast button.
         binding.buttonTenDayForecast.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         WeatherMainFragmentDirections
@@ -58,7 +65,7 @@ public class WeatherMainFragment extends Fragment {
                 )
         );
 
-
+        // Set the click listener for the Weather Map button.
         binding.buttonWeatherMap.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         WeatherMainFragmentDirections

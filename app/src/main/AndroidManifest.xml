@@ -21,19 +21,9 @@
             </intent-filter>
         </activity>
 
-
-
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:name=".MainActivity">
         </activity>
-
-
     </application>
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />

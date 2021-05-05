@@ -24,15 +24,25 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation;
 
 public class ContactListViewModel extends AndroidViewModel {
     private MutableLiveData<List<Contact>> myContactList;
+
+    private ContactsRecyclerViewAdapter myViewAdapter;
+
+
+
     public ContactListViewModel(@NonNull Application application) {
         super(application);
         myContactList = new MutableLiveData<>();
         myContactList.setValue(new ArrayList<>());
+
+        myViewAdapter = new ContactsRecyclerViewAdapter(myContactList.getValue());
+
     }
     public void addContactListObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super List<Contact>> observer) {
@@ -43,6 +53,14 @@ public class ContactListViewModel extends AndroidViewModel {
         //Log.e("CONNECTION ERROR", error.getLocalizedMessage());
         //throw new IllegalStateException(error.getMessage());      // TODO fix when server is set up
         handleResult(null);
+    }
+
+    public MutableLiveData<List<Contact>> getContactList() {
+        return myContactList;
+    }
+
+    public ContactsRecyclerViewAdapter getViewAdapter() {
+        return myViewAdapter;
     }
 
     private void handleResult(final JSONObject result) {
@@ -90,7 +108,7 @@ public class ContactListViewModel extends AndroidViewModel {
 //            e.printStackTrace();
 //            Log.e("ERROR!", e.getMessage());
 //        }
-        myContactList.setValue(myContactList.getValue());
+       myContactList.setValue(myContactList.getValue());
     }
 
     public void connectGet(String jwt) {

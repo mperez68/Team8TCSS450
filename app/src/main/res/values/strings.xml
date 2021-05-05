@@ -12,22 +12,21 @@
     <string name="title_activity_auth">AuthActivity</string>
 
     <!-- Login (Sign In) Labels -->
-    <string name="edit_email_signin">Enter email</string>
-    <string name="edit_password_signin">Enter password</string>
-    <string name="sign_in_action_signin">Sign in</string>
-    <string name="register_action_signin">Register</string>
+    <string name="edit_email">Enter email</string>
+    <string name="edit_password">Enter password</string>
+    <string name="button_signin">Sign in</string>
+    <string name="button_register">Register</string>
 
     <!-- Registration fragment -->
-    <string name="hint_first_register">First name</string>
-    <string name="hint_last_register">Last name</string>
-    <string name="hint_email_register">Email</string>
-    <string name="hint_nickname_register">Nickname</string>
-    <string name="hint_password_1_register">Password</string>
-    <string name="hint_password_2_register">Confirm password</string>
-    <string name="register_action_register">Register</string>
+    <string name="hint_first">First name</string>
+    <string name="hint_last">Last name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_nickname">Nickname</string>
+    <string name="hint_password_1">Password</string>
+    <string name="hint_password_2">Confirm password</string>
 
     <!-- Navigation Labels -->
-    <string name="title_signin">Sign In</string>
+    <string name="title_signin">Sign in</string>
     <string name="title_register">Register</string>
     <string name="title_home">Home</string>
     <string name="title_contacts">Contacts</string>

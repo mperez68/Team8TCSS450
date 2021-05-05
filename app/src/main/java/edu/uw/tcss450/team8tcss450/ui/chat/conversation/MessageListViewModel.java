@@ -24,10 +24,8 @@ import androidx.lifecycle.Observer;
 
 public class MessageListViewModel extends AndroidViewModel {
     // TODO DELETE LATER
-    private final String mTempMessage = "    Bacon ipsum dolor amet short ribs meatloaf chuck chislic capicola. Pork belly turkey ham spare ribs frankfurter brisket ball tip, pork loin flank drumstick turducken capicola andouille tenderloin beef ribs. Short loin kielbasa picanha tail pancetta. Chicken chislic pork chop landjaeger brisket beef ribs burgdoggen boudin andouille meatball pancetta. Meatloaf beef ribs pig, leberkas bacon burgdoggen beef shoulder t-bone short ribs kielbasa turkey cow spare ribs ball tip.\n" +
-            System.getProperty("line.separator") +
-            "    Ham pastrami pork chop picanha. Spare ribs salami cupim alcatra, flank tail jerky pig swine filet mignon ball tip buffalo sausage venison pork chop. Flank buffalo cupim, filet mignon tri-tip turkey sirloin ham hock frankfurter spare ribs pig beef ribs. Pancetta sausage meatloaf, brisket tongue chislic salami jowl kielbasa porchetta andouille. Shank t-bone pork belly brisket pork chop. Ball tip flank shankle andouille, alcatra spare ribs turducken kielbasa picanha meatball shank boudin landjaeger. Landjaeger bresaola swine pork kevin pig prosciutto.";
-    private MutableLiveData<List<Message>> mMessageList;
+    private final String mTempMessage = "Bacon ipsum dolor amet short ribs meatloaf chuck chislic capicola. ";
+     private MutableLiveData<List<Message>> mMessageList;
     public MessageListViewModel(@NonNull Application application) {
         super(application);
         mMessageList = new MutableLiveData<>();
@@ -46,12 +44,13 @@ public class MessageListViewModel extends AndroidViewModel {
 
     private void handleResult(final JSONObject result) {
         mMessageList.setValue(new ArrayList<>());
-        IntFunction<String> getString =
-            getApplication().getResources()::getString;
-            Message post = new Message("My Dearest Friend (inside message)", mTempMessage);
-                if (!mMessageList.getValue().contains(post)) {
-                    mMessageList.getValue().add(post);
-                }
+        for(int i = 0; i < 10; i++) {    // TODO remove when live data is implemented
+            Message post = new Message(
+                    "My Dearest Friend #?", mTempMessage + (i + 1));
+            if (!mMessageList.getValue().contains(post)) {
+                mMessageList.getValue().add(post);
+            }
+        }
         mMessageList.setValue(mMessageList.getValue());
     }
 

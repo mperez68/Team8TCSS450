@@ -27,7 +27,6 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatFragmentDirections;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
-    private final int MAX_TEASER = 50; //needed?
     //Store the expanded state for each List item, true -> expanded, false -> not
     private final Map<Contact, Boolean> mExpandedFlags;
 
@@ -108,7 +107,8 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         void setContacts(Contact theContact) {
             mContact = theContact;
             binding.contactButtonMessage.setOnClickListener(view -> {
-                //TODO NAVIGATE TO MESSAGE SCREEN
+                Navigation.findNavController(mView).navigate(
+                        ContactsFragmentDirections.actionNavigationContactsToChatMessageFragment(theContact.getName()));
             });
             binding.contactFirstName.setText(theContact.getName());
             binding.contactUsername.setText(theContact.getUserName());

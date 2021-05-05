@@ -26,12 +26,13 @@ public class ChatRecyclerViewAdapter extends
     //Store the expanded state for each List item, true -> expanded, false -> not
     private final Map<ChatConversation, Boolean> mExpandedFlags;
 
-    //Store all of the blogs to present
+    //Store all of the conversations to present
     private final List<ChatConversation> mConversations;
+
     public ChatRecyclerViewAdapter(List<ChatConversation> items) {
         this.mConversations = items;
         mExpandedFlags = mConversations.stream()
-                .collect(Collectors.toMap(Function.identity(), blog -> false));
+                .collect(Collectors.toMap(Function.identity(), conversation -> false));
     }
 
     @NonNull
@@ -60,6 +61,7 @@ public class ChatRecyclerViewAdapter extends
         public final View mView;
         public FragmentChatCardBinding binding;
         private ChatConversation mConversation;
+
         public ConversationViewHolder(View view) {
             super(view);
             mView = view;
@@ -95,20 +97,20 @@ public class ChatRecyclerViewAdapter extends
                                 R.drawable.ic_more_grey_24dp));
             }
         }
-        void setConversation(final edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation chatConversations) {
-            mConversation = chatConversations;
+        void setConversation(final ChatConversation chatConversation) {
+            mConversation = chatConversation;
             binding.buttonFullPost.setOnClickListener(view -> {
                 Navigation.findNavController(mView).navigate(
-                    ChatFragmentDirections
-                        .actionNavigationChatToChatMesssageFragment(chatConversations));
+                    ChatFragmentDirections.
+                            actionNavigationChatToChatMessageFragment(mConversation.getmContact()));
             });
-            binding.textSender.setText(chatConversations.getmContact());
+            binding.textSender.setText(chatConversation.getmContact());
             binding.textTimestamp.setText(Calendar.getInstance().getTime().toString());
-//Use methods in the HTML class to format the HTML found in the text
+            //Use methods in the HTML class to format the HTML found in the text
             final String preview = Html.fromHtml(
-                    chatConversations.getmMessage().get(0).toString(),
+                    chatConversation.getmMessage().get(0).toString(),
                     Html.FROM_HTML_MODE_COMPACT)
-                    .toString().substring(0,Math.min(MAX_TEASER,chatConversations.getmMessage().get(0).toString().length()-2))
+                    .toString().substring(0,Math.min(MAX_TEASER,chatConversation.getmMessage().get(0).toString().length()-2))
                     + "...";
             binding.textMessage.setText(preview);
             displayPreview();

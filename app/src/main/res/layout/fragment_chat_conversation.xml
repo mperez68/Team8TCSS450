@@ -12,43 +12,51 @@
         android:id="@+id/layout_inner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.BlogPostFragment">
+        tools:context=".ui.conversation.ChatMessageFragment">
+
+        <EditText
+            android:id="@+id/text_msg_input"
+            android:layout_width="295dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:inputType="textShortMessage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/text_timestamp"
+            android:id="@+id/text_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:background="@color/DarkPrimary"
             android:padding="8dp"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/list_root"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_root"
-            android:layout_width="366dp"
-            android:layout_height="624dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="371dp"
+            android:layout_height="601dp"
             app:layout_constraintBottom_toTopOf="@+id/text_msg_input"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_timestamp"
-            app:layout_constraintVertical_bias="1.0"
-            tools:context="edu.uw.tcss450.uiandnavigationlab.ui.chat.ChatListFragment"
-            tools:listitem="@layout/fragment_chat_msg" />
+            tools:context="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatMessageFragment"
+            tools:listitem="@layout/fragment_chat_conversation_msg" />
 
-        <EditText
-            android:id="@+id/text_msg_input"
-            android:layout_width="381dp"
-            android:layout_height="38dp"
-            android:ems="10"
-            android:inputType="textShortMessage"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="78dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="602dp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/chat_conversation_send"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/text_msg_input"
+            app:layout_constraintTop_toTopOf="@+id/list_root" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

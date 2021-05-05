@@ -43,7 +43,7 @@
     <!-- Chat Fragment Labels -->
     <string name="start_new_chat">New Chat</string>
     <string name="open_existing_chat">Open Chat</string>
-    <string name="send_chat">Send</string>
+    <string name="chat_conversation_send">Send</string>
 
     <!-- Chat Post Fragment Labels -->
     <string name="time_and_date_chat_post">[Time and Date of Post]</string>

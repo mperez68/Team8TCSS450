@@ -13,11 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatListViewModel;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 
 /**
  * TODO Filler Class, alter as needed.

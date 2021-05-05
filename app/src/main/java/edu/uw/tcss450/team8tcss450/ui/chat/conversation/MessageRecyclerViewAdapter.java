@@ -1,6 +1,5 @@
 package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
-import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,14 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentChatMsgBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentChatConversationMsgBinding;
 
 public class MessageRecyclerViewAdapter extends
         RecyclerView.Adapter<MessageRecyclerViewAdapter.MessageViewHolder> {
 
-    //Store all of the blogs to present
+    //Store all of the messages to present
     private final List<Message> mMessages;
+
     public MessageRecyclerViewAdapter(List<Message> items) {
         this.mMessages = items;
     }
@@ -26,7 +26,7 @@ public class MessageRecyclerViewAdapter extends
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MessageViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_chat_msg, parent, false));
+                .inflate(R.layout.fragment_chat_conversation_msg, parent, false));
     }
 
     @Override
@@ -45,13 +45,15 @@ public class MessageRecyclerViewAdapter extends
      */
     public class MessageViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public FragmentChatMsgBinding binding;
+        public FragmentChatConversationMsgBinding binding;
         private Message mMessage;
+
         public MessageViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentChatMsgBinding.bind(view);
+            binding = FragmentChatConversationMsgBinding.bind(view);
         }
+
         void setMessages(final Message message) {
             mMessage = message;
             binding.textSender.setText(message.getName());

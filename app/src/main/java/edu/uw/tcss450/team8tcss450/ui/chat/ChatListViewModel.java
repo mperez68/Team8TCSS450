@@ -50,17 +50,15 @@ public class ChatListViewModel extends AndroidViewModel {
 
     private void handleResult(final JSONObject result) {
         mChatList.setValue(new ArrayList<>());
-        IntFunction<String> getString =
-            getApplication().getResources()::getString;
-            //for(int i = 0; i < 4; i++) {    // TODO remove when live data is implemented
+            for(int i = 0; i < 4; i++) {    // TODO remove when live data is implemented
                 edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation post = new edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation.Builder(
-                "My Dearest Friend", mTempMessage)
+                "My Dearest Friend #" + (i + 1), mTempMessage)
                          //.addMessage(System.getProperty("line.separator") + "Here's the second part of the message!")  // TODO change to message object pt. 2
                         .build();
                 if (!mChatList.getValue().contains(post)) {
                     mChatList.getValue().add(post);
                 }
-            //}
+            }
         mChatList.setValue(mChatList.getValue());
     }
 

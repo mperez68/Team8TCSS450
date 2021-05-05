@@ -25,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/username_contact_card"
+            android:text="@string/nickname_contact_card"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/contact_email"
             app:layout_constraintEnd_toEndOf="parent"

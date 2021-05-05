@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/day_prediction_card_temperature"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_day_and_month" />
+            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_specific_day" />
 
         <TextView
-            android:id="@+id/day_prediction_card_day_and_month"
+            android:id="@+id/day_prediction_card_specific_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/Accent"
-            android:text="@string/day_weather_day_prediction_card"
+            android:text="@string/text_weatherdaycard_specificday"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_day_and_month"
+            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_specific_day"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

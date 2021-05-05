@@ -18,7 +18,7 @@
             android:id="@+id/post_date_and_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/time_and_date_chat_post"
+            android:text="@string/text_chatpost_timedate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/name_chat_post"
+            android:text="@string/text_chatpost_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_date_and_time" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/nickname_chat_post"
+            android:text="@string/text_chatpost_nickname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_name" />
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/email_chat_post"
+            android:text="@string/text_chatpost_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_username" />
@@ -72,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:text="@string/post_context_chat_post"
+            android:text="@string/text_chatpost_postcontext"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

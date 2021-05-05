@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -102,12 +103,12 @@ public class ChatRecyclerViewAdapter extends
                         .actionNavigationChatToChatMesssageFragment(chatConversations));
             });
             binding.textSender.setText(chatConversations.getmContact());
-            binding.textDatetime.setText(Calendar.getInstance().getTime().toString());
+            binding.textTimestamp.setText(Calendar.getInstance().getTime().toString());
 //Use methods in the HTML class to format the HTML found in the text
             final String preview = Html.fromHtml(
-                    chatConversations.getmMessage(),
+                    chatConversations.getmMessage().get(0).toString(),
                     Html.FROM_HTML_MODE_COMPACT)
-                    .toString().substring(0,Math.min(MAX_TEASER,chatConversations.getmMessage().length()-2))
+                    .toString().substring(0,Math.min(MAX_TEASER,chatConversations.getmMessage().get(0).toString().length()-2))
                     + "...";
             binding.textMessage.setText(preview);
             displayPreview();

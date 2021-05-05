@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModelProvider;
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
@@ -22,8 +23,7 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  */
 public class ChatFragment extends Fragment {
     private ChatListViewModel mModel;
-
-    //public FragmentChatBinding binding;
+    public FragmentChatBinding binding;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -49,10 +49,10 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
-        mModel.addChatListObserver(getViewLifecycleOwner(), blogList -> {
-            if (!blogList.isEmpty()) {
+        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+            if (!chatList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatRecyclerViewAdapter(blogList)
+                        new ChatRecyclerViewAdapter(chatList)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

@@ -15,37 +15,40 @@
         tools:context=".ui.BlogPostFragment">
 
         <TextView
-            android:id="@+id/text_sender"
+            android:id="@+id/text_timestamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/DarkPrimary"
             android:padding="8dp"
-            android:text="TextView"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_message"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="5dp"
-            android:text="TextView"
-            android:textColor="@color/Primary"
-            app:layout_constraintBottom_toTopOf="@+id/text_timestamp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_root"
+            android:layout_width="366dp"
+            android:layout_height="624dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/text_msg_input"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_sender" />
+            app:layout_constraintTop_toBottomOf="@+id/text_timestamp"
+            app:layout_constraintVertical_bias="1.0"
+            tools:context="edu.uw.tcss450.uiandnavigationlab.ui.chat.ChatListFragment"
+            tools:listitem="@layout/fragment_chat_msg" />
 
-        <TextView
-            android:id="@+id/text_timestamp"
-            android:layout_width="370dp"
-            android:layout_height="54dp"
-            android:padding="5dp"
-            android:text="TextView"
-            android:textColor="@color/Primary"
+        <EditText
+            android:id="@+id/text_msg_input"
+            android:layout_width="381dp"
+            android:layout_height="38dp"
+            android:ems="10"
+            android:inputType="textShortMessage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

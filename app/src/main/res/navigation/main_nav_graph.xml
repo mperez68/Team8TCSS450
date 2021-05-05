@@ -45,7 +45,7 @@
     tools:layout="@layout/fragment_contacts" />
     <fragment
         android:id="@+id/chatMesssageFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.chat.ChatMessageFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatMessageFragment"
         android:label="@string/title_chat">
         <argument
             android:name="conversation"

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.chat;
+package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
 /**
  * Object class for individual messages. Contains private data with getters.

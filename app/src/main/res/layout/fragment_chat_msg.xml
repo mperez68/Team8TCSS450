@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_root"
+    android:id="@+id/msg_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/text_timestamp"
         app:layout_constraintTop_toTopOf="@+id/text_timestamp">
+
         <TextView
             android:id="@+id/text_sender"
             android:layout_width="0dp"
@@ -27,6 +28,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_message"
+            android:layout_width="401dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_sender"
+            app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/text_timestamp"
             android:layout_width="0dp"
@@ -37,42 +50,10 @@
             android:paddingBottom="8dp"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/button_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_sender" />
-        <TextView
-            android:id="@+id/text_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_more" />
-        <ImageButton
-            android:id="@+id/button_more"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/text_timestamp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_more_grey_24dp" />
-        <Button
-            android:id="@+id/button_full_post"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/action_conversation"
-            android:textColor="@color/Accent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_message"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/text_message" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

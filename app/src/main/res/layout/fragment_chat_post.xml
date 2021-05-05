@@ -30,7 +30,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/name_contact_card"
+            android:text="@string/name_chat_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_date_and_time" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/username_contact_card"
+            android:text="@string/nickname_chat_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_name" />
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/email_contact_card"
+            android:text="@string/email_chat_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/post_user_image_icon"
             app:layout_constraintTop_toBottomOf="@+id/post_username" />

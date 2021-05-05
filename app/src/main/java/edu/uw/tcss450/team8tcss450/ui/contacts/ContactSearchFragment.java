@@ -1,10 +1,16 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import androidx.lifecycle.ViewModelProvider;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -13,12 +19,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
+
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
@@ -26,9 +33,8 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  */
 public class ContactSearchFragment extends Fragment {
 
-    public FragmentContactSearchBinding binding;
-
     private ContactListViewModel mModel;
+    public FragmentContactSearchBinding binding;
 
     public ContactSearchFragment() {
         // Required empty public constructor
@@ -42,21 +48,19 @@ public class ContactSearchFragment extends Fragment {
 
         mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         mModel.connectGet(model.getJWT().toString());
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //binding = FragmentContactSearchBinding.inflate(inflater);
+        //return binding.getRoot();
         return inflater.inflate(R.layout.fragment_contact_search, container, false);
-//        binding = FragmentContactSearchBinding.inflate(inflater);
-//        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         FragmentContactSearchBinding binding = FragmentContactSearchBinding.bind(getView());
         //Listener for the contacts recycler view adapter.
         //List<Contact> tempContactList = mModel.getContactList().getValue();

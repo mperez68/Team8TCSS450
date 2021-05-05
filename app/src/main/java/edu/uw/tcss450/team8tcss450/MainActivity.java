@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        // create toolbar
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.action_sign_out) {
-
+            // if sign out is clicked, return to log in page
             Intent auth = new Intent(this, AuthActivity.class);
             startActivity(auth);
             this.finish();

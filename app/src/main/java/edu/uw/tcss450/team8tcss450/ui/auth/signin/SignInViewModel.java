@@ -26,59 +26,85 @@ import java.util.Objects;
 
 import edu.uw.tcss450.team8tcss450.io.RequestQueueSingleton;
 
+/**
+ * A view model for the sign in fragment to keep myResponse as a mutable live data object.
+ */
 public class SignInViewModel extends AndroidViewModel {
 
-    private MutableLiveData<JSONObject> mResponse;
+    private MutableLiveData<JSONObject> myResponse;
 
-    public SignInViewModel(@NonNull Application application) {
-        super(application);
-        mResponse = new MutableLiveData<>();
-        mResponse.setValue(new JSONObject());
+    /**
+     * Constructor for the view model.
+     *
+     * @param theApplication inherited from AndroidViewModel.
+     *
+     */
+    public SignInViewModel(@NonNull Application theApplication) {
+        super(theApplication);
+        myResponse = new MutableLiveData<>();
+        myResponse.setValue(new JSONObject());
     }
 
-    public void addResponseObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super JSONObject> observer) {
-        mResponse.observe(owner, observer);
+    /**
+     * An observer that observers the mutable live data for changes.
+     *
+     * @param theOwner
+     * @param theObserver the mutablelivedata object to be observed.
+     */
+    public void addResponseObserver(@NonNull LifecycleOwner theOwner,
+                                    @NonNull Observer<? super JSONObject> theObserver) {
+        myResponse.observe(theOwner, theObserver);
     }
 
-    private void handleError(final VolleyError error) {
-        if (Objects.isNull(error.networkResponse)) {
+    /**
+     * Error handling for the connection.
+     *
+     * @param theError
+     */
+    private void handleError(final VolleyError theError) {
+        if (Objects.isNull(theError.networkResponse)) {
             try {
-                mResponse.setValue(new JSONObject("{" +
-                        "error:\"" + error.getMessage() +
+                myResponse.setValue(new JSONObject("{" +
+                        "error:\"" + theError.getMessage() +
                         "\"}"));
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
         else {
-            String data = new String(error.networkResponse.data, Charset.defaultCharset())
+            String data = new String(theError.networkResponse.data, Charset.defaultCharset())
                     .replace('\"', '\'');
             try {
                 JSONObject response = new JSONObject();
-                response.put("code", error.networkResponse.statusCode);
+                response.put("code", theError.networkResponse.statusCode);
                 response.put("data", new JSONObject(data));
-                mResponse.setValue(response);
+                myResponse.setValue(response);
             } catch (JSONException e) {
                 Log.e("JSON PARSE", "JSON Parse Error in handleError");
             }
         }
     }
 
-    public void connect(final String email, final String password) {
+    /**
+     * connect to endpoints using heroku app link. Can use get requests from endpoint.
+     *
+     * @param theEmail the client email
+     * @param thePassword the client password.
+     * */
+    public void connect(final String theEmail, final String thePassword) {
         String url = "https://team8-tcss450-app.herokuapp.com/auth";
 
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                mResponse::setValue,
+                myResponse::setValue,
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                String credentials = email + ":" + password;
+                String credentials = theEmail + ":" + thePassword;
                 String auth = "Basic "
                         + Base64.encodeToString(credentials.getBytes(),
                         Base64.NO_WRAP);

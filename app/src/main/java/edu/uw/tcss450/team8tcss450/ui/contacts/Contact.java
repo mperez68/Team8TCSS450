@@ -49,16 +49,18 @@ public class Contact implements Serializable {
         }
 
         /**
+          * Dummy method not used anywhere yet.
           *
-          * @param val
+          * @param theVal
           * @return the Builder of this BlogPost
           */
-        public Builder addName(final String val) {   // TODO implement
-            myName = myName + " " + val;
+        public Builder addName(final String theVal) {   // TODO implement
+            myName = myName + " " + theVal;
             return this;
         }
 
         /**
+         *Dummy method not used anywhere yet.
          *
          * @param val
          * @return the Builder of this BlogPost
@@ -69,6 +71,7 @@ public class Contact implements Serializable {
         }
 
         /**
+         *Dummy method not used anywhere yet.
          *
          * @param val
          * @return the Builder of this BlogPost
@@ -78,6 +81,9 @@ public class Contact implements Serializable {
             return this;
         }
 
+        /**
+         *Constructor to build the new contact.
+         */
         public Contact build() {
 
             return new Contact(this);
@@ -85,7 +91,11 @@ public class Contact implements Serializable {
 
     }
 
-
+    /**
+     *Constructor for contact that takes in a builder object.
+     *
+     * @param builder object to build a contact.
+     */
     public Contact(final Builder builder)  {
         this.myName = builder.myName;
         this.myUserName = builder.myUserName;
@@ -93,15 +103,29 @@ public class Contact implements Serializable {
 
     }
 
-
+    /**
+     *Getter for username.
+     *
+     * @return myUsername
+     */
     public String getUserName() {
         return myUserName;
     }
 
+    /**
+     *Getter for myEmail.
+     *
+     * @return myUsername
+     */
     public String getEmail() {
         return myEmail;
     }
 
+    /**
+     *Getter for myName.
+     *
+     * @return myName
+     */
     public String getName() {
         return myName;
     }

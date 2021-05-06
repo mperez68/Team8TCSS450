@@ -19,23 +19,40 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentContactCardBinding;
  */
 public class ContactCardFragment extends Fragment {
 
-    public FragmentContactCardBinding binding;
+    public FragmentContactCardBinding myBinding;
 
+    /**
+     * Empty constructor for the contact card.
+     */
     public ContactCardFragment() {
         // Required empty constructor
     }
 
+    /**
+     * onCreate view that inflates myBinding.
+     *
+     * @param theInflater
+     * @param theContainer
+     * @param theSavedInstanceState
+     * @return the root of the inflated binding.
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentContactCardBinding.inflate(inflater);
-        return binding.getRoot();
+    public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
+                             Bundle theSavedInstanceState) {
+        myBinding = FragmentContactCardBinding.inflate(theInflater);
+        return myBinding.getRoot();
     }
 
-
+    /**
+     * onViewCreated adds listeners to the front end elements and retrieves arguments
+     * passed to the fragment.
+     *
+     * @param theView
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
+        super.onViewCreated(theView, theSavedInstanceState);
     }
 
 }

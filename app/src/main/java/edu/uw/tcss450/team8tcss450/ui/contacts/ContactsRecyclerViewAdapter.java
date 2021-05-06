@@ -27,7 +27,6 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatFragmentDirections;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
-    private final int MAX_TEASER = 50; //needed?
     //Store the expanded state for each List item, true -> expanded, false -> not
     private final Map<Contact, Boolean> mExpandedFlags;
 
@@ -71,20 +70,17 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
             super(view);
             mView = view;
             binding = FragmentContactCardBinding.bind(view);
+
+
+            //Listener for the search contact button.
+//            binding.contactButtonMessage.setOnClickListener(button ->
+//                    Navigation.findNavController(view).navigate(
+//                            ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
+//                    ));
             //binding.buttonMore.setOnClickListener(this::handleMoreOrLess); NEEDED? Ask team members
         }
 
-//        /**
-//         * When the button is clicked in the more state, expand the card to display
-//         * the blog preview and switch the icon to the less state. When the button
-//         * is clicked in the less state, shrink the card and switch the icon to the
-//         * more state.
-//         * @param button the button that was clicked
-//         */
-//        private void handleMoreOrLess(final View button) {
-//            mExpandedFlags.put(mConversation, !mExpandedFlags.get(mConversation));
-//            displayPreview();
-//        }
+
 
         /**
          * Helper used to determine if the preview should be displayed or not.
@@ -108,7 +104,8 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         void setContacts(Contact theContact) {
             mContact = theContact;
             binding.contactButtonMessage.setOnClickListener(view -> {
-                //TODO NAVIGATE TO MESSAGE SCREEN
+                Navigation.findNavController(mView).navigate(
+                        ContactsFragmentDirections.actionNavigationContactsToChatMessageFragment(theContact.getName()));
             });
             binding.contactFirstName.setText(theContact.getName());
             binding.contactUsername.setText(theContact.getUserName());

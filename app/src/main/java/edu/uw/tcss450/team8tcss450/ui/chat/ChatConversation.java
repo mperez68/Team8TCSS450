@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.chat;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 /**
  * Class to encapsulate a Phish.net Blog Post. Building an Object requires a publish date and title.
@@ -19,7 +20,7 @@ import java.io.Serializable;
 public class ChatConversation implements Serializable {
 
     private final String mContact;
-    private String mMessage;   // TODO change to message object pt. 1
+    private LinkedList<String> mMessage;   // TODO change to message object pt. 1
 
     /**
      * Helper class for building Credentials.
@@ -29,7 +30,7 @@ public class ChatConversation implements Serializable {
      */
     public static class Builder {
         private final String mContact;
-        private String mMessage;
+        private LinkedList<String> mMessage = new LinkedList<String>(); // TODO change to message objects pt. 1
 
         /**
          * Constructs a new Builder.
@@ -39,7 +40,7 @@ public class ChatConversation implements Serializable {
          */
         public Builder(String contact, String message) {
             this.mContact = contact;
-            this.mMessage = message;
+            this.mMessage.add(message);
         }
 
         /**
@@ -48,7 +49,7 @@ public class ChatConversation implements Serializable {
          * @return the Builder of this BlogPost
          */
         public Builder addMessage(final String val) {   // TODO implement
-            mMessage = mMessage + " " + val; // TODO change to message object pt. 1
+            this.mMessage.add(val); // TODO change to message object pt. 1
             return this;
         }
 
@@ -67,7 +68,7 @@ public class ChatConversation implements Serializable {
         return mContact;
     }
 
-    public String getmMessage() {
-        return mMessage;
+    public LinkedList getmMessage() {
+        return (LinkedList) mMessage.clone();
     }
 }

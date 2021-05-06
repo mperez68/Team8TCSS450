@@ -49,50 +49,16 @@ public class ChatListViewModel extends AndroidViewModel {
     }
 
     private void handleResult(final JSONObject result) {
-        IntFunction<String> getString =
-                getApplication().getResources()::getString;
-//        try {
-//            JSONObject root = result;
-//            if (root.has(getString.apply(R.string.keys_json_blogs_response))) {
-//                JSONObject response =
-//                        root.getJSONObject(getString.apply(
-//                                R.string.keys_json_blogs_response));
-//                if (response.has(getString.apply(R.string.keys_json_blogs_data))) {
-//                    JSONArray data = response.getJSONArray(
-//                            getString.apply(R.string.keys_json_blogs_data));
-//                    for(int i = 0; i < data.length(); i++) {
-                    for(int i = 0; i < 4; i++) {    // TODO remove when live data is implemented
-//                        JSONObject jsonBlog = data.getJSONObject(i);
-                        edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation post = new edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation.Builder(
-                        "My Dearest Friend #" + (i + 1), mTempMessage)
-                                 //.addMessage(System.getProperty("line.separator") + "Here's the second part of the message!")  // TODO change to message object pt. 2
-//                                jsonBlog.getString(
-//                                        getString.apply(
-//                                                R.string.keys_json_blogs_pubdate)),
-//                                jsonBlog.getString(
-//                                        getString.apply(
-//                                                R.string.keys_json_blogs_title)))
-//                                .addTeaser(jsonBlog.getString(
-//                                        getString.apply(
-//                                                R.string.keys_json_blogs_teaser)))
-//                                .addUrl(jsonBlog.getString(
-//                                        getString.apply(
-//                                                R.string.keys_json_blogs_url)))   // TODO add live data
-                                .build();
-                        if (!mChatList.getValue().contains(post)) {
-                            mChatList.getValue().add(post);
-                        }
-                    }
-//                } else {
-//                    Log.e("ERROR!", "No data array");
-//                }
-//            } else {
-//                Log.e("ERROR!", "No response");
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            Log.e("ERROR!", e.getMessage());
-//        }
+        mChatList.setValue(new ArrayList<>());
+            for(int i = 0; i < 4; i++) {    // TODO remove when live data is implemented
+                edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation post = new edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation.Builder(
+                "My Dearest Friend #" + (i + 1), mTempMessage)
+                         //.addMessage(System.getProperty("line.separator") + "Here's the second part of the message!")  // TODO change to message object pt. 2
+                        .build();
+                if (!mChatList.getValue().contains(post)) {
+                    mChatList.getValue().add(post);
+                }
+            }
         mChatList.setValue(mChatList.getValue());
     }
 

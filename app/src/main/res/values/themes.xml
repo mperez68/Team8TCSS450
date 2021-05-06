@@ -6,11 +6,6 @@
         <item name="colorPrimaryVariant">@color/Primary</item>
         <item name="colorOnPrimary">@color/Accent</item>
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/Amber_DarkPrimary</item>
-        <item name="colorSecondaryVariant">@color/Amber_Primary</item>
-        <item name="colorOnSecondary">@color/Amber_Accent</item>
-
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>

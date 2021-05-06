@@ -42,6 +42,6 @@ public class HomeFragment extends Fragment {
         //holds this fragment.
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        binding.textEmail.setText("Welcome " + model.getEmail() + "!"); //textEmail will change when fragment is created.
+        binding.textEmail.setText(model.getEmail()); //textEmail will change when fragment is created.
     }
 }

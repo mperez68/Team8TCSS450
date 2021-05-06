@@ -27,16 +27,23 @@ import static edu.uw.tcss450.team8tcss450.utils.PasswordValidator.*;
  */
 public class RegisterFragment extends Fragment {
 
+    /* The view binding for the register fragment. */
     private FragmentRegisterBinding binding;
 
+    /* View model object of the register fragment. */
     private RegisterViewModel mRegisterModel;
 
+    /* A PasswordValidator object to validate the length of the name. */
     private PasswordValidator mNameValidator = checkPwdLength(1);
 
+    /* A PasswordValidator object to validate the length of the email, absence of white space, and
+        contains the "@" character. */
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
+    /* A PasswordValidator object to validate the length of the password, absence of white space,
+        contains a special character and digit, and if the passwords match. */
     private PasswordValidator mPassWordValidator =
             checkClientPredicate(pwd -> pwd.equals(binding.editPassword2.getText().toString()))
                     .and(checkPwdLength(7))
@@ -72,10 +79,18 @@ public class RegisterFragment extends Fragment {
                 this::observeResponse);
     }
 
+    /**
+     * Attempts to register the user.
+     *
+     * @param button the button to confirm registration
+     */
     private void attemptRegister(final View button) {
         validateFirst();
     }
 
+    /**
+     * Validates the first name input.
+     */
     private void validateFirst() {
         mNameValidator.processResult(
                 mNameValidator.apply(binding.editFirst.getText().toString().trim()),
@@ -83,6 +98,9 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editFirst.setError("Please enter a first name."));
     }
 
+    /**
+     * Validates the last name input.
+     */
     private void validateLast() {
         mNameValidator.processResult(
                 mNameValidator.apply(binding.editLast.getText().toString().trim()),
@@ -90,6 +108,9 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editLast.setError("Please enter a last name."));
     }
 
+    /**
+     * Validates the email input.
+     */
     private void validateEmail() {
         mEmailValidator.processResult(
                 mEmailValidator.apply(binding.editEmail.getText().toString().trim()),
@@ -97,6 +118,9 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editEmail.setError("Please enter a valid Email address."));
     }
 
+    /**
+     * Validates that the password and the confirmation input are matching.
+     */
     private void validatePasswordsMatch() {
         PasswordValidator matchValidator =
                 checkClientPredicate(
@@ -108,6 +132,9 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editPassword1.setError("Passwords must match."));
     }
 
+    /**
+     * Validates the password input.
+     */
     private void validatePassword() {
         mPassWordValidator.processResult(
                 mPassWordValidator.apply(binding.editPassword1.getText().toString()),
@@ -115,6 +142,9 @@ public class RegisterFragment extends Fragment {
                 result -> binding.editPassword1.setError("Please enter a valid Password."));
     }
 
+    /**
+     * Verifies the registration with the web service.
+     */
     private void verifyAuthWithServer() {
         mRegisterModel.connect(
                 binding.editFirst.getText().toString(),
@@ -124,6 +154,9 @@ public class RegisterFragment extends Fragment {
                 binding.editPassword1.getText().toString());
     }
 
+    /**
+     * Navigates to the sign in fragment after a successful registration.
+     */
     private void navigateToLogin() {
         RegisterFragmentDirections.ActionRegisterFragmentToSignInFragment directions =
                 RegisterFragmentDirections.actionRegisterFragmentToSignInFragment();

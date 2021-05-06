@@ -86,7 +86,7 @@ public class WeatherDayRecyclerViewAdapter extends
          */
         void setInfoList(final WeatherDayPostInfo infoList) {
             mInfoDayList = infoList;
-            binding.dayPredictionCardDayAndMonth.setText(infoList.getDate());
+            binding.dayPredictionCardSpecificDay.setText(infoList.getDate());
             binding.dayPredictionCardOutlook.outlookGraphic
                     .setImageResource(R.drawable.ic_weather_outlook_grey_60dp);
             binding.dayPredictionCardTemperature.lowTemperatureReading

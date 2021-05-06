@@ -127,7 +127,7 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
+      
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -153,7 +153,7 @@
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
-            android:text="@string/title_recent_chats_home"
+            android:text="@string/title_home_chats"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -171,7 +171,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/text_recent_chats_home"
+            android:text="@string/text_home_chats"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/button_chats"
@@ -200,7 +200,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="0dp"
-            android:text='@string/text_preview_recent_chats_home'
+            android:text='@string/text_home_previewchats'
             android:textAppearance="?attr/textAppearanceListItem"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +215,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="@string/recent_chats_action_home"
+            android:text="@string/button_home_expandchats"
             android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview_chats"

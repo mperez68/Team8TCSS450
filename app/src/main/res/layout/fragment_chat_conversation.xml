@@ -53,7 +53,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="602dp"
             android:layout_marginEnd="4dp"
-            android:text="@string/chat_conversation_send"
+            android:text="@string/button_chat_send"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_msg_input"
             app:layout_constraintTop_toTopOf="@+id/list_root" />

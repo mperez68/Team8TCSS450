@@ -26,36 +26,63 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatFragmentDirections;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 
+/**
+ * Adapter for the contacts recycler view.
+ */
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
     private final int MAX_TEASER = 50; //needed?
-    //Store the expanded state for each List item, true -> expanded, false -> not
-    private final Map<Contact, Boolean> mExpandedFlags;
 
     //Store all of the blogs to present
-    private final List<Contact> mContacts;
+    private final List<Contact> myContacts;
 
-    public ContactsRecyclerViewAdapter(List<Contact> items) {
-        this.mContacts = items;
-        mExpandedFlags = mContacts.stream().collect(Collectors.toMap(Function.identity(), blog -> false));
+    /**
+     * Instantiate myContacts
+     *
+     * @params theItems list of contacts to be instantiated.
+     */
+    public ContactsRecyclerViewAdapter(List<Contact> theItems) {
+        this.myContacts = theItems;
+        //mExpandedFlags = mContacts.stream().collect(Collectors.toMap(Function.identity(), blog -> false));
 
     }
 
+
+    /**
+     * inflate the viewholder with the card.
+     *
+     * @params theParent
+     * @params theViewType
+     *
+     * @return ContactViewHolder
+     */
     @NonNull
     @Override
-    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup theParent, int theViewType) {
         return new ContactViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_card, parent, false));
+                .from(theParent.getContext())
+                .inflate(R.layout.fragment_contact_card, theParent, false));
     }
 
+    /**
+     * onBindViewHolder
+     *
+     * @params theParent
+     * @params theViewType
+     *
+     * @return ContactViewHolder
+     */
     @Override
-    public void onBindViewHolder(@NonNull ContactsRecyclerViewAdapter.ContactViewHolder holder, int position) {
-        holder.setContacts(mContacts.get(position));
+    public void onBindViewHolder(@NonNull ContactsRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
+        theHolder.setContacts(myContacts.get(thePosition));
     }
 
+    /**
+     * getter for item count.
+     * @return size of myContacts
+     */
     @Override
     public int getItemCount() {
-        return mContacts.size();
+        return myContacts.size();
     }
 
     /**
@@ -63,14 +90,19 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      * of rows in the Blog Recycler View.
      */
     public class ContactViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public FragmentContactCardBinding binding;
-        private Contact mContact;
+        public final View myView;
+        public FragmentContactCardBinding myBinding;
+        private Contact myContact;
 
-        public ContactViewHolder(View view) {
-            super(view);
-            mView = view;
-            binding = FragmentContactCardBinding.bind(view);
+        /**
+         * Constructor for the view and the binding.
+         *
+         * @params theView
+         */
+        public ContactViewHolder(View theView) {
+            super(theView);
+            myView = theView;
+            myBinding = FragmentContactCardBinding.bind(theView);
 
 
             //Listener for the search contact button.
@@ -102,14 +134,20 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 //            }
 //        }
 
+
+        /**
+         * setter for the contact.
+         *
+         * @params theContact
+         */
         void setContacts(Contact theContact) {
-            mContact = theContact;
-            binding.contactButtonMessage.setOnClickListener(view -> {
+            myContact = theContact;
+            myBinding.contactButtonMessage.setOnClickListener(view -> {
                 //TODO NAVIGATE TO MESSAGE SCREEN
             });
-            binding.contactFirstName.setText(theContact.getName());
-            binding.contactUsername.setText(theContact.getUserName());
-            binding.contactEmail.setText(theContact.getEmail());
+            myBinding.contactFirstName.setText(theContact.getName());
+            myBinding.contactUsername.setText(theContact.getUserName());
+            myBinding.contactEmail.setText(theContact.getEmail());
 
            // binding.contactCardUserImage.setImageIcon() SET IMAGE ICON
 

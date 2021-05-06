@@ -33,6 +33,9 @@ public final class ContactGenerator {
         return Arrays.copyOf(BLOGS, BLOGS.length);
     }
 
+    /**
+     * Contact generator not used.
+     */
     private ContactGenerator() { }
 
 

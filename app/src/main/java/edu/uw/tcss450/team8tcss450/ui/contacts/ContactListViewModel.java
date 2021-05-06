@@ -29,41 +29,83 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation;
 
+/**
+ * A view model for the contact fragment to keep myContactList as a mutable live data object.
+ */
 public class ContactListViewModel extends AndroidViewModel {
+
     private MutableLiveData<List<Contact>> myContactList;
 
     private ContactsRecyclerViewAdapter myViewAdapter;
 
 
-
-    public ContactListViewModel(@NonNull Application application) {
-        super(application);
+    /**
+     * Constructor the the contact list view model to instantiate instance fields.
+     *
+     * @param theApplication
+     *
+     */
+    public ContactListViewModel(@NonNull Application theApplication) {
+        super(theApplication);
         myContactList = new MutableLiveData<>();
         myContactList.setValue(new ArrayList<>());
 
         myViewAdapter = new ContactsRecyclerViewAdapter(myContactList.getValue());
 
     }
-    public void addContactListObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super List<Contact>> observer) {
-        myContactList.observe(owner, observer);
+
+    /**
+     * Method that creates an observer for myContactList.
+     *
+     * @param theOwner
+     * @param theObserver
+     *
+     */
+    public void addContactListObserver(@NonNull LifecycleOwner theOwner,
+                                    @NonNull Observer<? super List<Contact>> theObserver) {
+        myContactList.observe(theOwner, theObserver);
     }
 
-    private void handleError(final VolleyError error) {
+    /**
+     * Method to handle errors in the server.
+     *
+     * @param theError an error from the server.
+     *
+     */
+    private void handleError(final VolleyError theError) {
         //Log.e("CONNECTION ERROR", error.getLocalizedMessage());
         //throw new IllegalStateException(error.getMessage());      // TODO fix when server is set up
         handleResult(null);
     }
 
+    /**
+     * Get the contactList.
+     *
+     * @return myContactList
+     *
+     */
     public MutableLiveData<List<Contact>> getContactList() {
         return myContactList;
     }
 
+    /**
+     * Get view adapter
+     *
+     * @return myViewAdapter
+     *
+     */
     public ContactsRecyclerViewAdapter getViewAdapter() {
         return myViewAdapter;
     }
 
-    private void handleResult(final JSONObject result) {
+
+    /**
+     * Method that creates dummy data for the recycler view.
+     *
+     * @param theResult a JSONObject to be used in the future.
+     *
+     */
+    private void handleResult(final JSONObject theResult) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
 //        try {
@@ -111,7 +153,13 @@ public class ContactListViewModel extends AndroidViewModel {
        myContactList.setValue(myContactList.getValue());
     }
 
-    public void connectGet(String jwt) {
+    /**
+     * connect to endpoints using heroku app link. Can use get requests from endpoint.
+     *
+     * @param theJwt the jason web token to connect to
+     *
+      */
+    public void connectGet(String theJwt) {
         String url =
                 "https://team8-tcss450-app.herokuapp.com/auth";    // TODO change to live data source
         Request request = new JsonObjectRequest(
@@ -124,7 +172,7 @@ public class ContactListViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("Authorization", jwt);
+                headers.put("Authorization", theJwt);
                 return headers;
             }
         };

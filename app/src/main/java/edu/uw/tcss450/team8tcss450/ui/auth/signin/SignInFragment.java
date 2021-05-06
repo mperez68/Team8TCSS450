@@ -27,78 +27,117 @@ import static edu.uw.tcss450.team8tcss450.utils.PasswordValidator.checkPwdSpecia
  */
 public class SignInFragment extends Fragment {
 
-    private FragmentSignInBinding binding;
-    private SignInViewModel mSignInModel;
+    private FragmentSignInBinding myBinding;
+    private SignInViewModel mySignInModel;
 
-    private PasswordValidator mEmailValidator = checkPwdLength(2)
+    private PasswordValidator myEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
-    private PasswordValidator mPassWordValidator = checkPwdLength(1)
+    private PasswordValidator myPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
+    /**
+     * Empty constructor
+     *
+     */
     public SignInFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate that binds the sign in view model.
+     *
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mSignInModel = new ViewModelProvider(getActivity())
+    public void onCreate(@Nullable Bundle theSavedInstanceState) {
+        super.onCreate(theSavedInstanceState);
+        mySignInModel = new ViewModelProvider(getActivity())
                 .get(SignInViewModel.class);
     }
 
+    /**
+     * onCreate view that inflates myBinding.
+     *
+     * @param theInflater
+     * @param theContainer
+     * @param theSavedInstanceState
+     * @return the root of the inflated binding.
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
+                             Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentSignInBinding.inflate(inflater);
+        myBinding = FragmentSignInBinding.inflate(theInflater);
 
-        return binding.getRoot();
+        return myBinding.getRoot();
     }
 
+    /**
+     * onViewCreated adds listeners to the front end elements and retrieves arguments
+     * passed to the fragment.
+     *
+     * @param theView
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
+        super.onViewCreated(theView, theSavedInstanceState);
 
-        binding.buttonRegister.setOnClickListener(button ->
+        myBinding.buttonRegister.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
                 ));
 
-        binding.buttonSignin.setOnClickListener(this::attemptSignIn);
+        myBinding.buttonSignin.setOnClickListener(this::attemptSignIn);
 
-        mSignInModel.addResponseObserver(
+        mySignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeResponse);
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        myBinding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        myBinding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
     }
 
-    private void attemptSignIn(final View button) {
+    /**
+     * Starter method for validation for sign in.
+     *
+     * @param theButton
+     *
+     */
+    private void attemptSignIn(final View theButton) {
         validateEmail();
     }
 
+    /**
+     * Client validation for email
+     */
     private void validateEmail() {
-        mEmailValidator.processResult(
-                mEmailValidator.apply(binding.editEmail.getText().toString().trim()),
+        myEmailValidator.processResult(
+                myEmailValidator.apply(myBinding.editEmail.getText().toString().trim()),
                 this::validatePassword,
-                result -> binding.editEmail.setError("Please enter a valid Email address."));
+                result -> myBinding.editEmail.setError("Please enter a valid Email address."));
     }
 
+    /**
+     * Client validation for password
+     */
     private void validatePassword() {
-        mPassWordValidator.processResult(
-                mPassWordValidator.apply(binding.editPassword.getText().toString()),
+        myPassWordValidator.processResult(
+                myPassWordValidator.apply(myBinding.editPassword.getText().toString()),
                 this::verifyAuthWithServer,
-                result -> binding.editPassword.setError("Please enter a valid Password."));
+                result -> myBinding.editPassword.setError("Please enter a valid Password."));
     }
 
+    /**
+     * verify credentials with server.
+     */
     private void verifyAuthWithServer() {
-        mSignInModel.connect(
-                binding.editEmail.getText().toString(),
-                binding.editPassword.getText().toString());
+        mySignInModel.connect(
+                myBinding.editEmail.getText().toString(),
+                myBinding.editPassword.getText().toString());
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
 
@@ -107,35 +146,35 @@ public class SignInFragment extends Fragment {
 
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
-     * @param email users email
-     * @param jwt the JSON Web Token supplied by the server
+     * @param theEmail users email
+     * @param theJwt the JSON Web Token supplied by the server
      */
-    private void navigateToSuccess(final String email, final String jwt) {
+    private void navigateToSuccess(final String theEmail, final String theJwt) {
         Navigation.findNavController(getView())
-                .navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity(email, jwt));
+                .navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity(theEmail, theJwt));
     }
 
     /**
      * An observer on the HTTP Response from the web server. This observer should be
      * attached to SignInViewModel.
      *
-     * @param response the Response from the server
+     * @param theResponse the Response from the server
      */
-    private void observeResponse(final JSONObject response) {
-        if (response.length() > 0) {
-            if (response.has("code")) {
+    private void observeResponse(final JSONObject theResponse) {
+        if (theResponse.length() > 0) {
+            if (theResponse.has("code")) {
                 try {
-                    binding.editEmail.setError(
+                    myBinding.editEmail.setError(
                             "Error Authenticating: " +
-                                    response.getJSONObject("data").getString("message"));
+                                    theResponse.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
                     Log.e("JSON Parse Error", e.getMessage());
                 }
             } else {
                 try {
                     navigateToSuccess(
-                            binding.editEmail.getText().toString(),
-                            response.getString("token")
+                            myBinding.editEmail.getText().toString(),
+                            theResponse.getString("token")
                             //generateJwt(binding.editEmail.getText().toString())
                     );
                 } catch (JSONException e) {

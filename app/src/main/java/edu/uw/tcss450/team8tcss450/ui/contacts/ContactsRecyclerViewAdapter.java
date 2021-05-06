@@ -30,7 +30,12 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
  * Adapter for the contacts recycler view.
  */
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
-    private final int MAX_TEASER = 50; //needed?
+
+    //private final int MAX_TEASER = 50; //needed?
+
+    //Store the expanded state for each List item, true -> expanded, false -> not
+//    private final Map<Contact, Boolean> mExpandedFlags;
+
 
     //Store all of the blogs to present
     private final List<Contact> myContacts;
@@ -141,9 +146,12 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
          * @params theContact
          */
         void setContacts(Contact theContact) {
+
             myContact = theContact;
             myBinding.contactButtonMessage.setOnClickListener(view -> {
-                //TODO NAVIGATE TO MESSAGE SCREEN
+                Navigation.findNavController(myView).navigate(
+                        ContactsFragmentDirections.actionNavigationContactsToChatMessageFragment(theContact.getName()));
+
             });
             myBinding.contactFirstName.setText(theContact.getName());
             myBinding.contactUsername.setText(theContact.getUserName());

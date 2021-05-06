@@ -1,15 +1,14 @@
 package edu.uw.tcss450.team8tcss450.ui.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentHomeBinding;
@@ -19,8 +18,6 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
-    private FragmentHomeBinding binding;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -42,6 +39,6 @@ public class HomeFragment extends Fragment {
         //holds this fragment.
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        binding.textEmail.setText("Welcome " + model.getEmail() + "!"); //textEmail will change when fragment is created.
+        binding.textEmail.setText(model.getEmail()); //textEmail will change when fragment is created.
     }
 }

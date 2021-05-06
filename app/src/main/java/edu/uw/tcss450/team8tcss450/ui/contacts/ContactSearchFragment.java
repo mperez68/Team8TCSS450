@@ -1,10 +1,16 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import androidx.lifecycle.ViewModelProvider;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -13,12 +19,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
+
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
@@ -26,9 +33,11 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  */
 public class ContactSearchFragment extends Fragment {
 
+
     public FragmentContactSearchBinding myBinding;
 
     private ContactListViewModel myModel;
+
 
     /**
      * empty public constructor.
@@ -48,8 +57,10 @@ public class ContactSearchFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
 
+
         myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
         myModel.connectGet(model.getJWT().toString());
+
 
     }
 
@@ -62,11 +73,13 @@ public class ContactSearchFragment extends Fragment {
      * @return the inflated view.
      */
     @Override
+
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
         return theInflater.inflate(R.layout.fragment_contact_search, theContainer, false);
 //        myBinding = FragmentContactSearchBinding.inflate(inflater);
 //        return binding.getRoot();
+
     }
 
     /**
@@ -79,6 +92,7 @@ public class ContactSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
+
 
         FragmentContactSearchBinding binding = FragmentContactSearchBinding.bind(getView());
         //Listener for the contacts recycler view adapter.

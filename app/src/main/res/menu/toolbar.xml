@@ -5,13 +5,13 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/settings_toolbar"
+        android:title="@string/option_toolbar_settings"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_sign_out"
         android:orderInCategory="100"
-        android:title="@string/sign_out_toolbar"
+        android:title="@string/option_toolbar_signout"
         app:showAsAction="never" />
 
 </menu>

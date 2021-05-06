@@ -3,211 +3,131 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="50dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.987" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_weather"
-        android:layout_width="373dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="444dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/constraint_header"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/Primary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/weather_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/Primary"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/title_weather_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_conversion_absoluteHeight="30dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <TextView
-            android:id="@+id/text_weather"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="@string/text_weather_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/button_weather"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weather_title"
-            tools:layout_conversion_absoluteHeight="30dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <ImageButton
-            android:id="@+id/button_weather"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/text_weather"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_weather_black_24dp"
-            tools:layout_conversion_absoluteHeight="24dp"
-            tools:layout_conversion_absoluteWidth="24dp" />
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_contacts_black_24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/text_preview_weather"
+            android:id="@+id/text_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="0dp"
-            android:text="@string/text_preview_weather_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_weather"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <Button
-            android:id="@+id/expand_weather"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/weather_action_home"
-            android:textColor="@color/Accent"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_notification"
+            app:layout_constraintStart_toEndOf="@+id/image_avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_notification"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_home_notifications_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_preview_weather"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="96dp"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_notifications"
-        android:layout_width="369dp"
-        android:layout_height="137dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="302dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/constraint_weather"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/notifications_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/Primary"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/title_notifications_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_conversion_absoluteHeight="30dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <TextView
-            android:id="@+id/text_notifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="@string/text_notifications_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/button_notifications"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notifications_title"
-            tools:layout_conversion_absoluteHeight="30dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <ImageButton
-            android:id="@+id/button_notifications"
-            style="@style/Widget.AppCompat.ImageButton"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_fifty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/text_notifications"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_contacts_black_24dp"
-            tools:layout_conversion_absoluteHeight="24dp"
-            tools:layout_conversion_absoluteWidth="24dp" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="208dp" />
 
         <TextView
-            android:id="@+id/text_preview_notifications"
+            android:id="@+id/weather_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tacoma, WA"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            app:layout_constraintTop_toTopOf="parent" />
+        
+        <TextView
+            android:id="@+id/weather_sky_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sunny"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/weather_location" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_weather_black_24dp"
+            app:layout_constraintTop_toBottomOf="@+id/weather_sky_condition"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_fifty" />
+
+        <TextView
+            android:id="@+id/weather_temperature"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="0dp"
-            android:text="@string/text_preview_notifications_home"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_notifications"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="80&#xb0;"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/weather_sky_condition"
+            app:layout_constraintStart_toEndOf="@+id/guideline_fifty"/>
+
+        <TextView
+            android:id="@+id/weather_high_low"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="H:90&#xb0; / L:70&#xb0;"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/weather_temperature"
+            app:layout_constraintStart_toEndOf="@+id/guideline_fifty"/>
 
         <Button
-            android:id="@+id/expand_notifications"
+            android:id="@+id/button_weather"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="@string/notifications_action_home"
-            android:textColor="@color/Accent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_preview_notifications"
-            tools:layout_conversion_absoluteHeight="48dp"
-            tools:layout_conversion_absoluteWidth="96dp"
-            tools:visibility="visible" />
+            android:text="More info"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+      
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -233,7 +153,7 @@
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingRight="8dp"
-            android:text="@string/title_recent_chats_home"
+            android:text="@string/title_home_chats"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -251,7 +171,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/text_recent_chats_home"
+            android:text="@string/text_home_chats"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/button_chats"
@@ -280,7 +200,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="0dp"
-            android:text='@string/text_preview_recent_chats_home'
+            android:text='@string/text_home_previewchats'
             android:textAppearance="?attr/textAppearanceListItem"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -295,12 +215,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="@string/recent_chats_action_home"
+            android:text="@string/button_home_expandchats"
             android:textColor="@color/Accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_preview_chats"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="96dp"
             tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

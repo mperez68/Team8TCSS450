@@ -66,7 +66,7 @@ public class WeatherMainFragment extends Fragment {
         );
 
         // Set the click listener for the Weather Map button.
-        binding.buttonWeatherMap.setOnClickListener(button ->
+        binding.buttonWeatherViewMap.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         WeatherMainFragmentDirections
                                 .actionNavigationWeatherToWeatherMapFragment()

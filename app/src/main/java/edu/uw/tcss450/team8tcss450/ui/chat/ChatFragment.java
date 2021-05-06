@@ -16,8 +16,12 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
- * Chat Fragment for a recycler list of chat messages.
- * A simple {@link Fragment} subclass.
+ * Chat Fragment for a recycler list of chat messages. Users navigate here from the bottom bar
+ * and navigate to individual conversations by selecting which to read and reply to.
+ * TODO be able to start new messages from here.
+ *
+ * @author Marc Perez
+ * @version 6 May 2021
  */
 public class ChatFragment extends Fragment {
     private ChatListViewModel mModel;

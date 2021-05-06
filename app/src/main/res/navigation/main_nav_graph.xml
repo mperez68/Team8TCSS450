@@ -5,15 +5,6 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/navigation_home">
     <fragment
-        android:id="@+id/navigation_chat"
-        android:name="edu.uw.tcss450.team8tcss450.ui.chat.ChatFragment"
-        android:label="@string/title_mainnav_chat"
-        tools:layout="@layout/fragment_chat">
-        <action
-            android:id="@+id/action_navigation_chat_to_chatMesssageFragment"
-            app:destination="@id/chatMesssageFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/navigation_home"
         android:name="edu.uw.tcss450.team8tcss450.ui.home.HomeFragment"
         android:label="@string/title_mainnav_home"
@@ -22,7 +13,7 @@
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
         android:label="@string/title_mainnav_weather"
-        tools:layout="@layout/fragment_weather_main" >
+        tools:layout="@layout/fragment_weather_main">
         <action
             android:id="@+id/action_navigation_weather_to_weatherDayPredictionListFragment"
             app:destination="@id/weatherDayPredictionListFragment" />
@@ -41,21 +32,21 @@
         <action
             android:id="@+id/action_navigation_contacts_to_contactSearchFragment"
             app:destination="@id/contactSearchFragment" />
-    </fragment>
+        <action
+            android:id="@+id/action_navigation_contacts_to_chatMessageFragment"
+            app:destination="@id/chatMessageFragment" />
+    </fragment><![CDATA[
     tools:layout="@layout/fragment_contacts" />
-    <fragment
-        android:id="@+id/chatMesssageFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.chat.ChatMessageFragment"
-        android:label="@string/title_mainnav_chat">
-        <argument
-            android:name="conversation"
-            app:argType="edu.uw.tcss450.team8tcss450.ui.chat.ChatConversation" />
-    </fragment>
+    ]]>
     <fragment
         android:id="@+id/contactSearchFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactSearchFragment"
         android:label="@string/title_mainnav_contactsearch"
-        tools:layout="@layout/fragment_contact_search" />
+        tools:layout="@layout/fragment_contact_search">
+        <action
+            android:id="@+id/action_contactSearchFragment_to_chatMessageFragment"
+            app:destination="@id/chatMessageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/weatherDayPredictionListFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment"
@@ -71,4 +62,20 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMapFragment"
         android:label="@string/title_mainnav_weathermap"
         tools:layout="@layout/fragment_weather_map" />
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.ChatFragment"
+        android:label="@string/title_mainnav_chat">
+        <action
+            android:id="@+id/action_navigation_chat_to_chatMessageFragment"
+            app:destination="@id/chatMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatMessageFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatMessageFragment"
+        android:label="@string/title_mainnav_chat">
+        <argument
+            android:name="contactID"
+            app:argType="string" />
+    </fragment>
 </navigation>

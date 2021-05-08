@@ -66,7 +66,7 @@ public class ChatRecyclerViewAdapter extends
             super(view);
             mView = view;
             binding = FragmentChatCardBinding.bind(view);
-            binding.buttonMore.setOnClickListener(this::handleMoreOrLess);
+            //binding.buttonMore.setOnClickListener(this::handleMoreOrLess);
         }
         /**
          * When the button is clicked in the more state, expand the card to display
@@ -75,37 +75,41 @@ public class ChatRecyclerViewAdapter extends
          * more state.
          * @param button the button that was clicked
          */
+        /**
         private void handleMoreOrLess(final View button) {
             mExpandedFlags.put(mConversation, !mExpandedFlags.get(mConversation));
             displayPreview();
         }
-        /**
+           */
+         /**
          * Helper used to determine if the preview should be displayed or not.
          */
-        private void displayPreview() {
-            if (mExpandedFlags.get(mConversation)) {
-                binding.textMessage.setVisibility(View.VISIBLE);
-                binding.buttonMore.setImageIcon(
-                        Icon.createWithResource(
-                                mView.getContext(),
-                                R.drawable.ic_less_grey_24dp));
-            } else {
-                binding.textMessage.setVisibility(View.GONE);
-                binding.buttonMore.setImageIcon(
-                        Icon.createWithResource(
-                                mView.getContext(),
-                                R.drawable.ic_more_grey_24dp));
-            }
-        }
-        void setConversation(final ChatConversation chatConversation) {
+
+//        private void displayPreview() {
+//            if (mExpandedFlags.get(mConversation)) {
+//                binding.textMessage.setVisibility(View.VISIBLE);
+//                binding.buttonMore.setImageIcon(
+//                        Icon.createWithResource(
+//                                mView.getContext(),
+//                                R.drawable.ic_less_grey_24dp))
+//            } else {
+//                binding.textMessage.setVisibility(View.GONE);
+//                binding.buttonMore.setImageIcon(
+//                        Icon.createWithResource(
+//                                mView.getContext(),
+//                                R.drawable.ic_more_grey_24dp));
+//            }
+//        }
+
+        private void setConversation(final ChatConversation chatConversation) {
             mConversation = chatConversation;
-            binding.buttonFullPost.setOnClickListener(view -> {
-                Navigation.findNavController(mView).navigate(
-                    ChatFragmentDirections.
-                            actionNavigationChatToChatMessageFragment(mConversation.getmContact()));
-            });
-            binding.textSender.setText(chatConversation.getmContact());
-            binding.textTimestamp.setText(Calendar.getInstance().getTime().toString());
+//            binding.buttonFullPost.setOnClickListener(view -> {
+//                Navigation.findNavController(mView).navigate(
+//                    ChatFragmentDirections.
+//                            actionNavigationChatToChatMessageFragment(mConversation.getmContact()));
+//            });
+            binding.textSender.setText("Contact Nickname");
+            binding.textTimestamp.setText("7/5");
             //Use methods in the HTML class to format the HTML found in the text
             final String preview = Html.fromHtml(
                     chatConversation.getmMessage().get(0).toString(),
@@ -113,7 +117,7 @@ public class ChatRecyclerViewAdapter extends
                     .toString().substring(0,Math.min(MAX_TEASER,chatConversation.getmMessage().get(0).toString().length()-2))
                     + "...";
             binding.textMessage.setText(preview);
-            displayPreview();
+            //            displayPreview();
         }
     }
 }

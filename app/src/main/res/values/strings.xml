@@ -97,7 +97,7 @@
     <string name="button_contactcard_message">Message</string>
 
     <!-- Weather Main Fragment Labels -->
-    <string name="text_weathermain_search">Search</string>
+    <string name="button_weathermain_search">Search</string>
     <string name="hint_weathermain_zipcode">Enter Zipcode</string>
     <string name="text_weathermain_zipcode">Zipcode:</string>
     <string name="text_weathermain_zipcodequery">[zipcode]</string>

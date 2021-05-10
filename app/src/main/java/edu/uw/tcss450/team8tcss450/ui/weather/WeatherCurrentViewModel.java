@@ -1,10 +1,18 @@
 package edu.uw.tcss450.team8tcss450.ui.weather;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+
+import java.util.function.IntFunction;
 
 /**
  * The view model that holds information to be displayed
@@ -36,4 +44,16 @@ public class WeatherCurrentViewModel extends ViewModel {
         mWeatherInfo.observe(owner, observer);
     }
 
+    private void handleError(final VolleyError error) {
+        Log.e("CONNECTION ERROR", error.getLocalizedMessage());
+        throw new IllegalStateException(error.getMessage());
+    }
+
+    private void handleResult(final JSONObject result) {
+
+    }
+
+    public void connectGet() {
+
+    }
 }

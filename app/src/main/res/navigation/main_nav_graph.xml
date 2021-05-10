@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatMessageFragment"
             app:destination="@id/chatMessageFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_chatTestFragment"
+            app:destination="@id/chatTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatMessageFragment"
@@ -78,4 +81,8 @@
             android:name="contactID"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/chatTestFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
+        android:label="ChatTestFragment" />
 </navigation>

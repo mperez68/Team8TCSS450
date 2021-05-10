@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "edu.uw.tcss450.perezm68"
+        applicationId "edu.uw.tcss450.team8tcss450"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

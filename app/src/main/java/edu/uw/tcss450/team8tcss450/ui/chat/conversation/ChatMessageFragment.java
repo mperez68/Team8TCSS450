@@ -17,12 +17,22 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentChatConversationBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment that follows selecting an individual conversation to access. It creates a recycler view
+ * list of all messages retrieved from server in chronological order. It allows the user to send
+ * messages to the database and thus to the other user.
+ *
+ * @author Marc Perez
+ * @version 6 May 2021
  */
 public class ChatMessageFragment extends Fragment {
+    /**
+     * List View Model object that containes the messages in this conversation.
+     */
     private MessageListViewModel mModel;
-    //public FragmentChatConversationMsgBinding binding;
 
+    /**
+     * Public constructor.
+     */
     public ChatMessageFragment() {
         // Required empty public constructor
     }

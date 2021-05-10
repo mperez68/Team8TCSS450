@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             //TODO open a settings fragment
+
+
             Log.d("SETTINGS", "Clicked");
             return true;
         }

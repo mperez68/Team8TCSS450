@@ -72,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.navigation_settings) {
             //TODO open a settings fragment
+            NavController navController = Navigation.findNavController(this, R.id.nav_main_host_fragment);
+            return NavigationUI.onNavDestinationSelected(item, navController);
 
-
-            Log.d("SETTINGS", "Clicked");
-            return true;
+            //Log.d("SETTINGS", "Clicked");
+            //return true;
         }
         else if (id == R.id.action_sign_out) {
             // if sign out is clicked, return to log in page

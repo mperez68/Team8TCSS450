@@ -148,14 +148,14 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         void setContacts(Contact theContact) {
 
             myContact = theContact;
-            myBinding.contactButtonMessage.setOnClickListener(view -> {
-                Navigation.findNavController(myView).navigate(
-                        ContactsFragmentDirections.actionNavigationContactsToChatMessageFragment(theContact.getName()));
-
-            });
-            myBinding.contactFirstName.setText(theContact.getName());
-            myBinding.contactUsername.setText(theContact.getUserName());
-            myBinding.contactEmail.setText(theContact.getEmail());
+//            myBinding.contactButtonMessage.setOnClickListener(view -> {
+//                Navigation.findNavController(myView).navigate(
+//                        ContactsFragmentDirections.actionNavigationContactsToChatMessageFragment(theContact.getName()));
+//
+//            });
+            //myBinding.contactFirstName.setText(theContact.getName());
+            myBinding.contactNickname.setText(theContact.getUserName());
+            //myBinding.contactEmail.setText(theContact.getEmail());
 
            // binding.contactCardUserImage.setImageIcon() SET IMAGE ICON
 

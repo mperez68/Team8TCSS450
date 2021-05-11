@@ -12,4 +12,9 @@
     <color name="DarkPrimary">#242424</color>
     <color name="Primary">#383838</color>
     <color name="Accent">#828282</color>
+
+    <!--    Text Message Color-->
+    <color name="primaryLightColor">#7953d2</color>
+    <color name="secondaryTextColorFade">#222222</color>
+    <color name="secondaryLightColor">#ead6a9</color>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contacts_layout_root"
@@ -7,54 +8,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.contacts.ContactsFragment" >
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageView
         android:id="@+id/button_search_contacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/button_contacts_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contacts_title" />
+        android:src="@drawable/ic_search_black_24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contacts_list_root"
-
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/button_search_contacts"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         tools:listitem="@layout/fragment_contact_card" />
-<!--        android:layout_marginTop="140dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
 
-
-    <TextView
-        android:id="@+id/contacts_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/text_contacts_header"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- TODO: Update blank fragment layout -->
 </androidx.constraintlayout.widget.ConstraintLayout>

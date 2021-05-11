@@ -25,8 +25,8 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class ContactsFragment extends Fragment {
-    private ContactListViewModel myModel;
 
+    private ContactListViewModel myModel;
     //public FragmentChatBinding binding;
 
     /**
@@ -81,8 +81,6 @@ public class ContactsFragment extends Fragment {
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
 
         //Listener for the contacts recycler view adapter.
-
-
         myModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.contactsListRoot.setAdapter(
@@ -98,6 +96,5 @@ public class ContactsFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(
                         ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
                 ));
-
     }
 }

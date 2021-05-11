@@ -129,8 +129,5 @@ public class Contact implements Serializable {
     public String getName() {
         return myName;
     }
-
-
-
 }
 

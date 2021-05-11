@@ -54,5 +54,4 @@ public class ContactCardFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
     }
-
 }

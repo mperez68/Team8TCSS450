@@ -30,7 +30,7 @@ public class ChatConversation implements Serializable {
      */
     public static class Builder {
         private final String mContact;
-        private LinkedList<String> mMessage = new LinkedList<String>(); // TODO change to message objects pt. 1
+        private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
 
         /**
          * Constructs a new Builder.

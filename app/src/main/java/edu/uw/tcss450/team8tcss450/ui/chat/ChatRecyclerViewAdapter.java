@@ -15,15 +15,42 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatCardBinding;
 
 /**
+<<<<<<< HEAD
  * Adapter for the contacts recycler view.
+=======
+ * Modified from Charles Bryan's lab assignment for the course TCSS 450.
+ *
+ * Adapter class for the Chat Fragment class. This populates and manages the conversation list
+ * and sets listeners to navigate to individual conversation fragments.
+ * TODO establish a way to update open messages from an active background service.
+ *
+ * @author Charles Bryan
+ * @version
+ * @author Marc Perez
+ * @version 6 May 2021
+>>>>>>> 821a2a8f069b50da4d4900f72e29f4df2bb67663
  */
 public class ChatRecyclerViewAdapter extends
         RecyclerView.Adapter<ChatRecyclerViewAdapter.ConversationViewHolder> {
-    // TODO length checking
+    /**
+     * The maximum number of character displayed when the conversation is expanded for preview.
+     */
     private final int MAX_TEASER = 50;
+<<<<<<< HEAD
 
     //Store all of the conversations to present
     private final List<ChatConversation> myConversations;
+=======
+    /**
+     * Store the expanded state for each List item, true -> expanded, false -> not
+     */
+    private final Map<ChatConversation, Boolean> mExpandedFlags;
+
+    /**
+     * Store all of the conversations to present
+     */
+    private final List<ChatConversation> mConversations;
+>>>>>>> 821a2a8f069b50da4d4900f72e29f4df2bb67663
 
     /**
      * Instantiate myConversations
@@ -76,11 +103,34 @@ public class ChatRecyclerViewAdapter extends
      * Objects from this class represent an Individual row View from the List
      * of rows in the Blog Recycler View.
      */
+<<<<<<< HEAD
     public class ConversationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View myView;
         public FragmentChatCardBinding myBinding;
         private ChatConversation myConversation;
 
+=======
+    public class ConversationViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * View object used in the current Fragment.
+         */
+        public final View mView;
+        /**
+         * Binding object that handles buttons/text/etc. on the chat card.
+         */
+        public FragmentChatCardBinding binding;
+        /**
+         * Conversation object for this individual conversation holder.
+         */
+        private ChatConversation mConversation;
+
+        public ConversationViewHolder(View view) {
+            super(view);
+            mView = view;
+            binding = FragmentChatCardBinding.bind(view);
+            //binding.buttonMore.setOnClickListener(this::handleMoreOrLess);
+        }
+>>>>>>> 821a2a8f069b50da4d4900f72e29f4df2bb67663
         /**
          * Constructor for the view and the binding.
          *

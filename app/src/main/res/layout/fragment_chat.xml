@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
+        android:layout_marginTop="70dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +22,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.chat.ChatFragment"
         tools:listitem="@layout/fragment_chat_card" />
-<!--<<<<<<< HEAD-->
+
+    <Button
+        android:id="@+id/test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/chat_test"
+        app:layout_constraintBottom_toTopOf="@+id/list_root"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--<<<<<<< HEAD-->
 <!--        android:layout_marginStart="8dp"-->
 <!--        android:layout_marginTop="70dp"-->
 <!--        android:layout_marginEnd="8dp"-->

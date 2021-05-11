@@ -1,25 +1,23 @@
 package edu.uw.tcss450.team8tcss450.ui.chat;
 
-import android.graphics.drawable.Icon;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatCardBinding;
 
 /**
+<<<<<<< HEAD
+ * Adapter for the contacts recycler view.
+=======
  * Modified from Charles Bryan's lab assignment for the course TCSS 450.
  *
  * Adapter class for the Chat Fragment class. This populates and manages the conversation list
@@ -30,6 +28,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentChatCardBinding;
  * @version
  * @author Marc Perez
  * @version 6 May 2021
+>>>>>>> 821a2a8f069b50da4d4900f72e29f4df2bb67663
  */
 public class ChatRecyclerViewAdapter extends
         RecyclerView.Adapter<ChatRecyclerViewAdapter.ConversationViewHolder> {
@@ -37,114 +36,98 @@ public class ChatRecyclerViewAdapter extends
      * The maximum number of character displayed when the conversation is expanded for preview.
      */
     private final int MAX_TEASER = 50;
-    /**
-     * Store the expanded state for each List item, true -> expanded, false -> not
-     */
-    private final Map<ChatConversation, Boolean> mExpandedFlags;
+
+    //Store all of the conversations to present
+    private final List<ChatConversation> myConversations;
 
     /**
-     * Store all of the conversations to present
+     * Instantiate myConversations
+     *
+     * @params theItems list of conversations to be instantiated.
      */
-    private final List<ChatConversation> mConversations;
-
-    public ChatRecyclerViewAdapter(List<ChatConversation> items) {
-        this.mConversations = items;
-        mExpandedFlags = mConversations.stream()
-                .collect(Collectors.toMap(Function.identity(), conversation -> false));
+    public ChatRecyclerViewAdapter(List<ChatConversation> theItems) {
+        this.myConversations = theItems;
     }
 
+    /**
+     * inflate the viewholder with the card.
+     *
+     * @params theParent
+     * @params theViewType
+     *
+     * @return ConversationViewHolder
+     */
     @NonNull
     @Override
-    public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ConversationViewHolder onCreateViewHolder(@NonNull ViewGroup theParent, int theViewType) {
         return new ConversationViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.fragment_chat_card, parent, false));
+                .from(theParent.getContext())
+                .inflate(R.layout.fragment_chat_card, theParent, false));
     }
 
+    /**
+     * onBindViewHolder
+     *
+     * @params theParent
+     * @params theViewType
+     *
+     * @return ConversationViewHolder
+     */
     @Override
-    public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
-        holder.setConversation(mConversations.get(position));
+    public void onBindViewHolder(@NonNull ConversationViewHolder theHolder, int thePosition) {
+        theHolder.setConversation(myConversations.get(thePosition));
     }
 
+    /**
+     * getter for item count.
+     * @return size of myConversations
+     */
     @Override
     public int getItemCount() {
-        return mConversations.size();
+        return myConversations.size();
     }
 
     /**
      * Objects from this class represent an Individual row View from the List
      * of rows in the Blog Recycler View.
      */
-    public class ConversationViewHolder extends RecyclerView.ViewHolder {
-        /**
-         * View object used in the current Fragment.
-         */
-        public final View mView;
-        /**
-         * Binding object that handles buttons/text/etc. on the chat card.
-         */
-        public FragmentChatCardBinding binding;
-        /**
-         * Conversation object for this individual conversation holder.
-         */
-        private ChatConversation mConversation;
+    public class ConversationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public final View myView;
+        public FragmentChatCardBinding myBinding;
+        private ChatConversation myConversation;
 
-        public ConversationViewHolder(View view) {
-            super(view);
-            mView = view;
-            binding = FragmentChatCardBinding.bind(view);
-            //binding.buttonMore.setOnClickListener(this::handleMoreOrLess);
+        /**
+         * Constructor for the view and the binding.
+         *
+         * @params theView
+         */
+        public ConversationViewHolder(View theView) {
+            super(theView);
+            myView = theView;
+            myBinding = FragmentChatCardBinding.bind(theView);
+            theView.setOnClickListener(this);
         }
-        /**
-         * When the button is clicked in the more state, expand the card to display
-         * the blog preview and switch the icon to the less state. When the button
-         * is clicked in the less state, shrink the card and switch the icon to the
-         * more state.
-         * @param button the button that was clicked
-         */
-        /**
-        private void handleMoreOrLess(final View button) {
-            mExpandedFlags.put(mConversation, !mExpandedFlags.get(mConversation));
-            displayPreview();
+
+        @Override
+        public void onClick(View theView) {
+            Navigation.findNavController(theView).navigate(
+                    ChatFragmentDirections.actionNavigationChatToChatMessageFragment(myConversation.getmContact()));
         }
-           */
-         /**
-         * Helper used to determine if the preview should be displayed or not.
-         */
 
-//        private void displayPreview() {
-//            if (mExpandedFlags.get(mConversation)) {
-//                binding.textMessage.setVisibility(View.VISIBLE);
-//                binding.buttonMore.setImageIcon(
-//                        Icon.createWithResource(
-//                                mView.getContext(),
-//                                R.drawable.ic_less_grey_24dp))
-//            } else {
-//                binding.textMessage.setVisibility(View.GONE);
-//                binding.buttonMore.setImageIcon(
-//                        Icon.createWithResource(
-//                                mView.getContext(),
-//                                R.drawable.ic_more_grey_24dp));
-//            }
-//        }
 
-        private void setConversation(final ChatConversation chatConversation) {
-            mConversation = chatConversation;
-//            binding.buttonFullPost.setOnClickListener(view -> {
-//                Navigation.findNavController(mView).navigate(
-//                    ChatFragmentDirections.
-//                            actionNavigationChatToChatMessageFragment(mConversation.getmContact()));
-//            });
-            binding.textSender.setText("Contact Nickname");
-            binding.textTimestamp.setText("7/5");
+        private void setConversation(final ChatConversation theChatConversation) {
+            myConversation = theChatConversation;
+            myBinding.textSender.setText("Contact Nickname");
+            myBinding.textTimestamp.setText("7/5");
+
             //Use methods in the HTML class to format the HTML found in the text
             final String preview = Html.fromHtml(
-                    chatConversation.getmMessage().get(0).toString(),
+                    theChatConversation.getmMessage().get(0).toString(),
                     Html.FROM_HTML_MODE_COMPACT)
-                    .toString().substring(0,Math.min(MAX_TEASER,chatConversation.getmMessage().get(0).toString().length()-2))
+                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2))
                     + "...";
-            binding.textMessage.setText(preview);
-            //            displayPreview();
+
+            myBinding.textMessage.setText(preview);
         }
     }
 }

@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ChatTestMessage {
+import java.io.Serializable;
+
+public class ChatTestMessage implements Serializable {
 
     private final int mMessageId;
     private final String mMessage;

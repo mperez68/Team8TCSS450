@@ -62,10 +62,10 @@ public class ChatFragment extends Fragment {
             }
         });
 
-//        //Listener for the chat test
-//        binding.testButton.setOnClickListener(button ->
-//                Navigation.findNavController(getView()).navigate(
-//                        ChatFragmentDirections.actionNavigationChatToChatTestFragment()
-//                ));
+        //Listener for the chat test
+        binding.testButton.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ChatFragmentDirections.actionNavigationChatToChatTestFragment()
+                ));
     }
 }

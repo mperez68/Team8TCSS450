@@ -12,29 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentRegisterBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
-import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatListViewModel;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
-
-
 /**
- *
  * A simple {@link Fragment} subclass.
  */
-public class ContactsFragment extends Fragment {
+public class ContactProfileFragment extends Fragment {
 
-    private ContactListViewModel myModel;
-    //public FragmentChatBinding binding;
+    private FragmentContactProfileBinding myBinding;
 
-    /**
-     * empty constructor.
-     *
-     */
-    public ContactsFragment() {
-        // Required empty public constructor
+    public ContactProfileFragment() {
+
     }
 
     /**
@@ -45,12 +36,6 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
-
-        myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        myModel.connectGet(model.getJWT().toString());
-
     }
 
     /**
@@ -65,7 +50,8 @@ public class ContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        return theInflater.inflate(R.layout.fragment_contacts, theContainer, false);
+        myBinding = FragmentContactProfileBinding.inflate(theInflater);
+        return myBinding.getRoot();
     }
 
     /**
@@ -78,23 +64,10 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
-        FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
-
-        //Listener for the contacts recycler view adapter.
-        myModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-            if (!contactList.isEmpty()) {
-                binding.contactsListRoot.setAdapter(
-                     myModel.getViewAdapter()
-
-                );
-
-            }
-        });
 
         //Listener for the search contact button.
-        binding.buttonSearchContacts.setOnClickListener(button ->
+        myBinding.buttonContactMessage.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
-                ));
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
     }
 }

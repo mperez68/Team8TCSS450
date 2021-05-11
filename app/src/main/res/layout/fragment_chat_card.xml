@@ -14,14 +14,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_inner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/text_timestamp"
-        app:layout_constraintTop_toTopOf="@+id/text_timestamp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/sender_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:src="@drawable/ic_person_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

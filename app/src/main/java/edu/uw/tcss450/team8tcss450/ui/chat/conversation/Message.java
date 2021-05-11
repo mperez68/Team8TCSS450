@@ -52,8 +52,8 @@ public class Message implements Serializable {
     public Message (String name, String message) {
         mName = name;
         mMesssage = message;
-        mDate = Calendar.getInstance().getTime().toString();    // TODO specify
-        mTime = Calendar.getInstance().getTime().toString();
+        mDate = "5/7"; //Calendar.getInstance().getTime().toString();    // TODO specify
+        mTime = "5/7"; //Calendar.getInstance().getTime().toString();
     }
 
     /**

@@ -99,4 +99,16 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
         android:label="ChatTestFragment" />
 
+    <fragment
+        android:id="@+id/contactProfileFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"
+        android:label="ContactProfileFragment" >
+        <action
+            android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
+            app:destination="@id/chatMessageFragment" />
+        <argument
+            android:name="contactNickname"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

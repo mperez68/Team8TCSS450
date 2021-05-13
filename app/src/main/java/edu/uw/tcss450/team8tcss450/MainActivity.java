@@ -52,20 +52,24 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
-        JWT jwt = new JWT(args.getJwt());
+        new ViewModelProvider(this,
+                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt())
+        ).get(UserInfoViewModel.class);
 
-        // Check to see if the web token is still valid or not. To make a JWT expire after a
-        // longer or shorter time period, change the expiration time when the JWT is
-        // created on the web service.
-        if(!jwt.isExpired(UserInfoViewModel.mLeeway)) {
-            new ViewModelProvider(
-                    this,
-                    new UserInfoViewModel.UserInfoViewModelFactory(jwt))
-                    .get(UserInfoViewModel.class);
-        } else {
-            //In production code, add in your own error handling/flow for when the JWT is expired
-            throw new IllegalStateException("JWT is expired!");
-        }
+//        JWT jwt = new JWT(args.getJwt());
+//
+//        // Check to see if the web token is still valid or not. To make a JWT expire after a
+//        // longer or shorter time period, change the expiration time when the JWT is
+//        // created on the web service.
+//        if(!jwt.isExpired(UserInfoViewModel.mLeeway)) {
+//            new ViewModelProvider(
+//                    this,
+//                    new UserInfoViewModel.UserInfoViewModelFactory(jwt))
+//                    .get(UserInfoViewModel.class);
+//        } else {
+//            //In production code, add in your own error handling/flow for when the JWT is expired
+//            throw new IllegalStateException("JWT is expired!");
+//        }
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -79,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class); //pushy messaging
 
         //TODO change this accordingly for messages
-//        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-//            if (destination.getId() == R.id.navigation_chat) {
-//                //When the user navigates to the chats page, reset the new message count.
-//                //This will need some extra logic for your project as it should have
-//                //multiple chat rooms.
-//                mNewMessageModel.reset();
-//            }
-//        });
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.navigation_chat) {
+                //When the user navigates to the chats page, reset the new message count.
+                //This will need some extra logic for your project as it should have
+                //multiple chat rooms.
+                mNewMessageModel.reset();
+            }
+        });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
             BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);

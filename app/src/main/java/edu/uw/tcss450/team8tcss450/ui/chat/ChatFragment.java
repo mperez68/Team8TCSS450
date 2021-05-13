@@ -40,7 +40,7 @@ public class ChatFragment extends Fragment {
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
-        mModel.connectGet(model.getJWT().toString());
+        mModel.connectGet(model.getmJwt());
     }
 
     @Override

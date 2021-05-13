@@ -40,7 +40,7 @@ public class ChatTestFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatTestViewModel.class);
-        mChatModel.getFirstMessages(HARD_CODED_CHAT_ID, mUserModel.getJWT().toString()); //edited here from mUserModel.getmJWT from Lab 5
+        mChatModel.getFirstMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
         mSendModel = provider.get(ChatTestSendViewModel.class);
     }
 
@@ -71,7 +71,7 @@ public class ChatTestFragment extends Fragment {
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
         //The user is out of messages, go out to the service and get more
         binding.swipeContainer.setOnRefreshListener(() -> {
-            mChatModel.getNextMessages(HARD_CODED_CHAT_ID, mUserModel.getJWT().toString()); //edited here from mUserModel.getmJWT from Lab 5
+            mChatModel.getNextMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
         });
 
         mChatModel.addMessageObserver(HARD_CODED_CHAT_ID, getViewLifecycleOwner(),
@@ -92,7 +92,7 @@ public class ChatTestFragment extends Fragment {
         //Send button was clicked. Send the message via the SendViewModel
         binding.buttonSend.setOnClickListener(button -> {
             mSendModel.sendMessage(HARD_CODED_CHAT_ID,
-                    mUserModel.getJWT().toString(), //edited here from mUserModel.getmJWT from Lab 5,
+                    mUserModel.getmJwt(), //edited here from mUserModel.getmJWT from Lab 5,
                     binding.editMessage.getText().toString());
         });
         //when we get the response back from the server, clear the edittext

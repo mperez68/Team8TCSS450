@@ -43,7 +43,7 @@ public class ContactSearchFragment extends Fragment {
                 .get(UserInfoViewModel.class);
 
         myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        myModel.connectGet(model.getJWT().toString());
+        myModel.connectGet(model.getmJwt());
     }
 
     /**

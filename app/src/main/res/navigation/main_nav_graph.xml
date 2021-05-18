@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_navigation_contacts_to_contactProfileFragment"
             app:destination="@+id/contactProfileFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactNewFragment"
+            app:destination="@id/contactNewFragment" />
     </fragment><![CDATA[
     tools:layout="@layout/fragment_contacts" />
     ]]>
@@ -97,5 +100,9 @@
             android:name="contactNickname"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/contactNewFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactNewFragment"
+        android:label="ContactNewFragment" />
 
 </navigation>

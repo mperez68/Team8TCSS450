@@ -15,9 +15,6 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatCardBinding;
 
 /**
-<<<<<<< HEAD
- * Adapter for the contacts recycler view.
-=======
  * Modified from Charles Bryan's lab assignment for the course TCSS 450.
  *
  * Adapter class for the Chat Fragment class. This populates and manages the conversation list
@@ -28,7 +25,6 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentChatCardBinding;
  * @version
  * @author Marc Perez
  * @version 6 May 2021
->>>>>>> 821a2a8f069b50da4d4900f72e29f4df2bb67663
  */
 public class ChatRecyclerViewAdapter extends
         RecyclerView.Adapter<ChatRecyclerViewAdapter.ConversationViewHolder> {

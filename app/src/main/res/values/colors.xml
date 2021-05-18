@@ -13,8 +13,14 @@
     <color name="Primary">#383838</color>
     <color name="Accent">#828282</color>
 
+    <!-- Alternate Palette -->
+    <color name="AltDarkPrimary">#a2b1ff</color>
+    <color name="AltPrimary">#b4c0ff</color>
+    <color name="AltAccent">#c6d2ff</color>
+
     <!--    Text Message Color-->
     <color name="primaryLightColor">#7953d2</color>
     <color name="secondaryTextColorFade">#222222</color>
     <color name="secondaryLightColor">#ead6a9</color>
+
 </resources>

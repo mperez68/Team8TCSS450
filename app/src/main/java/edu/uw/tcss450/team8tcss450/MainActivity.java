@@ -24,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 import edu.uw.tcss450.team8tcss450.services.PushReceiver;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestViewModel;
@@ -39,12 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        ColorTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_main);
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+
 
         JWT jwt = new JWT(args.getJwt());
 
@@ -82,20 +87,22 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        mNewMessageModel.addMessageCountObserver(this, count -> {
-            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
-            badge.setMaxCharacterCount(2);
-            if (count > 0) {
-                //new messages! update and show the notification badge.
-                badge.setNumber(count);
-                badge.setVisible(true);
-            } else {
-                //user did some action to clear the new messages, remove the badge
-                badge.clearNumber();
-                badge.setVisible(false);
-            }
-        });
+//        mNewMessageModel.addMessageCountObserver(this, count -> {
+//            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+//            badge.setMaxCharacterCount(2);
+//            if (count > 0) {
+//                //new messages! update and show the notification badge.
+//                badge.setNumber(count);
+//                badge.setVisible(true);
+//            } else {
+//                //user did some action to clear the new messages, remove the badge
+//                badge.clearNumber();
+//                badge.setVisible(false);
+//            }
+//        });
+
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -135,10 +142,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.navigation_settings) {
             //TODO open a settings fragment
             NavController navController = Navigation.findNavController(this, R.id.nav_main_host_fragment);
-            return NavigationUI.onNavDestinationSelected(item, navController);
 
-            //Log.d("SETTINGS", "Clicked");
-            //return true;
+            return NavigationUI.onNavDestinationSelected(item, navController); // navigates to settings fragment
+
+//            Log.d("SETTINGS", "Clicked");
+//            return true;
         }
         else if (id == R.id.action_sign_out) {
             // if sign out is clicked, return to log in page

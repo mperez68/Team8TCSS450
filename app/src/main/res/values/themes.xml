@@ -9,4 +9,15 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
+
+    <!-- Alternative application theme. -->
+    <style name="Theme.Team8GroupProjectAlt" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Alternative Brand color. -->
+        <item name="colorPrimary">@color/AltDarkPrimary</item>
+        <item name="colorPrimaryVariant">@color/AltPrimary</item>
+        <item name="colorOnPrimary">@color/AltAccent</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>

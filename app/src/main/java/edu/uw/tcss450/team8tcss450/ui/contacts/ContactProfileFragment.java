@@ -8,14 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentRegisterBinding;
-import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.

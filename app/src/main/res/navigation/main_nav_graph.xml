@@ -34,7 +34,7 @@
             app:destination="@id/contactSearchFragment" />
         <action
             android:id="@+id/action_navigation_contacts_to_contactProfileFragment"
-            app:destination="@id/contactProfileFragment" />
+            app:destination="@+id/contactProfileFragment" />
     </fragment><![CDATA[
     tools:layout="@layout/fragment_contacts" />
     ]]>
@@ -83,7 +83,6 @@
             app:argType="string" />
     </fragment>
     <fragment
-
         android:id="@+id/contactProfileFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"
         android:label="ContactProfileFragment" >
@@ -98,17 +97,11 @@
         android:id="@+id/chatTestFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
         android:label="ChatTestFragment" />
-
     <fragment
-        android:id="@+id/contactProfileFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"
-        android:label="ContactProfileFragment" >
-        <action
-            android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
-            app:destination="@id/chatMessageFragment" />
-        <argument
-            android:name="contactNickname"
-            app:argType="string" />
+        android:id="@+id/navigation_settings"
+        android:name="edu.uw.tcss450.team8tcss450.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
     </fragment>
 
 </navigation>

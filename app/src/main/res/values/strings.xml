@@ -16,6 +16,8 @@
     <string name="edit_password">Enter password</string>
     <string name="button_signin">Sign in</string>
     <string name="button_register">Register</string>
+    <string name="button_reset">Forgot Password?</string>
+    <string name="button_sendreset">Reset Password</string>
 
     <!-- Registration fragment -->
     <string name="hint_first">First name</string>

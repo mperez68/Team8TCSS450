@@ -18,4 +18,9 @@
     <color name="AltPrimary">#b4c0ff</color>
     <color name="AltAccent">#c6d2ff</color>
 
+    <!--    Text Message Color-->
+    <color name="primaryLightColor">#7953d2</color>
+    <color name="secondaryTextColorFade">#222222</color>
+    <color name="secondaryLightColor">#ead6a9</color>
+
 </resources>

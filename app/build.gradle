@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "edu.uw.tcss450.perezm68"
+        applicationId "edu.uw.tcss450.team8tcss450"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -45,4 +45,7 @@ dependencies {
     implementation 'com.auth0.android:jwtdecode:2.0.0'
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'com.android.volley:volley:1.2.0'
+
+    implementation 'me.pushy:sdk:1.0.54'
+
 }

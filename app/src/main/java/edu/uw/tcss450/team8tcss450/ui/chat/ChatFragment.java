@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 /**
  * Chat Fragment for a recycler list of chat messages. Users navigate here from the bottom bar
@@ -58,5 +61,11 @@ public class ChatFragment extends Fragment {
                 );
             }
         });
+
+        //Listener for the chat test
+        binding.testButton.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ChatFragmentDirections.actionNavigationChatToChatTestFragment()
+                ));
     }
 }

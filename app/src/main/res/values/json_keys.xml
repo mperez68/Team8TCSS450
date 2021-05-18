@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="keys_json_blogs_response">response</string>
-    <string name="keys_json_blogs_data">data</string>
-    <string name="keys_json_blogs_pubdate">pubdate</string>
-    <string name="keys_json_blogs_title">title</string>
-    <string name="keys_json_blogs_teaser">teaser</string>
-    <string name="keys_json_blogs_url">url</string>
+    <string name="keys_json_contacts">contacts</string>
+    <string name="keys_json_contact_firstname">firstname</string>
+    <string name="keys_json_contact_lastname">lastname</string>
+    <string name="keys_json_contact_nickname">nickname</string>
+    <string name="keys_json_contact_email">email</string>
 </resources>

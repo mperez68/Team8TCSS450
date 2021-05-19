@@ -16,6 +16,8 @@
     <string name="edit_password">Enter password</string>
     <string name="button_signin">Sign in</string>
     <string name="button_register">Register</string>
+    <string name="button_reset">Forgot Password?</string>
+    <string name="button_sendreset">Reset Password</string>
 
     <!-- Registration fragment -->
     <string name="hint_first">First name</string>
@@ -164,5 +166,10 @@
 
     <!--    Project endpoint-->
     <string name="base_url">https://team8-tcss450-app.herokuapp.com/</string>
+
+    <!-- Strings used for settings -->
+    <string name="swtich_settings_theme">Color Theme:</string>
+    <string name="button_settings_changenickname">Change Nickname</string>
+    <string name="button_settings_changepassword">Change Password</string>
 
 </resources>

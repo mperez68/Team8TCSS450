@@ -10,6 +10,17 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 
+    <!-- Alternative application theme. -->
+    <style name="Theme.Team8GroupProjectAlt" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Alternative Brand color. -->
+        <item name="colorPrimary">@color/AltDarkPrimary</item>
+        <item name="colorPrimaryVariant">@color/AltPrimary</item>
+        <item name="colorOnPrimary">@color/AltAccent</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
     <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="iconPadding">0dp</item>
         <item name="android:insetTop">0dp</item>
@@ -18,5 +29,6 @@
         <item name="android:paddingRight">12dp</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
+
     </style>
 </resources>

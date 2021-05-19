@@ -43,7 +43,11 @@ public class ContactSearchFragment extends Fragment {
                 .get(UserInfoViewModel.class);
 
         myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        myModel.connectGet(model.getmJwt());
+//<<<<<<< HEAD
+//        myModel.connectGet(model.getmJwt());
+//=======
+        myModel.connectGet(model.getEmail(), model.getmJwt());
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
     }
 
     /**
@@ -88,13 +92,13 @@ public class ContactSearchFragment extends Fragment {
 
             for (int i = 0; i < tempContactList.size(); i++) {
                 Contact temp = tempContactList.get(i);
-                if (temp.getName().equals(name)) {
-                    filteredList.add(temp);
-                }
-
-                if (temp.getUserName().equals(userName)) {
-                    filteredList.add(temp);
-                }
+//                if (temp.getName().equals(name)) {
+//                    filteredList.add(temp);
+//                }
+//
+//                if (temp.getUserName().equals(userName)) {
+//                    filteredList.add(temp);
+//                }
 
                 if (temp.getEmail().equals(email)) {
                     filteredList.add(temp);

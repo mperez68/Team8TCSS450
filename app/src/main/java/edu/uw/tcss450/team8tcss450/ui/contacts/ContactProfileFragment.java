@@ -11,19 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentRegisterBinding;
-import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
-import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentArgs;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ContactProfileFragment extends Fragment {
 
-    private FragmentContactProfileBinding myBinding;
+    private FragmentContactProfileBinding mBinding;
 
     public ContactProfileFragment() {
 
@@ -51,8 +47,8 @@ public class ContactProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        myBinding = FragmentContactProfileBinding.inflate(theInflater);
-        return myBinding.getRoot();
+        mBinding = FragmentContactProfileBinding.inflate(theInflater);
+        return mBinding.getRoot();
     }
 
     /**
@@ -66,14 +62,29 @@ public class ContactProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
 
+
         ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
 
         //Listener for the search contact button.
-        myBinding.buttonContactMessage.setOnClickListener(button ->
+        mBinding.buttonContactMessage.setOnClickListener(button ->
+                //commented out for later
 //                Navigation.findNavController(getView()).navigate(
 //                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail())));
+            Navigation.findNavController(getView()).navigate(
+                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
 
-        Navigation.findNavController(getView()).navigate(
-                ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+
+        ContactListViewModel contact = new ViewModelProvider(getActivity())
+                .get(ContactListViewModel.class);
+
+        mBinding.contactFirstname.setText(contact.getContactList().getValue().get(0).getFirstName());
+        mBinding.contactLastname.setText(contact.getContactList().getValue().get(0).getLastName());
+        mBinding.contactNickname.setText(contact.getContactList().getValue().get(0).getNickname());
+
+//        //Listener for the search contact button.
+//        mBinding.buttonContactMessage.setOnClickListener(button ->
+//                Navigation.findNavController(getView()).navigate(
+//                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
     }
 }

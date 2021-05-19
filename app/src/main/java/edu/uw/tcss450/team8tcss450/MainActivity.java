@@ -24,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 import edu.uw.tcss450.team8tcss450.services.PushReceiver;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestViewModel;
@@ -39,15 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//<<<<<<< HEAD
 
         //Origonal
         //setContentView(R.layout.activity_main);
 
         //added
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        ColorTheme.onActivityCreateSetTheme(this); //*
         setContentView(binding.getRoot());
 
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
@@ -70,6 +75,29 @@ public class MainActivity extends AppCompatActivity {
 //            //In production code, add in your own error handling/flow for when the JWT is expired
 //            throw new IllegalStateException("JWT is expired!");
 //        }
+//=======
+//
+//        ColorTheme.onActivityCreateSetTheme(this);
+//        setContentView(R.layout.activity_main);
+//
+//        MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
+//
+//
+//        JWT jwt = new JWT(args.getJwt());
+//
+//        // Check to see if the web token is still valid or not. To make a JWT expire after a
+//        // longer or shorter time period, change the expiration time when the JWT is
+//        // created on the web service.
+//        if(!jwt.isExpired(UserInfoViewModel.mLeeway)) {
+//            new ViewModelProvider(
+//                    this,
+//                    new UserInfoViewModel.UserInfoViewModelFactory(jwt))
+//                    .get(UserInfoViewModel.class);
+//        } else {
+//            //In production code, add in your own error handling/flow for when the JWT is expired
+//            throw new IllegalStateException("JWT is expired!");
+//        }
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -92,20 +120,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mNewMessageModel.addMessageCountObserver(this, count -> {
-            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
-            badge.setMaxCharacterCount(2);
-            if (count > 0) {
-                //new messages! update and show the notification badge.
-                badge.setNumber(count);
-                badge.setVisible(true);
-            } else {
-                //user did some action to clear the new messages, remove the badge
-                badge.clearNumber();
-                badge.setVisible(false);
-            }
-        });
+//        mNewMessageModel.addMessageCountObserver(this, count -> {
+//            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
+//            badge.setMaxCharacterCount(2);
+//            if (count > 0) {
+//                //new messages! update and show the notification badge.
+//                badge.setNumber(count);
+//                badge.setVisible(true);
+//            } else {
+//                //user did some action to clear the new messages, remove the badge
+//                badge.clearNumber();
+//                badge.setVisible(false);
+//            }
+//        });
+
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -142,10 +172,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.navigation_settings) {
             //TODO open a settings fragment
-            Log.d("SETTINGS", "Clicked");
-            return true;
+            NavController navController = Navigation.findNavController(this, R.id.nav_main_host_fragment);
+
+            return NavigationUI.onNavDestinationSelected(item, navController); // navigates to settings fragment
+
+//            Log.d("SETTINGS", "Clicked");
+//            return true;
         }
         else if (id == R.id.action_sign_out) {
             // if sign out is clicked, return to log in page

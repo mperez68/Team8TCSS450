@@ -26,8 +26,7 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
  */
 public class ContactsFragment extends Fragment {
 
-    private ContactListViewModel myModel;
-    //public FragmentChatBinding binding;
+    private ContactListViewModel mContactListViewModel;
 
     /**
      * empty constructor.
@@ -47,10 +46,16 @@ public class ContactsFragment extends Fragment {
         super.onCreate(theSavedInstanceState);
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-
-        myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        myModel.connectGet(model.getmJwt());
-
+//<<<<<<< HEAD
+//
+//        myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
+//        myModel.connectGet(model.getmJwt());
+//
+//=======
+        mContactListViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListViewModel.class);
+        mContactListViewModel.connectGet(model.getEmail(), model.getmJwt());
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
     }
 
     /**
@@ -81,20 +86,21 @@ public class ContactsFragment extends Fragment {
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
 
         //Listener for the contacts recycler view adapter.
-        myModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-            if (!contactList.isEmpty()) {
+        mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
                 binding.contactsListRoot.setAdapter(
-                     myModel.getViewAdapter()
-
+                     mContactListViewModel.getViewAdapter()
                 );
-
-            }
         });
 
         //Listener for the search contact button.
         binding.buttonSearchContacts.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
+                ));
+
+        binding.buttonCreateContact.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ContactsFragmentDirections.actionNavigationContactsToContactNewFragment()
                 ));
     }
 }

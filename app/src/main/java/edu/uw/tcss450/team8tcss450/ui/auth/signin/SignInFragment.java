@@ -99,6 +99,11 @@ public class SignInFragment extends Fragment {
                         SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
                 ));
 
+        myBinding.buttonReset.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        SignInFragmentDirections.actionSignInFragmentToResetFragment()
+                ));
+
         myBinding.buttonSignin.setOnClickListener(this::attemptSignIn);
 
         mySignInModel.addResponseObserver(

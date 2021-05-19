@@ -84,7 +84,7 @@ public class MessageRecyclerViewAdapter extends
             mMessage = message;
             binding.textSender.setText(message.getName());
             binding.textMessage.setText(message.getMesssage());
-            binding.textTimestamp.setText(message.getTime());
+            binding.textTimestamp.setText(message.getmTimeStamp());
         }
     }
 }

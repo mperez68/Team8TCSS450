@@ -19,7 +19,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentContactCardBinding;
 public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
 
     //Store all of the blogs to present
-    private final List<Contact> myContacts;
+    private final List<Contact> mContacts;
 
     /**
      * Instantiate myContacts
@@ -27,7 +27,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      * @params theItems list of contacts to be instantiated.
      */
     public ContactsRecyclerViewAdapter(List<Contact> theItems) {
-        this.myContacts = theItems;
+        this.mContacts = theItems;
     }
 
     /**
@@ -56,7 +56,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      */
     @Override
     public void onBindViewHolder(@NonNull ContactsRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
-        theHolder.setContacts(myContacts.get(thePosition));
+        theHolder.setContacts(mContacts.get(thePosition));
     }
 
     /**
@@ -65,7 +65,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      */
     @Override
     public int getItemCount() {
-        return myContacts.size();
+        return mContacts.size();
     }
 
     /**
@@ -73,8 +73,8 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      * of rows in the Blog Recycler View.
      */
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final View myView;
-        public FragmentContactCardBinding myBinding;
+        public final View mView;
+        public FragmentContactCardBinding mBinding;
         private Contact myContact;
 
         /**
@@ -84,15 +84,19 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
          */
         public ContactViewHolder(View theView) {
             super(theView);
-            myView = theView;
-            myBinding = FragmentContactCardBinding.bind(theView);
+            mView = theView;
+            mBinding = FragmentContactCardBinding.bind(theView);
             theView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View theView) {
             Navigation.findNavController(theView).navigate(
+
                     ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getName(), myContact.getEmail()));
+//=======
+//                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname()));
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
         }
        // ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getName(), myContact.getEmail())
         /**
@@ -102,7 +106,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
          */
         void setContacts(Contact theContact) {
             myContact = theContact;
-            myBinding.contactNickname.setText(theContact.getUserName());
+            mBinding.contactNickname.setText(theContact.getNickname());
         }
     }
 }

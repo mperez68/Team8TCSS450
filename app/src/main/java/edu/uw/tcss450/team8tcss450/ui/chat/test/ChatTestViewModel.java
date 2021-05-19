@@ -13,6 +13,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,9 +38,20 @@ public class ChatTestViewModel extends AndroidViewModel {
      */
     private Map<Integer, MutableLiveData<List<ChatTestMessage>>> mMessages;
 
+    private MutableLiveData<Integer> myChatID;
+
+    private MutableLiveData<JSONObject> mResponse;
+
     public ChatTestViewModel(@NonNull Application application) {
         super(application);
         mMessages = new HashMap<>();
+
+        mResponse = new MutableLiveData<>();
+        mResponse.setValue(new JSONObject());
+
+        //chatID
+        myChatID = new MutableLiveData<>();
+        myChatID.setValue(-1);
     }
 
     /**
@@ -52,6 +64,16 @@ public class ChatTestViewModel extends AndroidViewModel {
                                    @NonNull LifecycleOwner owner,
                                    @NonNull Observer<? super List<ChatTestMessage>> observer) {
         getOrCreateMapEntry(chatId).observe(owner, observer);
+    }
+
+    public void addResponseObserver(@NonNull LifecycleOwner owner,
+                                    @NonNull Observer<? super JSONObject> observer) {
+        mResponse.observe(owner, observer);
+    }
+
+    public void addChatIDObserver(@NonNull LifecycleOwner owner,
+                                        @NonNull Observer<? super Integer> observer) {
+        myChatID.observe(owner, observer);
     }
 
     /**
@@ -214,6 +236,14 @@ public class ChatTestViewModel extends AndroidViewModel {
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             Log.e("NETWORK ERROR", error.getMessage());
+
+            try {
+                mResponse.setValue(new JSONObject("{" +
+                        "error:\"" + error.getMessage() +
+                        "\"}"));
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
         }
         else {
             String data = new String(error.networkResponse.data, Charset.defaultCharset());
@@ -221,6 +251,122 @@ public class ChatTestViewModel extends AndroidViewModel {
                     error.networkResponse.statusCode +
                             " " +
                             data);
+
+            try {
+                JSONObject response = new JSONObject();
+                response.put("code", error.networkResponse.statusCode);
+                response.put("data", new JSONObject(data));
+                mResponse.setValue(response);
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
         }
+    }
+
+    public void connectChatID(String theChatRoomName, final String jwt) {
+
+
+        String url = "https://team8-tcss450-app.herokuapp.com/chats";
+        //print statement for debugging
+        JSONObject body = new JSONObject();
+        try {
+            body.put("name", theChatRoomName); //CHAT ROOM NAME
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int temp;
+        Request request = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    body,
+                    this::handleChatID,
+                    this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+        10_000,
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+
+
+    }
+
+    private void handleChatID(JSONObject response) {
+        int result = -1;
+        if (!response.has("chatID")) {
+            throw new IllegalStateException("Unexpected response in ChatViewModel: " + response);
+        }
+        try {
+            myChatID.setValue(response.getInt("chatID"));
+
+
+            //inform observers of the change (setValue)
+            //getOrCreateMapEntry(response.getInt("chatId")).setValue(list);
+        }catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handle CHATID ChatTestViewModel");
+            Log.e("JSON PARSE ERROR", "Error: " + e.getMessage());
+        }
+    }
+
+    public int getChatID() {
+        return myChatID.getValue();
+    }
+
+
+    public void addUsersToChat(int theChatID, String theChatter, String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/chats/" + theChatID ;
+        //print statement for debugging
+        JSONObject body = new JSONObject();
+        try {
+            body.put("chatId", theChatID);
+
+            body.put("memberid", theChatter);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int temp;
+        Request request = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                body,
+                this::handleAddUsers, //nothing for now
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", theJwt);
+                return headers;
+            }
+        };
+
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    private void handleAddUsers(JSONObject jsonObject) {
+        Log.e("Success", "PUT User into chat was successful");
     }
 }

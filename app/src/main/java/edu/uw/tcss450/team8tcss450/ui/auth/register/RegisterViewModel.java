@@ -29,6 +29,7 @@ public class RegisterViewModel extends AndroidViewModel {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
+
     }
 
     public void addResponseObserver(@NonNull LifecycleOwner owner,

@@ -121,7 +121,7 @@ public class ContactListViewModel extends AndroidViewModel {
         for(int i = 0; i < 10; i++) {    // TODO test 10 rows of data
 //                        JSONObject jsonBlog = data.getJSONObject(i);
             Contact contact = new Contact.Builder(
-                    "Contact #" + (i + 1), "testUsername", "testEmail@test.edu")
+                    "Contact #" + (i + 1), "test1", "testEmail@test.edu")
                     //.addMessage(System.getProperty("line.separator") + "Here's the second part of the message!")  // TODO change to object.
 //                                jsonBlog.getString(
 //                                        getString.apply(

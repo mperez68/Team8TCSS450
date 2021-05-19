@@ -16,6 +16,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentRegisterBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentArgs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,9 +66,14 @@ public class ContactProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
 
+        ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
+
         //Listener for the search contact button.
         myBinding.buttonContactMessage.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+//                Navigation.findNavController(getView()).navigate(
+//                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail())));
+
+        Navigation.findNavController(getView()).navigate(
+                ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
     }
 }

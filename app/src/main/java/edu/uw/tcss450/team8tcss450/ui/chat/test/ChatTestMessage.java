@@ -14,6 +14,8 @@ public class ChatTestMessage implements Serializable {
     private final String mSender;
     private final String mTimeStamp;
 
+
+
     public ChatTestMessage(int messageId, String message, String sender, String timeStamp) {
         mMessageId = messageId;
         mMessage = message;

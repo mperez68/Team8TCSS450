@@ -6,12 +6,29 @@
         <item name="colorPrimaryVariant">@color/Primary</item>
         <item name="colorOnPrimary">@color/Accent</item>
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/Amber_DarkPrimary</item>
-        <item name="colorSecondaryVariant">@color/Amber_Primary</item>
-        <item name="colorOnSecondary">@color/Amber_Accent</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Alternative application theme. -->
+    <style name="Theme.Team8GroupProjectAlt" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Alternative Brand color. -->
+        <item name="colorPrimary">@color/AltDarkPrimary</item>
+        <item name="colorPrimaryVariant">@color/AltPrimary</item>
+        <item name="colorOnPrimary">@color/AltAccent</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+
     </style>
 </resources>

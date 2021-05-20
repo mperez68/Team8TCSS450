@@ -21,52 +21,68 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 
 
 /**
- * TODO Filler Class, alter as needed.
+ *
  * A simple {@link Fragment} subclass.
  */
 public class ContactsFragment extends Fragment {
-    private ContactListViewModel mModel;
 
-    //public FragmentChatBinding binding;
+    private ContactListViewModel mContactListViewModel;
 
+    /**
+     * empty constructor.
+     *
+     */
     public ContactsFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate that binds the contact list view model and connects to the get endpoint on the server.
+     *
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle theSavedInstanceState) {
+        super.onCreate(theSavedInstanceState);
         UserInfoViewModel model = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-
-        mModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-        mModel.connectGet(model.getJWT().toString());
-
+        mContactListViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListViewModel.class);
+        mContactListViewModel.connectGet(model.getEmail(), model.getJWT().toString());
     }
 
+    /**
+     * onCreate view that inflates the view with fragment contact.
+     *
+     * @param theInflater
+     * @param theContainer
+     * @param theSavedInstanceState
+     * @return the inflated view.
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
+                             Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacts, container, false);
+        return theInflater.inflate(R.layout.fragment_contacts, theContainer, false);
     }
 
+    /**
+     * onViewCreated adds listeners to the front end elements and retrieves arguments
+     * passed to the fragment.
+     *
+     * @param theView
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
+        super.onViewCreated(theView, theSavedInstanceState);
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
 
         //Listener for the contacts recycler view adapter.
-
-
-        mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-            if (!contactList.isEmpty()) {
+        mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
                 binding.contactsListRoot.setAdapter(
-                     mModel.getViewAdapter()
-
+                     mContactListViewModel.getViewAdapter()
                 );
-
-            }
         });
 
         //Listener for the search contact button.
@@ -75,5 +91,9 @@ public class ContactsFragment extends Fragment {
                         ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
                 ));
 
+        binding.buttonCreateContact.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ContactsFragmentDirections.actionNavigationContactsToContactNewFragment()
+                ));
     }
 }

@@ -182,27 +182,27 @@ public class WeatherMainFragment extends Fragment {
                             binding.buttonTwentyFourHourForecast.setClickable(true);
 
                             String readTemp = String.valueOf(
-                                    response.getJSONObject(getString(R.string.jsonkey_weathermain_main))
-                                            .getInt(getString(R.string.jsonkey_weathermain_temp)));
+                                    response.getJSONObject(getString(R.string.keys_json_weathermain_main))
+                                            .getInt(getString(R.string.keys_json_weathermain_temp)));
                             binding.weatherCurrentFragment.temperatureReading.setText(readTemp + "\u00B0F");
 
                             String readOutlook = String.valueOf(
-                                    response.getJSONArray(getString(R.string.jsonkey_weathermain_weather))
+                                    response.getJSONArray(getString(R.string.keys_json_weathermain_weather))
                                             .getJSONObject(0)
-                                            .getString(getString(R.string.jsonkey_weathermain_main)));
+                                            .getString(getString(R.string.keys_json_weathermain_main)));
                             binding.weatherCurrentFragment.outlookReading.setText(readOutlook);
 
                             String readHumidity = String.valueOf(
-                                    response.getJSONObject(getString(R.string.jsonkey_weathermain_main))
-                                            .getInt(getString(R.string.jsonkey_weathermain_humidity))) + "%";
+                                    response.getJSONObject(getString(R.string.keys_json_weathermain_main))
+                                            .getInt(getString(R.string.keys_json_weathermain_humidity))) + "%";
                             binding.weatherCurrentFragment.humidityReading.setText(readHumidity);
 
                             String windSpeed = String.valueOf(
-                                    response.getJSONObject(getString(R.string.jsonkey_weathermain_wind))
-                                            .getInt(getString(R.string.jsonkey_weathermain_speed)));
+                                    response.getJSONObject(getString(R.string.keys_json_weathermain_wind))
+                                            .getInt(getString(R.string.keys_json_weathermain_speed)));
                             int windDegree =
-                                    response.getJSONObject(getString(R.string.jsonkey_weathermain_wind))
-                                            .getInt(getString(R.string.jsonkey_weathermain_deg));
+                                    response.getJSONObject(getString(R.string.keys_json_weathermain_wind))
+                                            .getInt(getString(R.string.keys_json_weathermain_deg));
                             binding.weatherCurrentFragment.windReading
                                     .setText(windDirection(windDegree) + " " + windSpeed + " MPH");
 

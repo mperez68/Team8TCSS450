@@ -111,27 +111,27 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = result;
-            if (root.has(getString.apply(R.string.jsonkey_weatherhourlyprediction_hourly))) {
+            if (root.has(getString.apply(R.string.keys_json_weatherhourlyprediction_hourly))) {
                 JSONArray hourly =
                     root.getJSONArray(getString.apply(
-                        R.string.jsonkey_weatherhourlyprediction_hourly));
+                        R.string.keys_json_weatherhourlyprediction_hourly));
                 mWeatherHourPostList.getValue().clear();
                 for (int i = 0; i < 24; i++) {
                     JSONObject hourInterval = hourly.getJSONObject(i);
 
                     Date date = new Date();
                     date.setTime(hourInterval.getLong(getString.apply(
-                            R.string.jsonkey_weatherhourlyprediction_dt)) * 1000L);
+                            R.string.keys_json_weatherhourlyprediction_dt)) * 1000L);
                     SimpleDateFormat hourFormat = new SimpleDateFormat("h:mm a");
                     String formattedHour = hourFormat.format(date);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
                     String formattedDate = dateFormat.format(date);
 
                     String main = hourInterval.getJSONArray(getString.apply(
-                        R.string.jsonkey_weatherhourlyprediction_weather)).getJSONObject(0)
-                            .getString(getString.apply(R.string.jsonkey_weatherhourlyprediction_main));
+                        R.string.keys_json_weatherhourlyprediction_weather)).getJSONObject(0)
+                            .getString(getString.apply(R.string.keys_json_weatherhourlyprediction_main));
                     String temp = String.valueOf(hourInterval.getInt(
-                            getString.apply(R.string.jsonkey_weatherhourlyprediction_temp)));
+                            getString.apply(R.string.keys_json_weatherhourlyprediction_temp)));
 
                     WeatherHourPostInfo hourPost =
                         new WeatherHourPostInfo.WeatherHourInfoBuilder(

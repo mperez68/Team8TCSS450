@@ -18,8 +18,13 @@ import java.util.LinkedList;
  * @version 27 April 2021
  */
 public class ChatConversation implements Serializable {
-
+    /**
+     * name of the contact.
+     */
     private final String mContact;
+    /**
+     * Message in this send.
+     */
     private LinkedList<String> mMessage;   // TODO change to message object pt. 1
 
     /**
@@ -30,7 +35,7 @@ public class ChatConversation implements Serializable {
      */
     public static class Builder {
         private final String mContact;
-        private LinkedList<String> mMessage = new LinkedList<String>(); // TODO change to message objects pt. 1
+        private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
 
         /**
          * Constructs a new Builder.
@@ -41,16 +46,6 @@ public class ChatConversation implements Serializable {
         public Builder(String contact, String message) {
             this.mContact = contact;
             this.mMessage.add(message);
-        }
-
-        /**
-         *
-         * @param val
-         * @return the Builder of this BlogPost
-         */
-        public Builder addMessage(final String val) {   // TODO implement
-            this.mMessage.add(val); // TODO change to message object pt. 1
-            return this;
         }
 
         public ChatConversation build() {
@@ -64,10 +59,18 @@ public class ChatConversation implements Serializable {
         this.mMessage = builder.mMessage;
     }
 
+    /**
+     * Getter function for the name of the contact.
+     * @return the name of the contact.
+     */
     public String getmContact() {
         return mContact;
     }
 
+    /**
+     * Getter function for the message in this send.
+     * @return Message in this send.
+     */
     public LinkedList getmMessage() {
         return (LinkedList) mMessage.clone();
     }

@@ -104,23 +104,23 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = result;
-            if (root.has(getString.apply(R.string.jsonkey_weatherdailyprediction_data))) {
+            if (root.has(getString.apply(R.string.keys_json_weatherdailyprediction_data))) {
                 JSONArray data =
                     root.getJSONArray(getString.apply(
-                        R.string.jsonkey_weatherdailyprediction_data));
+                        R.string.keys_json_weatherdailyprediction_data));
                 for (int i = 0; i < 10; i++) {
                     JSONObject dailyInterval = data.getJSONObject(i);
                     String outlook = dailyInterval.getJSONObject(getString.apply(
-                        R.string.jsonkey_weatherdailyprediction_weather)).getString(
-                            getString.apply(R.string.jsonkey_weatherdailyprediction_description));
+                        R.string.keys_json_weatherdailyprediction_weather)).getString(
+                            getString.apply(R.string.keys_json_weatherdailyprediction_description));
                     String highTemp = String.valueOf(dailyInterval.getInt(getString.apply(
-                        R.string.jsonkey_weatherdailyprediction_hightemp)));
+                        R.string.keys_json_weatherdailyprediction_hightemp)));
                     String lowTemp = String.valueOf(dailyInterval.getInt(getString.apply(
-                            R.string.jsonkey_weatherdailyprediction_lowtemp)));
+                            R.string.keys_json_weatherdailyprediction_lowtemp)));
                     WeatherDayPostInfo dayPost =
                         new WeatherDayPostInfo.WeatherDayInfoBuilder(
                             dailyInterval.getString(getString.apply(
-                                R.string.jsonkey_weatherdailyprediction_validdate)))
+                                R.string.keys_json_weatherdailyprediction_validdate)))
                         .addOutlook(outlook)
                         .addHighTemperature(highTemp)
                         .addLowTemperature(lowTemp)

@@ -20,9 +20,10 @@ import java.io.Serializable;
 
 public class Contact implements Serializable {
 
-    private String myName;
-    private String myUserName;
-    private String myEmail;
+    private String mFirstName;
+    private String mLastName;
+    private String mNickname;
+    private String mEmail;
 
     /**
       * Helper class for building Credentials.
@@ -31,53 +32,29 @@ public class Contact implements Serializable {
       * modified by Nico Roberts
       */
     public static class Builder {
-        private String myName;
-        private String myUserName;
-        private String myEmail;
+        private String mFirstName;
+        private String mLastName;
+        private String mNickname;
+        private String mEmail;
 
         /**
          * Constructs a new Builder.
          *
-         * @param theName
-         * @param theUserName
+         * @param theFirstName
+         * @param theLastName
+         * @param theNickname
          * @param theEmail
          */
-        public Builder(String theName, String theUserName, String theEmail) {
-            this.myName = theName;
-            this.myUserName = theUserName;
-            this.myEmail = theEmail;
+        public Builder(String theFirstName, String theLastName, String theNickname, String theEmail) {
+            this.mFirstName = theFirstName;
+            this.mLastName = theLastName;
+            this.mNickname = theNickname;
+            this.mEmail = theEmail;
         }
 
         /**
-          *
-          * @param val
-          * @return the Builder of this BlogPost
-          */
-        public Builder addName(final String val) {   // TODO implement
-            myName = myName + " " + val;
-            return this;
-        }
-
-        /**
-         *
-         * @param val
-         * @return the Builder of this BlogPost
+         *Constructor to build the new contact.
          */
-        public Builder addUserName(final String val) {   // TODO implement
-            myUserName = myUserName + " " + val;
-            return this;
-        }
-
-        /**
-         *
-         * @param val
-         * @return the Builder of this BlogPost
-         */
-        public Builder addEmail(final String val) {   // TODO implement
-            myEmail = myEmail + " " + val;
-            return this;
-        }
-
         public Contact build() {
 
             return new Contact(this);
@@ -85,28 +62,52 @@ public class Contact implements Serializable {
 
     }
 
-
+    /**
+     *Constructor for contact that takes in a builder object.
+     *
+     * @param builder object to build a contact.
+     */
     public Contact(final Builder builder)  {
-        this.myName = builder.myName;
-        this.myUserName = builder.myUserName;
-        this.myEmail = builder.myEmail;
-
+        this.mFirstName = builder.mFirstName;
+        this.mLastName = builder.mLastName;
+        this.mNickname = builder.mNickname;
+        this.mEmail = builder.mEmail;
     }
 
-
-    public String getUserName() {
-        return myUserName;
+    /**
+     *Getter for username.
+     *
+     * @return mFirstName
+     */
+    public String getFirstName() {
+        return mFirstName;
     }
 
+    /**
+     *Getter for username.
+     *
+     * @return mLastName
+     */
+    public String getLastName() {
+        return mLastName;
+    }
+
+    /**
+     *Getter for myName.
+     *
+     * @return mNickname
+     */
+    public String getNickname() {
+        return mNickname;
+    }
+
+    /**
+     *Getter for myEmail.
+     *
+     * @return mEmail
+     */
     public String getEmail() {
-        return myEmail;
+        return mEmail;
     }
-
-    public String getName() {
-        return myName;
-    }
-
-
-
 }
 

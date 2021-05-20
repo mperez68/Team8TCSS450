@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="keys_json_contacts">contacts</string>
+    <string name="keys_json_contact_firstname">firstname</string>
+    <string name="keys_json_contact_nickname">nickname</string>
+    <string name="keys_json_contact_lastname">lastname</string>
+    <string name="keys_json_contact_email">email</string>
 
     <!-- JSON Blog keys -->
     <string name="keys_json_blogs_response">response</string>
@@ -10,27 +15,27 @@
     <string name="keys_json_blogs_url">url</string>
 
     <!-- JSON Weather Main keys -->
-    <string name="jsonkey_weathermain_data">data</string>
-    <string name="jsonkey_weathermain_weather">weather</string>
-    <string name="jsonkey_weathermain_main">main</string>
-    <string name="jsonkey_weathermain_temp">temp</string>
-    <string name="jsonkey_weathermain_humidity">humidity</string>
-    <string name="jsonkey_weathermain_wind">wind</string>
-    <string name="jsonkey_weathermain_speed">speed</string>
-    <string name="jsonkey_weathermain_deg">deg</string>
+    <string name="keys_json_weathermain_data">data</string>
+    <string name="keys_json_weathermain_weather">weather</string>
+    <string name="keys_json_weathermain_main">main</string>
+    <string name="keys_json_weathermain_temp">temp</string>
+    <string name="keys_json_weathermain_humidity">humidity</string>
+    <string name="keys_json_weathermain_wind">wind</string>
+    <string name="keys_json_weathermain_speed">speed</string>
+    <string name="keys_json_weathermain_deg">deg</string>
 
     <!-- JSON Weather Hourly Prediction keys -->
-    <string name="jsonkey_weatherhourlyprediction_hourly">hourly</string>
-    <string name="jsonkey_weatherhourlyprediction_temp">temp</string>
-    <string name="jsonkey_weatherhourlyprediction_weather">weather</string>
-    <string name="jsonkey_weatherhourlyprediction_main">main</string>
-    <string name="jsonkey_weatherhourlyprediction_dt">dt</string>
+    <string name="keys_json_weatherhourlyprediction_hourly">hourly</string>
+    <string name="keys_json_weatherhourlyprediction_temp">temp</string>
+    <string name="keys_json_weatherhourlyprediction_weather">weather</string>
+    <string name="keys_json_weatherhourlyprediction_main">main</string>
+    <string name="keys_json_weatherhourlyprediction_dt">dt</string>
 
     <!-- JSON Weather Daily Prediction keys -->
-    <string name="jsonkey_weatherdailyprediction_data">data</string>
-    <string name="jsonkey_weatherdailyprediction_validdate">valid_date</string>
-    <string name="jsonkey_weatherdailyprediction_weather">weather</string>
-    <string name="jsonkey_weatherdailyprediction_description">description</string>
-    <string name="jsonkey_weatherdailyprediction_hightemp">high_temp</string>
-    <string name="jsonkey_weatherdailyprediction_lowtemp">low_temp</string>
+    <string name="keys_json_weatherdailyprediction_data">data</string>
+    <string name="keys_json_weatherdailyprediction_validdate">valid_date</string>
+    <string name="keys_json_weatherdailyprediction_weather">weather</string>
+    <string name="keys_json_weatherdailyprediction_description">description</string>
+    <string name="keys_json_weatherdailyprediction_hightemp">high_temp</string>
+    <string name="keys_json_weatherdailyprediction_lowtemp">low_temp</string>
 </resources>

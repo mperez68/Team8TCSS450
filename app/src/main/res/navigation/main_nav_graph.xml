@@ -51,12 +51,26 @@
         android:id="@+id/weatherDayPredictionListFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment"
         android:label="@string/title_mainnav_10dayforecast"
-        tools:layout="@layout/fragment_weather_day_prediction_list" />
+        tools:layout="@layout/fragment_weather_day_prediction_list" >
+        <argument
+            android:name="zipcode"
+            app:argType="string" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/weatherHourPredictionListFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment"
         android:label="@string/title_mainnav_24hourforecast"
-        tools:layout="@layout/fragment_weather_hour_prediction_list" />
+        tools:layout="@layout/fragment_weather_hour_prediction_list" >
+        <argument
+            android:name="zipcode"
+            app:argType="string" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/weatherMapFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMapFragment"

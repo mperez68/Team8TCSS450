@@ -7,39 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.weather.forecast.days.WeatherDayPredictionListFragment">
 
-    <TextView
-        android:id="@+id/day_prediction_list_zipcode_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_weatherdaylist_zipcode"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/day_prediction_list_zipcode"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/day_prediction_list_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_prediction_list_zipcode_tab"
+        app:layout_constraintTop_toBottomOf="@+id/day_prediction_list_city"
         tools:listitem="@layout/fragment_weather_day_prediction_card" />
 
     <TextView
-        android:id="@+id/day_prediction_list_zipcode"
+        android:id="@+id/day_prediction_list_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:text="@string/text_weatherdaylist_zipcodequery"
-        android:textSize="24sp"
+        android:layout_marginTop="24dp"
+        android:text="@string/text_weatherdaylist_city"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/day_prediction_list_zipcode_tab"
-        app:layout_constraintTop_toTopOf="@+id/day_prediction_list_zipcode_tab" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

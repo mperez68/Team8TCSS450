@@ -19,9 +19,8 @@
         <include
             android:id="@+id/hour_prediction_card_outlook"
             layout="@layout/fragment_weather_outlook"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/hour_prediction_card_temperature"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hour_prediction_card_hour" />
 
@@ -35,14 +34,16 @@
             android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/hour_prediction_card_temperature"
-            layout="@layout/fragment_weather_temp"
+        <TextView
+            android:id="@+id/hour_prediction_card_temperature_reading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
+            android:text="@string/text_weatherhourlist_temperature_reading"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="@+id/hour_prediction_card_outlook"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hour_prediction_card_hour" />
+            app:layout_constraintStart_toEndOf="@+id/hour_prediction_card_outlook"
+            app:layout_constraintTop_toTopOf="@+id/hour_prediction_card_outlook" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -99,8 +99,8 @@
     <!-- Weather Main Fragment Labels -->
     <string name="button_weathermain_search">Search</string>
     <string name="hint_weathermain_zipcode">Enter Zipcode</string>
-    <string name="text_weathermain_zipcode">Zipcode:</string>
-    <string name="text_weathermain_zipcodequery">[zipcode]</string>
+    <string name="text_weathermain_locationtab">Location:</string>
+    <string name="text_weathermain_zipcodequeriedlocation">_____</string>
     <string name="button_weathermain_24hourforecast">24-Hour Forecast</string>
     <string name="button_weathermain_5dayforecast">5-Day Forecast</string>
     <string name="button_weathermain_10dayforecast">10-Day Forecast</string>
@@ -108,12 +108,13 @@
 
     <!-- Weather Current Labels -->
     <string name="text_weathercurrent_temperature">Temperature:</string>
-    <string name="text_weathercurrent_tempreading">- -</string>
+    <string name="text_weathercurrent_tempreading">---</string>
     <string name="text_weathercurrent_outlook">Outlook:</string>
+    <string name="text_weathercurrent_outlookreading">___</string>
     <string name="text_weathercurrent_humidity">Humidity:</string>
-    <string name="text_weathercurrent_humidityreading">__%</string>
+    <string name="text_weathercurrent_humidityreading">___</string>
     <string name="text_weathercurrent_wind">Wind:</string>
-    <string name="text_weathercurrent_windreading">__ MPH</string>
+    <string name="text_weathercurrent_windreading">___</string>
 
     <!-- Weather Hour Prediction Card Labels -->
     <string name="text_weatherhourcard_hourinterval">[--:-- am/pm]</string>
@@ -122,16 +123,15 @@
     <string name="text_weatherdaycard_specificday">[mm/dd]</string>
 
     <!-- Weather Day Prediction List Labels -->
-    <string name="text_weatherdaylist_zipcode">Zipcode:</string>
-    <string name="text_weatherdaylist_zipcodequery">[zipcode]</string>
+    <string name="text_weatherdaylist_city">_____</string>
 
     <!-- Weather Hour Prediction List Labels -->
-    <string name="text_weatherhourlist_zipcode">Zipcode:</string>
-    <string name="text_weatherhourlist_zipcodequery">[zipcode]</string>
+    <string name="text_weatherhourlist_city">_____</string>
+    <string name="text_weatherhourlist_temperature_reading">___</string>
 
     <!-- Weather Temp Labels -->
     <string name="text_weathertemp_temperature">Temperature</string>
-    <string name="text_weathertemp_temperaturereading">- -</string>
+    <string name="text_weathertemp_temperaturereading">___</string>
 
     <!-- Weather Temp High and Low Labels -->
     <string name="text_temphighlow_temperature">Temperature</string>
@@ -141,7 +141,8 @@
     <string name="text_temphighlow_hightempreading">- -</string>
 
     <!-- Weather Outlook Labels -->
-    <string name="text_weatheroutlook_outlook">Outlook</string>
+    <string name="text_weatheroutlook_outlook"><u>Outlook</u></string>
+    <string name="text_weatheroutlook_outlookreading">___</string>
 
     <!-- Weather Map Labels -->
     <string name="text_weathermap_header">Weather Map</string>

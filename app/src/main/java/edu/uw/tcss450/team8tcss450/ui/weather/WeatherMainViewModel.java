@@ -1,7 +1,6 @@
 package edu.uw.tcss450.team8tcss450.ui.weather;
 
 import android.app.Application;
-import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,25 +22,29 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.IntFunction;
-
-import edu.uw.tcss450.team8tcss450.R;
 
 /**
- * The view model that holds primarily the zip code
- * in which is used to show current weather conditions
- * and forecasts for the said zip code
+ * The view model for WeatherMainFragment that handles
+ * a queried zipcode and determines whether or not it is
+ * valid.  If it is valid, a connection is made to a
+ * weather API to retrieve current weather condition data.
  *
  * @author Brandon Kennedy
- * @version 10 May 2021
+ * @version 19 May 2021
  */
 public class WeatherMainViewModel extends AndroidViewModel {
 
-    // The encapsulated zip code data
+    // The JSON object that is retrieved from the OpenWeatherMap API
     private MutableLiveData<JSONObject> mResponse;
 
+    // The queried zipcode to be used to get needed weather data from API
+    private String mZipcode;
+
+    // The city associated with the zipcode
+    //private String mCity;
+
     /**
-     * Construct the view model of the queried zipcode
+     * Construct the view model
      */
     public WeatherMainViewModel(@NonNull Application application) {
         super(application);
@@ -50,9 +52,26 @@ public class WeatherMainViewModel extends AndroidViewModel {
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Set and store the queried zipcode
+     * @param zipcode the queried zipcode
+     */
+    public void setZipcode(String zipcode) {
+        this.mZipcode = zipcode;
+    }
 
     /**
-     * Add an observer for the view model
+     * Get the zipcode that's stored in this inner class
+     * @return the stored queried zipcode
+     */
+    public String getZipcode() {
+        return this.mZipcode;
+    }
+
+
+    /**
+     * Add a response observer for the view model to handle data
+     * retrieved from the OpenWeatherMap API.
      *
      * @param owner the owner of the lifecycle that controls this observer
      * @param observer the official observer of this view model
@@ -71,6 +90,7 @@ public class WeatherMainViewModel extends AndroidViewModel {
      * @param error the Volley error being handled
      */
     private void handleError(final VolleyError error) {
+        Log.e("WeatherMainViewModel.java", "Error in getting response from WeatherBit API.");
         if (Objects.isNull(error.networkResponse)) {
             try {
                 mResponse.setValue(new JSONObject("{" +
@@ -81,7 +101,7 @@ public class WeatherMainViewModel extends AndroidViewModel {
             }
         } else {
             String data = new String(error.networkResponse.data, Charset.defaultCharset())
-                    .replace('\"', '\'');
+                .replace('\"', '\'');
             try {
                 JSONObject response = new JSONObject();
                 response.put("code", error.networkResponse.statusCode);
@@ -94,14 +114,14 @@ public class WeatherMainViewModel extends AndroidViewModel {
     }
 
     /**
-     * Connect to the OpenWeatherMap API via Heroku app to obtain
-     * JSON weather data about the queried zipcode
+     * Connect to the WeatherBit API via Heroku app to obtain
+     * current weather data about the queried zipcode in a JSON object
      *
      * @param zipcode the queried zipcode used to obtain weather data on
      */
     public void connect(final String zipcode) {
-        String url = "https://team8-tcss450-app.herokuapp.com/weather";
-
+        String url = "https://team8-tcss450-app.herokuapp.com/weather/current";
+        Log.i("WeatherMainViewModel.java", "Connecting to OpenWeatherMap API current weather conditions");
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -123,7 +143,7 @@ public class WeatherMainViewModel extends AndroidViewModel {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
+            .add(request);
     }
 
 }

@@ -27,37 +27,22 @@
         android:hint="@string/hint_weathermain_zipcode"
         android:inputType="textPersonName"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/zipcode_tab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_search_zipcode"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zipcode_tab"
+        android:id="@+id/zipcode_queried_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_weathermain_zipcode"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/zipcode_query"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_weathermain_zipcodequeriedlocation"
+        android:textSize="40sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/zipcode_search_field" />
-
-    <TextView
-        android:id="@+id/zipcode_query"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:text="@string/text_weathermain_zipcodequery"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/zipcode_tab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/zipcode_tab"
-        app:layout_constraintTop_toTopOf="@+id/zipcode_tab" />
 
     <include
         android:id="@+id/weather_current_fragment"
@@ -65,15 +50,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zipcode_tab" />
+        app:layout_constraintTop_toBottomOf="@+id/zipcode_queried_location" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_twenty_four_hour_forecast"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:clickable="true"
         android:text="@string/button_weathermain_24hourforecast"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/button_ten_day_forecast"
@@ -85,6 +72,7 @@
         android:id="@+id/button_ten_day_forecast"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:text="@string/button_weathermain_10dayforecast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -102,4 +90,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_twenty_four_hour_forecast" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

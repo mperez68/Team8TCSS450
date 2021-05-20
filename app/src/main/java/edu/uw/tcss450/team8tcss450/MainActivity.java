@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,16 +19,15 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.auth0.android.jwt.JWT;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
-import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 import edu.uw.tcss450.team8tcss450.services.PushReceiver;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestViewModel;
+import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +44,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+        SharedPreferences prefs = getSharedPreferences("App Shared Prefs", Context.MODE_PRIVATE);
+
+        String theme = prefs.getString("Shared Prefs Theme", "Default");
+
+        if (theme.equals("Alt")) {
+            ColorTheme.setTheme(ColorTheme.THEME_ALT);
+        } else {
+            ColorTheme.setTheme(ColorTheme.THEME_DEFAULT);
+        }
+
         ColorTheme.onActivityCreateSetTheme(this);
         setContentView(R.layout.activity_main);
 

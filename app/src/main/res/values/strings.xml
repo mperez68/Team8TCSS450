@@ -168,7 +168,9 @@
     <string name="base_url">https://team8-tcss450-app.herokuapp.com/</string>
 
     <!-- Strings used for settings -->
-    <string name="swtich_settings_theme">Color Theme:</string>
+    <string name="text_settings_theme">Color Theme:</string>
+    <string name="button_settings_alttheme">Alternate</string>
+    <string name="button_settings_deftheme">Default</string>
     <string name="button_settings_changenickname">Change Nickname</string>
     <string name="button_settings_changepassword">Change Password</string>
 

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_settings_nickname"
         android:layout_width="305dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_settings_change"
         android:layout_width="305dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -42,7 +42,7 @@
         android:text="@string/button_settings_changepassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_settings_nickname" />
 
     <Button
         android:id="@+id/testColorButton"
@@ -52,7 +52,7 @@
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_settings_change" />
 
     <Button
         android:id="@+id/testColorButton2"

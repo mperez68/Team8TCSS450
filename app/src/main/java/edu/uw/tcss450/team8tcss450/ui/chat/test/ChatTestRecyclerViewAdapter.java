@@ -19,54 +19,98 @@ import java.util.List;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatMessageTestBinding;
 
+
+/**
+ * A recycler that holds a list of chat cards.
+ */
 public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRecyclerViewAdapter.MessageViewHolder> {
 
     private final List<ChatTestMessage> mMessages;
     private final String mEmail;
-    public ChatTestRecyclerViewAdapter(List<ChatTestMessage> messages, String email) {
-        this.mMessages = messages;
-        mEmail = email;
+
+    /**
+     * ChatTestRecyclerViewAdapter constructor
+     *
+     * @param theMessages
+     * @param theEmail
+     */
+    public ChatTestRecyclerViewAdapter(List<ChatTestMessage> theMessages, String theEmail) {
+        this.mMessages = theMessages;
+        mEmail = theEmail;
     }
 
-
+    /**
+     * Creates the holder for each chat message
+     *
+     * @param theParent
+     * @param theViewType
+     */
     @NonNull
     @Override
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup theParent, int theViewType) {
         return new MessageViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.fragment_chat_message_test, parent, false));
+                .from(theParent.getContext())
+                .inflate(R.layout.fragment_chat_message_test, theParent, false));
     }
 
+    /**
+     * The bind view holder
+     *
+     * @param theHolder
+     * @param thePosition
+     */
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        holder.setMessage(mMessages.get(position));
+    public void onBindViewHolder(@NonNull MessageViewHolder theHolder, int thePosition) {
+        theHolder.setMessage(mMessages.get(thePosition));
     }
 
+    /**
+     * Getter for the number of messages in mMessages list.
+     *
+     * @return mMessages size
+     */
     @Override
     public int getItemCount() {
         return mMessages.size();
     }
 
+    /**
+     * Message view holder
+     *
+     */
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
         private FragmentChatMessageTestBinding binding;
 //FragmentChatTestMessageBinding
-        public MessageViewHolder(@NonNull View view) {
-            super(view);
-            mView = view;
-            binding = FragmentChatMessageTestBinding.bind(view);
+
+        /**
+         * Message view holder constructor
+         *
+         * @param theView
+         *
+         */
+        public MessageViewHolder(@NonNull View theView) {
+            super(theView);
+            mView = theView;
+            binding = FragmentChatMessageTestBinding.bind(theView);
         }
 
-        void setMessage(final ChatTestMessage message) {
+        /**
+         * sets the chat message.
+         *
+         * @param theMessage
+         *
+         */
+        void setMessage(final ChatTestMessage theMessage) {
             final Resources res = mView.getContext().getResources();
             final MaterialCardView card = binding.cardRoot;
 
             int standard = (int) res.getDimension(R.dimen.chat_margin);
             int extended = (int) res.getDimension(R.dimen.chat_margin_sided);
 
-            if (mEmail.equals(message.getSender())) {
+            if (mEmail.equals(theMessage.getSender())) {
                 //This message is from the user. Format it as such
-                binding.textMessage.setText(message.getMessage());
+                binding.textMessage.setText(theMessage.getMessage());
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
                 //Set the left margin
@@ -100,8 +144,8 @@ public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRe
                 card.requestLayout();
             } else {
                 //This message is from another user. Format it as such
-                binding.textMessage.setText(message.getSender() +
-                        ": " + message.getMessage());
+                binding.textMessage.setText(theMessage.getSender() +
+                        ": " + theMessage.getMessage());
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
 

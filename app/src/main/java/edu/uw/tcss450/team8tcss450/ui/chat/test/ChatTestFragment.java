@@ -46,13 +46,19 @@ public class ChatTestFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate for the Chat Fragment.
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle theSavedInstanceState) {
+        super.onCreate(theSavedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatTestViewModel.class);
-        mChatModel.getFirstMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
+        ChatTestFragmentArgs args = ChatTestFragmentArgs.fromBundle(getArguments());
+        myChatID = args.getChatID();
+        mChatModel.getFirstMessages(myChatID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
 
 //        ChatTestFragmentArgs args = ChatTestFragmentArgs.fromBundle(getArguments());
 //        myUserEmail = mUserModel.getEmail(); //my email
@@ -65,17 +71,27 @@ public class ChatTestFragment extends Fragment {
     }
 
 
-
+    /**
+     * onCreate for the Chat Fragment.
+     * @param theInflater
+     * @param theContainer
+     * @param theSavedInstanceState
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
+                             Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_test, container, false);
+        return theInflater.inflate(R.layout.fragment_chat_test, theContainer, false);
     }
 
+    /**
+     * onViewCreated for the Chat Fragment.
+     * @param theView
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
+        super.onViewCreated(theView, theSavedInstanceState);
 
         FragmentChatTestBinding binding = FragmentChatTestBinding.bind(getView());
 
@@ -87,17 +103,17 @@ public class ChatTestFragment extends Fragment {
         //Set the Adapter to hold a reference to the list FOR THIS chat ID that the ViewModel
         //holds.
         rv.setAdapter(new ChatTestRecyclerViewAdapter(
-                mChatModel.getMessageListByChatId(HARD_CODED_CHAT_ID),
+                mChatModel.getMessageListByChatId(myChatID),
                 mUserModel.getEmail()));
 
 
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
         //The user is out of messages, go out to the service and get more
         binding.swipeContainer.setOnRefreshListener(() -> {
-            mChatModel.getNextMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
+            mChatModel.getNextMessages(myChatID, mUserModel.getmJwt()); //edited here from mUserModel.getmJWT from Lab 5
         });
 
-        mChatModel.addMessageObserver(HARD_CODED_CHAT_ID, getViewLifecycleOwner(),
+        mChatModel.addMessageObserver(myChatID, getViewLifecycleOwner(),
                 list -> {
                     /*
                      * This solution needs work on the scroll position. As a group,
@@ -114,7 +130,7 @@ public class ChatTestFragment extends Fragment {
 
         //Send button was clicked. Send the message via the SendViewModel
         binding.buttonSend.setOnClickListener(button -> {
-            mSendModel.sendMessage(HARD_CODED_CHAT_ID,
+            mSendModel.sendMessage(myChatID,
                     mUserModel.getmJwt(), //edited here from mUserModel.getmJWT from Lab 5,
                     binding.editMessage.getText().toString());
         });

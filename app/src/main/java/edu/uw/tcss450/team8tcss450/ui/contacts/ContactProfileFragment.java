@@ -68,10 +68,10 @@ public class ContactProfileFragment extends Fragment {
         //Listener for the search contact button.
         mBinding.buttonContactMessage.setOnClickListener(button ->
                 //commented out for later
-//                Navigation.findNavController(getView()).navigate(
-//                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail())));
-            Navigation.findNavController(getView()).navigate(
-                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+                Navigation.findNavController(getView()).navigate(
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
+//            Navigation.findNavController(getView()).navigate(
+//                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
 
 
         ContactListViewModel contact = new ViewModelProvider(getActivity())

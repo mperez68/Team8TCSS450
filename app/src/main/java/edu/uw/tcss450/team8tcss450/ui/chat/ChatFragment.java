@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import java.util.List;
+
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
@@ -29,43 +31,87 @@ import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 public class ChatFragment extends Fragment {
     private ChatListViewModel mModel;
     public FragmentChatBinding binding;
+    public UserInfoViewModel mUserModel;
 
     public ChatFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate for the Chat Fragment.
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
+    public void onCreate(@Nullable Bundle theSavedInstanceState) {
+        super.onCreate(theSavedInstanceState);
+        mUserModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
-        mModel.connectGet(model.getmJwt());
+
+        //TODO this is 4 asyrchronous calls for hard coded chat rooms 1,2,3, and 4. This will need to be reworked.
+        for (int i = 1; i <= 4; i++) {
+            mModel.connectGet(mUserModel.getmJwt(), i);
+        }
+        //Original
+       // mModel.connectGet(model.getmJwt());
     }
 
+    /**
+     * onCreate for the Chat Fragment.
+     * @param theInflater
+     * @param theContainer
+     * @param theSavedInstanceState
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
+                             Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        return theInflater.inflate(R.layout.fragment_chat, theContainer, false);
     }
 
+    /**
+     * onViewCreated for the Chat Fragment.
+     * @param theView
+     * @param theSavedInstanceState
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
+        super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+
+            // TODO this is hard coded for the 4 chat rooms. In the future this will require broader implementation. Original down below.
             if (!chatList.isEmpty()) {
+                int size = chatList.size();
+                for (int i = 0; i < size; i++) {
+                    if (!(chatList.get(i).getmContact().contains(mUserModel.getEmail()))) {
+                        chatList.remove(i);
+                    }
+                }
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
+
             }
+
+
         });
+        //Original
+//        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+//            if (!chatList.isEmpty()) {
+//                binding.listRoot.setAdapter(
+//                        new ChatRecyclerViewAdapter(chatList)
+//                );
+//            }
+//        });
 
         //Listener for the chat test
         binding.testButton.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ChatFragmentDirections.actionNavigationChatToChatTestFragment("test1@test.com")
+                        ChatFragmentDirections.actionNavigationChatToChatTestFragment("test1@test.com", 1) //these parameters are trivial
                 ));
     }
+
 }
+
+

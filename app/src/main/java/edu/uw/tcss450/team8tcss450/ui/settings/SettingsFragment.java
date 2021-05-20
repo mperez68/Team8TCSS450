@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.settings;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 
 import androidx.navigation.Navigation;
 import edu.uw.tcss450.team8tcss450.R;
@@ -18,7 +21,7 @@ import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsFragment extends Fragment implements View.OnClickListener {
+public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
 
@@ -47,30 +50,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSettingsChange.setOnClickListener(button ->
+        SharedPreferences prefs = getActivity().getSharedPreferences("App Shared Prefs", Context.MODE_PRIVATE);
+
+        // color switching
+        binding.buttonAlttheme.setOnClickListener(button -> {
+            prefs.edit().putString("Shared Prefs Theme", "Alt").apply();
+            ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_ALT);
+        });
+        binding.buttonDeftheme.setOnClickListener(button -> {
+            prefs.edit().putString("Shared Prefs Theme", "Default").apply();
+            ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT);
+        });
+
+        binding.buttonChangepassword.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
                         SettingsFragmentDirections.actionNavigationSettingsToChangePasswordFragment()
                 ));
 
-        binding.testColorButton.setOnClickListener(button ->
-                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_2)
-                );
-        binding.testColorButton2.setOnClickListener(button ->
-                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT)
-                );
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.testColorButton:
-                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_2);
-                break;
-            case R.id.testColorButton2:
-                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT);
-                break;
-        }
     }
 
 }

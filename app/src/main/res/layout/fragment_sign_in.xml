@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_logo"
         android:layout_width="140dp"
         android:layout_height="96dp"
         android:layout_marginTop="100dp"

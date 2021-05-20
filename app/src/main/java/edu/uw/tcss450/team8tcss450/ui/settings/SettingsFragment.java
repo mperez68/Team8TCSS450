@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.navigation.Navigation;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentSettingsBinding;
+import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
 import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 /**
@@ -44,6 +46,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.buttonSettingsChange.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        SettingsFragmentDirections.actionNavigationSettingsToChangePasswordFragment()
+                ));
 
         binding.testColorButton.setOnClickListener(button ->
                 ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_2)

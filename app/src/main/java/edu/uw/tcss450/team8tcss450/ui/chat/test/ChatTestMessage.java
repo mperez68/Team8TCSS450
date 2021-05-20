@@ -7,6 +7,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
+/**
+ * Class representing a chat message.
+ */
 public class ChatTestMessage implements Serializable {
 
     private final int mMessageId;
@@ -14,11 +17,20 @@ public class ChatTestMessage implements Serializable {
     private final String mSender;
     private final String mTimeStamp;
 
-    public ChatTestMessage(int messageId, String message, String sender, String timeStamp) {
-        mMessageId = messageId;
-        mMessage = message;
-        mSender = sender;
-        mTimeStamp = timeStamp;
+
+    /**
+     * ChatTestMessage constructor
+     *
+     * @param theMessageID
+     * @param theMessage
+     * @param theSender
+     * @param theTimeStamp
+     */
+    public ChatTestMessage(int theMessageID, String theMessage, String theSender, String theTimeStamp) {
+        mMessageId = theMessageID;
+        mMessage = theMessage;
+        mSender = theSender;
+        mTimeStamp = theTimeStamp;
     }
 
     /**
@@ -36,18 +48,38 @@ public class ChatTestMessage implements Serializable {
                 msg.getString("timestamp"));
     }
 
+    /**
+     * getter for the message
+     *
+     * @return the Message
+     */
     public String getMessage() {
         return mMessage;
     }
 
+    /**
+     * getter for the sender
+     *
+     * @return the sender
+     */
     public String getSender() {
         return mSender;
     }
 
+    /**
+     * getter for the time
+     *
+     * @return the time
+     */
     public String getTimeStamp() {
         return mTimeStamp;
     }
 
+    /**
+     * getter for the message ID
+     *
+     * @return the Message ID
+     */
     public int getMessageId() {
         return mMessageId;
     }

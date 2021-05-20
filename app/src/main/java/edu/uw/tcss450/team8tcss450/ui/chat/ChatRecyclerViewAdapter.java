@@ -104,25 +104,45 @@ public class ChatRecyclerViewAdapter extends
             theView.setOnClickListener(this);
         }
 
+        /**
+         * Onclick listener for buttons to send to chatTestFragment
+         *
+         * @params theView
+         */
         @Override
         public void onClick(View theView) {
             Navigation.findNavController(theView).navigate(
-                    ChatFragmentDirections.actionNavigationChatToChatMessageFragment(myConversation.getmContact()));
+                    ChatFragmentDirections.actionNavigationChatToChatTestFragment(myConversation.getmContact(), myConversation.getMyChatID())); //send contact name and chat ID as parameters
         }
 
-
+        /**
+         * sets the chat conversation card gotten from the endpoint in chatListViewModel.
+         *
+         * @params theChatConversation
+         */
         private void setConversation(final ChatConversation theChatConversation) {
             myConversation = theChatConversation;
-            myBinding.textSender.setText("Contact Nickname");
+
+
+            //Use methods in the HTML class to format the HTML found in the text
+            final String chatParticipants = theChatConversation.getmContact();
+//            =Html.fromHtml(
+//                    theChatConversation.getmContact(),
+//                    Html.FROM_HTML_MODE_COMPACT)
+//                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2));
+            myBinding.textSender.setText(chatParticipants);
+
             myBinding.textTimestamp.setText("7/5");
 
             //Use methods in the HTML class to format the HTML found in the text
-            final String preview = Html.fromHtml(
-                    theChatConversation.getmMessage().get(0).toString(),
-                    Html.FROM_HTML_MODE_COMPACT)
-                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2))
-                    + "...";
 
+            //USED FOR LONG BACON MESSAAGE
+//            final String preview = Html.fromHtml(
+//                    theChatConversation.getmMessage().get(0).toString(),
+//                    Html.FROM_HTML_MODE_COMPACT)
+//                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2))
+//                    + "...";
+            final String preview = theChatConversation.getmMessage().get(0).toString();
             myBinding.textMessage.setText(preview);
         }
     }

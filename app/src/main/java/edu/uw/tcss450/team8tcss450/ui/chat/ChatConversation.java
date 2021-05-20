@@ -28,6 +28,11 @@ public class ChatConversation implements Serializable {
     private LinkedList<String> mMessage;   // TODO change to message object pt. 1
 
     /**
+     * Chat ID
+     */
+    private int myChatID;
+
+    /**
      * Helper class for building Credentials.
      *
      * @author Charles Bryan
@@ -36,6 +41,7 @@ public class ChatConversation implements Serializable {
     public static class Builder {
         private final String mContact;
         private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
+        private int myChatID;
 
         /**
          * Constructs a new Builder.
@@ -43,9 +49,10 @@ public class ChatConversation implements Serializable {
          * @param contact
          * @param message
          */
-        public Builder(String contact, String message) {
+        public Builder(String contact, String message, int chatID) {
             this.mContact = contact;
             this.mMessage.add(message);
+            this.myChatID = chatID;
         }
 
         public ChatConversation build() {
@@ -57,6 +64,7 @@ public class ChatConversation implements Serializable {
     private ChatConversation(final Builder builder) {
         this.mContact = builder.mContact;
         this.mMessage = builder.mMessage;
+        this.myChatID = builder.myChatID;
     }
 
     /**
@@ -73,5 +81,9 @@ public class ChatConversation implements Serializable {
      */
     public LinkedList getmMessage() {
         return (LinkedList) mMessage.clone();
+    }
+
+    public int getMyChatID() {
+        return myChatID;
     }
 }

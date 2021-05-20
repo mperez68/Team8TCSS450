@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -61,6 +62,18 @@ public class ContactProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
 
+
+        ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
+
+        //Listener for the search contact button.
+        mBinding.buttonContactMessage.setOnClickListener(button ->
+                //commented out for later
+                Navigation.findNavController(getView()).navigate(
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
+//            Navigation.findNavController(getView()).navigate(
+//                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+
+
         ContactListViewModel contact = new ViewModelProvider(getActivity())
                 .get(ContactListViewModel.class);
 
@@ -68,9 +81,10 @@ public class ContactProfileFragment extends Fragment {
         mBinding.contactLastname.setText(contact.getContactList().getValue().get(0).getLastName());
         mBinding.contactNickname.setText(contact.getContactList().getValue().get(0).getNickname());
 
-        //Listener for the search contact button.
-        mBinding.buttonContactMessage.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+//        //Listener for the search contact button.
+//        mBinding.buttonContactMessage.setOnClickListener(button ->
+//                Navigation.findNavController(getView()).navigate(
+//                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
     }
 }

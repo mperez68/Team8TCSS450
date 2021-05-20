@@ -5,25 +5,31 @@
     android:id="@+id/outlook_layout_root"
     android:layout_width="200dp"
     android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
     tools:context=".ui.weather.forecast.WeatherOutlookFragment">
 
     <TextView
         android:id="@+id/outlook_outlook_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/text_weatheroutlook_outlook"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/outlook_graphic"
+    <TextView
+        android:id="@+id/outlook_outlook_reading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_weather_outlook_grey_60dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:maxLines="2"
+        android:text="@string/text_weathercurrent_outlookreading"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outlook_outlook_tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

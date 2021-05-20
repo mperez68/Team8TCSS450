@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherDayPredictionCardB
  * card fragments in a consecutive list
  *
  * @author Brandon Kennedy
- * @version 30 April 2021
+ * @version 16 May 2021
  */
 public class WeatherDayRecyclerViewAdapter extends
         RecyclerView.Adapter<WeatherDayRecyclerViewAdapter.WeatherDayViewHolder> {
@@ -58,7 +60,7 @@ public class WeatherDayRecyclerViewAdapter extends
      * for this recycler view adapter class
      *
      * @author Brandon Kennedy
-     * @version 30 April 2021
+     * @version 14 May 2021
      */
     public class WeatherDayViewHolder extends RecyclerView.ViewHolder {
 
@@ -87,12 +89,13 @@ public class WeatherDayRecyclerViewAdapter extends
         void setInfoList(final WeatherDayPostInfo infoList) {
             mInfoDayList = infoList;
             binding.dayPredictionCardSpecificDay.setText(infoList.getDate());
-            binding.dayPredictionCardOutlook.outlookGraphic
-                    .setImageResource(R.drawable.ic_weather_outlook_grey_60dp);
+
+            binding.dayPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
+
             binding.dayPredictionCardTemperature.lowTemperatureReading
-                    .setText(infoList.getLowTemperature());
+                    .setText(infoList.getLowTemperature() + "\u00B0F");
             binding.dayPredictionCardTemperature.highTemperatureReading
-                    .setText(infoList.getHighTemperature());
+                    .setText(infoList.getHighTemperature() + "\u00B0F");
         }
     }
 

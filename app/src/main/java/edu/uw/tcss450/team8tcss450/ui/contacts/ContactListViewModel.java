@@ -73,8 +73,13 @@ public class ContactListViewModel extends AndroidViewModel {
      * @return myViewAdapter
      */
     public ContactsRecyclerViewAdapter getViewAdapter() {
+
         return mViewAdapter;
     }
+
+
+
+
 
     /**
      * connect to endpoints using heroku app link. Can use get requests from endpoint.

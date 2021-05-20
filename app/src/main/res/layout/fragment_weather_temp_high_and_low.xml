@@ -8,44 +8,37 @@
     tools:context=".ui.weather.forecast.WeatherTempHighAndLowFragment">
 
     <TextView
-        android:id="@+id/temp_high_and_low_temperature_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_temphighlow_temperature"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/high_temperature_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/text_temphighlow_hightemp"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/high_temperature_reading"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temp_high_and_low_temperature_tab" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/low_temperature_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/text_temphighlow_lowtemp"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/high_temperature_reading"
-        app:layout_constraintTop_toTopOf="@+id/high_temperature_tab" />
+        app:layout_constraintEnd_toStartOf="@+id/low_temperature_reading"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/high_temperature_tab" />
 
     <TextView
         android:id="@+id/high_temperature_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/text_temphighlow_hightempreading"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/high_temperature_tab"
         app:layout_constraintTop_toTopOf="@+id/high_temperature_tab" />
 
@@ -53,11 +46,11 @@
         android:id="@+id/low_temperature_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="24dp"
         android:text="@string/text_temphighlow_lowtempreading"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/low_temperature_tab"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/low_temperature_tab"
         app:layout_constraintTop_toTopOf="@+id/low_temperature_tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

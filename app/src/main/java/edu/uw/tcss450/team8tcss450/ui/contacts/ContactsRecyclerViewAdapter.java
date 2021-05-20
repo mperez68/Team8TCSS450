@@ -92,9 +92,13 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         @Override
         public void onClick(View theView) {
             Navigation.findNavController(theView).navigate(
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname()));
-        }
 
+                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
+//=======
+//                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname()));
+//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
+        }
+       // ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getName(), myContact.getEmail())
         /**
          * Setter method for the contact.
          *

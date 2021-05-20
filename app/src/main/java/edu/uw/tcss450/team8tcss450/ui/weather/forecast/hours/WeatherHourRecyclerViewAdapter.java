@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours;
 
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherHourPredictionCard
  * card fragments in a consecutive list
  *
  * @author Brandon Kennedy
- * @version 30 April 2021
+ * @version 16 May 2021
  */
 public class WeatherHourRecyclerViewAdapter extends
         RecyclerView.Adapter<WeatherHourRecyclerViewAdapter.WeatherHourViewHolder> {
@@ -58,7 +60,7 @@ public class WeatherHourRecyclerViewAdapter extends
      * for this recycler view adapter class
      *
      * @author Brandon Kennedy
-     * @version 30 April 2021
+     * @version 16 May 2021
      */
     public class WeatherHourViewHolder extends RecyclerView.ViewHolder {
 
@@ -85,11 +87,11 @@ public class WeatherHourRecyclerViewAdapter extends
          */
         void setInfoList(final WeatherHourPostInfo infoList) {
             mInfoHourList = infoList;
-            binding.hourPredictionCardHour.setText(infoList.getTime());
-            binding.hourPredictionCardOutlook.outlookGraphic
-                    .setImageResource(R.drawable.ic_weather_outlook_grey_60dp);
-            binding.hourPredictionCardTemperature.highTemperatureReading
-                    .setText(infoList.getTemperature());
+            binding.hourPredictionCardHour.setText(infoList.getDate() + "  " + infoList.getTime());
+
+            binding.hourPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
+
+            binding.hourPredictionCardTemperatureReading.setText(infoList.getTemperature() + "\u00B0F");
         }
     }
 

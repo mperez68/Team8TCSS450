@@ -25,29 +25,48 @@ import java.util.Objects;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.io.RequestQueueSingleton;
 
+/**
+ * A view model that stores the states of the sent chats.
+ */
 public class ChatTestSendViewModel extends AndroidViewModel {
 
     private final MutableLiveData<JSONObject> mResponse;
 
-    public ChatTestSendViewModel(@NonNull Application application) {
-        super(application);
+    /**
+     * ChatTestSendViewModel constructor
+     *
+     * @Param theApplication
+     */
+    public ChatTestSendViewModel(@NonNull Application theApplication) {
+        super(theApplication);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
-    public void addResponseObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super JSONObject> observer) {
-        mResponse.observe(owner, observer);
+    /**
+     * Register as an observer to listen to a specific response from a json object.
+     * @param theOwner the fragments lifecycle owner
+     * @param theObserver the observer
+     */
+    public void addResponseObserver(@NonNull LifecycleOwner theOwner,
+                                    @NonNull Observer<? super JSONObject> theObserver) {
+        mResponse.observe(theOwner, theObserver);
     }
 
-    public void sendMessage(final int chatId, final String jwt, final String message) {
+    /**
+     * Requests the post endpoint in messages.
+     * @param theChatID
+     * @param theJwt
+     * @param theMessage
+     */
+    public void sendMessage(final int theChatID, final String theJwt, final String theMessage) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "messages";
 
         JSONObject body = new JSONObject();
         try {
-            body.put("message", message);
-            body.put("chatId", chatId);
+            body.put("message", theMessage);
+            body.put("chatId", theChatID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -63,7 +82,7 @@ public class ChatTestSendViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("Authorization", jwt);
+                headers.put("Authorization", theJwt);
                 return headers;
             }
         };
@@ -78,15 +97,18 @@ public class ChatTestSendViewModel extends AndroidViewModel {
     }
 
 
-
-    private void handleError(final VolleyError error) {
-        if (Objects.isNull(error.networkResponse)) {
-            Log.e("NETWORK ERROR", error.getMessage());
+    /**
+     * Error handler if unexpected or error returned from post endpoint in messages.
+     * @param theError
+     */
+    private void handleError(final VolleyError theError) {
+        if (Objects.isNull(theError.networkResponse)) {
+            Log.e("NETWORK ERROR", theError.getMessage());
         }
         else {
-            String data = new String(error.networkResponse.data, Charset.defaultCharset());
+            String data = new String(theError.networkResponse.data, Charset.defaultCharset());
             Log.e("CLIENT ERROR",
-                    error.networkResponse.statusCode +
+                    theError.networkResponse.statusCode +
                             " " +
                             data);
         }

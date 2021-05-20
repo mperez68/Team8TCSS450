@@ -54,12 +54,26 @@
         android:id="@+id/weatherDayPredictionListFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment"
         android:label="@string/title_mainnav_10dayforecast"
-        tools:layout="@layout/fragment_weather_day_prediction_list" />
+        tools:layout="@layout/fragment_weather_day_prediction_list" >
+        <argument
+            android:name="zipcode"
+            app:argType="string" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/weatherHourPredictionListFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment"
         android:label="@string/title_mainnav_24hourforecast"
-        tools:layout="@layout/fragment_weather_hour_prediction_list" />
+        tools:layout="@layout/fragment_weather_hour_prediction_list" >
+        <argument
+            android:name="zipcode"
+            app:argType="string" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/weatherMapFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMapFragment"
@@ -95,20 +109,47 @@
         <argument
             android:name="contactNickname"
             app:argType="string" />
+        <argument
+            android:name="contactEmail"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_contactProfileFragment_to_chatTestFragment"
+            app:destination="@id/chatTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatTestFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
-        android:label="ChatTestFragment" />
+
+        android:label="ChatTestFragment" >
+        <argument
+            android:name="contactEmail"
+            app:argType="string" />
+        <argument
+            android:name="chatID"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
+
     </fragment>
     <fragment
         android:id="@+id/contactNewFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactNewFragment"
         android:label="ContactNewFragment" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/contactProfileFragment"-->
+<!--        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"-->
+<!--        android:label="ContactProfileFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"-->
+<!--            app:destination="@id/chatMessageFragment" />-->
+<!--        <argument-->
+<!--            android:name="contactNickname"-->
+<!--            app:argType="string" />-->
+<!--    </fragment>-->
 
 </navigation>

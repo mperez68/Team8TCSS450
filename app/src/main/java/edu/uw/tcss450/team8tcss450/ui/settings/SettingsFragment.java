@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
+import androidx.navigation.Navigation;
+import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentSettingsBinding;
+import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
 import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 /**
@@ -58,7 +62,10 @@ public class SettingsFragment extends Fragment {
             ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT);
         });
 
-
+        binding.buttonChangepassword.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        SettingsFragmentDirections.actionNavigationSettingsToChangePasswordFragment()
+                ));
 
     }
 

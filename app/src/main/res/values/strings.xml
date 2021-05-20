@@ -175,5 +175,11 @@
     <string name="button_settings_changenickname">Change Nickname</string>
     <string name="button_settings_changepassword">Change Password</string>
     <string name="global_chat">Global Chat</string>
+    <string name="text_settings_title">Change Password</string>
+    <string name="text_settings_email">Confirm Email</string>
+    <string name="text_settings_old_password">Current Password</string>
+    <string name="text_settings_new_password">New Password</string>
+    <string name="text_settings_con_password">Confirm New Password</string>
+    <string name="button_settings_update">Update Password</string>
 
 </resources>

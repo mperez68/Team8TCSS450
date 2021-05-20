@@ -10,6 +10,7 @@
 
     <Button
         android:id="@+id/button_changenickname"
+
         android:layout_width="305dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"

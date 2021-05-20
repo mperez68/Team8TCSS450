@@ -17,9 +17,8 @@
         <include
             android:id="@+id/day_prediction_card_outlook"
             layout="@layout/fragment_weather_outlook"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/day_prediction_card_temperature"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_specific_day" />
 
@@ -40,10 +39,12 @@
             layout="@layout/fragment_weather_temp_high_and_low"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_specific_day"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/day_prediction_card_outlook"
+            app:layout_constraintTop_toBottomOf="@+id/day_prediction_card_specific_day" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

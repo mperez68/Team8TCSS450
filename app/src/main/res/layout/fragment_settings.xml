@@ -33,36 +33,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_changenickname" />
 
-    <Button
-        android:id="@+id/button_alttheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="85dp"
-        android:text="@string/button_settings_alttheme"
-        app:layout_constraintStart_toEndOf="@+id/text_theme"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_deftheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="30dp"
-        android:text="@string/button_settings_deftheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_alttheme"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/text_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="100dp"
         android:text="@string/text_settings_theme"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="90dp"
+        android:orientation='horizontal'
+        app:layout_constraintStart_toEndOf="@+id/text_theme"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_alttheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_settings_alttheme"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="396dp" />
+
+        <RadioButton
+            android:id="@+id/radio_deftheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_settings_deftheme"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="396dp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_applytheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="85dp"
+        android:text="@string/button_settings_apply"
+        app:layout_constraintStart_toEndOf="@+id/radiogroup_container"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

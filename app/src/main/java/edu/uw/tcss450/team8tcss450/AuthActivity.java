@@ -14,13 +14,16 @@ import me.pushy.sdk.Pushy;
 
 public class AuthActivity extends AppCompatActivity {
 
+    public static final String sharedPrefKey = "Shared Prefs App";
+    public static final String sharedPrefTheme = "Shared Prefs Theme";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = getSharedPreferences("App Shared Prefs", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
-        String theme = prefs.getString("Shared Prefs Theme", "Default");
+        String theme = prefs.getString(sharedPrefTheme, "Default");
 
         if (theme.equals("Alt")) {
             ColorTheme.setTheme(ColorTheme.THEME_ALT);

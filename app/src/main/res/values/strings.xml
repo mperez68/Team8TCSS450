@@ -170,8 +170,9 @@
 
     <!-- Strings used for settings -->
     <string name="text_settings_theme">Color Theme:</string>
-    <string name="button_settings_alttheme">Alternate</string>
-    <string name="button_settings_deftheme">Default</string>
+    <string name="radio_settings_alttheme">Alternate</string>
+    <string name="radio_settings_deftheme">Default</string>
+    <string name="button_settings_apply">Apply</string>
     <string name="button_settings_changenickname">Change Nickname</string>
     <string name="button_settings_changepassword">Change Password</string>
     <string name="global_chat">Global Chat</string>

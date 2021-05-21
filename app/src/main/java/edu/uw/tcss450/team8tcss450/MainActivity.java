@@ -18,7 +18,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.auth0.android.jwt.JWT;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
@@ -31,6 +30,9 @@ import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String sharedPrefKey = "Shared Prefs App";
+    public static final String sharedPrefTheme = "Shared Prefs Theme";
 
 // PUSHY MESSAGING added from lab 5
     private ActivityMainBinding myBinding;
@@ -48,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-            SharedPreferences prefs = getSharedPreferences("App Shared Prefs", Context.MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
-            String theme = prefs.getString("Shared Prefs Theme", "Default");
+            String theme = prefs.getString(sharedPrefTheme, "Default");
 
             if (theme.equals("Alt")) {
                 ColorTheme.setTheme(ColorTheme.THEME_ALT);

@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-
 import androidx.navigation.Navigation;
-import edu.uw.tcss450.team8tcss450.R;
+
 import edu.uw.tcss450.team8tcss450.databinding.FragmentSettingsBinding;
-import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
 import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 /**
@@ -23,7 +20,11 @@ import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
  */
 public class SettingsFragment extends Fragment {
 
+    public static final String sharedPrefKey = "Shared Prefs App";
+    public static final String sharedPrefTheme = "Shared Prefs Theme";
+
     private FragmentSettingsBinding binding;
+
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -50,16 +51,22 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("App Shared Prefs", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
         // color switching
-        binding.buttonAlttheme.setOnClickListener(button -> {
-            prefs.edit().putString("Shared Prefs Theme", "Alt").apply();
-            ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_ALT);
-        });
-        binding.buttonDeftheme.setOnClickListener(button -> {
-            prefs.edit().putString("Shared Prefs Theme", "Default").apply();
-            ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT);
+        binding.buttonApplytheme.setOnClickListener(button -> {
+            if (binding.radioAlttheme.isChecked()) {
+                prefs.edit().putString(sharedPrefTheme, "Alt").apply();
+                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_ALT);
+            }
+            else if (binding.radioDeftheme.isChecked()) {
+                prefs.edit().putString(sharedPrefTheme, "Default").apply();
+                ColorTheme.changeToTheme(getActivity(), ColorTheme.THEME_DEFAULT);
+            }
+            // Do nothing when no theme is selected
+            else {
+                //binding.buttonApplytheme.setError("No theme selected");
+            }
         });
 
         binding.buttonChangepassword.setOnClickListener(button ->

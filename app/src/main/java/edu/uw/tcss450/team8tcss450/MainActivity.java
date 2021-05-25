@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
@@ -50,17 +51,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-            SharedPreferences prefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
-            String theme = prefs.getString(sharedPrefTheme, "Default");
+        SharedPreferences prefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
-            if (theme.equals("Alt")) {
-                ColorTheme.setTheme(ColorTheme.THEME_ALT);
-            } else {
-                ColorTheme.setTheme(ColorTheme.THEME_DEFAULT);
-            }
+        String theme = prefs.getString(sharedPrefTheme, "Default");
 
-            ColorTheme.onActivityCreateSetTheme(this);
+        if (theme.equals("Alt")) {
+            ColorTheme.setTheme(ColorTheme.THEME_ALT);
+        } else {
+            ColorTheme.setTheme(ColorTheme.THEME_DEFAULT);
+        }
+
+        ColorTheme.onActivityCreateSetTheme(this);
 
         //Original
         //setContentView(R.layout.activity_main);
@@ -91,29 +93,6 @@ public class MainActivity extends AppCompatActivity {
 //            //In production code, add in your own error handling/flow for when the JWT is expired
 //            throw new IllegalStateException("JWT is expired!");
 //        }
-//=======
-//
-//        ColorTheme.onActivityCreateSetTheme(this);
-//        setContentView(R.layout.activity_main);
-//
-//        MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
-//
-//
-//        JWT jwt = new JWT(args.getJwt());
-//
-//        // Check to see if the web token is still valid or not. To make a JWT expire after a
-//        // longer or shorter time period, change the expiration time when the JWT is
-//        // created on the web service.
-//        if(!jwt.isExpired(UserInfoViewModel.mLeeway)) {
-//            new ViewModelProvider(
-//                    this,
-//                    new UserInfoViewModel.UserInfoViewModelFactory(jwt))
-//                    .get(UserInfoViewModel.class);
-//        } else {
-//            //In production code, add in your own error handling/flow for when the JWT is expired
-//            throw new IllegalStateException("JWT is expired!");
-//        }
-//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -136,19 +115,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mNewMessageModel.addMessageCountObserver(this, count -> {
-//            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_chat);
-//            badge.setMaxCharacterCount(2);
-//            if (count > 0) {
-//                //new messages! update and show the notification badge.
-//                badge.setNumber(count);
-//                badge.setVisible(true);
-//            } else {
-//                //user did some action to clear the new messages, remove the badge
-//                badge.clearNumber();
-//                badge.setVisible(false);
-//            }
-//        });
+        mNewMessageModel.addMessageCountObserver(this, count -> {
+            BadgeDrawable badge = myBinding.navView.getOrCreateBadge(R.id.navigation_chat);
+            badge.setMaxCharacterCount(2);
+            if (count > 0) {
+                //new messages! update and show the notification badge.
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
 
     }
 

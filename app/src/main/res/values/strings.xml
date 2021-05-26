@@ -117,6 +117,8 @@
     <string name="text_weathercurrent_humidityreading">___</string>
     <string name="text_weathercurrent_wind">Wind:</string>
     <string name="text_weathercurrent_windreading">___</string>
+    <string name="text_weathercurrent_visibility">Visibility:</string>
+    <string name="text_weathercurrent_visibilityreading">___</string>
 
     <!-- Weather Hour Prediction Card Labels -->
     <string name="text_weatherhourcard_hourinterval">[--:-- am/pm]</string>

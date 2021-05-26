@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +28,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * A fragment that lists and displays the 24-hour weather forecast predictions
  *
  * @author Brandon Kennedy
- * @version 19 May 2021
+ * @version 25 May 2021
  */
 public class WeatherHourPredictionListFragment extends Fragment {
 
@@ -46,14 +49,22 @@ public class WeatherHourPredictionListFragment extends Fragment {
         mViewModel = new ViewModelProvider(
                 getActivity()).get(WeatherHourPredictionViewModel.class);
 
-        WeatherHourPredictionListFragmentArgs args =
-                WeatherHourPredictionListFragmentArgs.fromBundle(getArguments());
+        WeatherZipcodeViewModel model =
+                new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
 
-        Log.i("WeatherHourPredictionListFragment.onCreate()",
-                "Zipcode from Args is " + args.getZipcode() + ".  City is " + args.getCity());
+        Log.d("WeatherHourPredictionListFragment.onCreate()",
+                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
 
-        if (!args.getZipcode().equals("") && !args.getCity().equals(""))
-            mViewModel.connectToWeatherBit(args.getZipcode());
+        // If the saved zipcode in WeatherHourPredictionViewModel does not match the zipcode
+        // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
+        // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
+        // Otherwise, display information already saved in WeatherHourPredictionViewModel
+        if (!mViewModel.getZipcode().equals(model.getZipcode())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getZipcode());
+        }
+
     }
 
     @Override
@@ -67,11 +78,6 @@ public class WeatherHourPredictionListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentWeatherHourPredictionListBinding binding
             = FragmentWeatherHourPredictionListBinding.bind(getView());
-        WeatherZipcodeViewModel model =
-                new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
-
-        if (!model.getZipcode().equals(""))
-            binding.hourPredictionListCity.setText(model.getCity());
 
         mViewModel.addWeatherHourListObserver(
             getViewLifecycleOwner(),
@@ -82,49 +88,22 @@ public class WeatherHourPredictionListFragment extends Fragment {
                 }
             }
         );
-
-        mViewModel.addResponseObserver(
-            getViewLifecycleOwner(),
-            this::observeWeatherBitResponse
-        );
     }
-
 
     @Override
-    public void onDestroy() {
-        mViewModel.clearList();
-        super.onDestroy();
-    }
-
-
-    /**
-     * Get the JSONObject as a response from the WeatherBit API
-     * and retrieve the vital latitude/longitude coordinates
-     * to be used as parameters for the connection to the OpenWeatherMap API.
-     *
-     * @param response the JSONObject retrieved from the WeatherBit API
-     */
-    private void observeWeatherBitResponse(final JSONObject response) {
-        Log.i("WeatherHourPredictionListFragment.java", "We now observe response to JSON Object retrieved from WeatherBit API");
-        Log.i("WeatherHourPredictionListFragment.java", response.toString());
-        if (response.length() > 0) {
-            if (response.has("data")) {
-                try {
-                    JSONObject data = response.getJSONArray("data").getJSONObject(0);
-                    String lat = String.valueOf(data.getDouble("lat"));
-                    String lon = String.valueOf(data.getDouble("lon"));
-                    Log.i("WeatherHourPredictionListFragment.java","lat=" + lat + ", lon=" + lon);
-
-                    mViewModel.connectToOpenWeatherMap(lat, lon);
-                } catch (JSONException e) {
-                    Log.e("JSON Response", "Error in getting lat/long coordinates");
-                }
-            } else {
-                Log.e("JSON Response", "Response does not contain data");
-            }
-        } else {
-            Log.d("JSON Response in WeatherHourPredictionListFragment.java", "No Response");
+    public void onResume() {
+        WeatherZipcodeViewModel model = new ViewModelProvider(
+                getActivity()).get(WeatherZipcodeViewModel.class);
+/*
+        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
+            mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getZipcode());
         }
+
+ */
+
+        Log.v("WeatherHourPredictionListFragment.java","onResume() finished");
+        super.onResume();
     }
 
 }

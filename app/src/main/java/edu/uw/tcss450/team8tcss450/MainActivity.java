@@ -17,8 +17,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.auth0.android.jwt.JWT;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;

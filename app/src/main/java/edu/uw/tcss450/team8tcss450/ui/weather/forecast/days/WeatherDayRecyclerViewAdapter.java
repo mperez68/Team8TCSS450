@@ -60,7 +60,7 @@ public class WeatherDayRecyclerViewAdapter extends
      * for this recycler view adapter class
      *
      * @author Brandon Kennedy
-     * @version 14 May 2021
+     * @version 21 May 2021
      */
     public class WeatherDayViewHolder extends RecyclerView.ViewHolder {
 
@@ -89,6 +89,8 @@ public class WeatherDayRecyclerViewAdapter extends
         void setInfoList(final WeatherDayPostInfo infoList) {
             mInfoDayList = infoList;
             binding.dayPredictionCardSpecificDay.setText(infoList.getDate());
+
+            binding.dayPredictionCardOutlook.outlookOutlookIcon.setImageBitmap(infoList.getOutlookIcon());
 
             binding.dayPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
 

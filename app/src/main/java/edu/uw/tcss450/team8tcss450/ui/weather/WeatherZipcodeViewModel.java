@@ -1,8 +1,20 @@
 package edu.uw.tcss450.team8tcss450.ui.weather;
 
+import android.media.Image;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * View model containing the current validated zipcode in which
@@ -101,6 +113,17 @@ public class WeatherZipcodeViewModel extends ViewModel {
      */
     public void setCity(String city) {
         this.mCity = city;
+    }
+
+    /**
+     * In case an error occurs in connecting to and getting data from an API,
+     * display a message acknowledging a connection or state error.
+     *
+     * @param error the instance of the volley error
+     */
+    private void handleError(final VolleyError error) {
+        Log.e("CONNECTION ERROR", error.getLocalizedMessage());
+        throw new IllegalStateException(error.getMessage());
     }
 
 }

@@ -19,7 +19,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherHourPredictionCard
  * card fragments in a consecutive list
  *
  * @author Brandon Kennedy
- * @version 16 May 2021
+ * @version 22 May 2021
  */
 public class WeatherHourRecyclerViewAdapter extends
         RecyclerView.Adapter<WeatherHourRecyclerViewAdapter.WeatherHourViewHolder> {
@@ -60,7 +60,7 @@ public class WeatherHourRecyclerViewAdapter extends
      * for this recycler view adapter class
      *
      * @author Brandon Kennedy
-     * @version 16 May 2021
+     * @version 22 May 2021
      */
     public class WeatherHourViewHolder extends RecyclerView.ViewHolder {
 
@@ -88,6 +88,8 @@ public class WeatherHourRecyclerViewAdapter extends
         void setInfoList(final WeatherHourPostInfo infoList) {
             mInfoHourList = infoList;
             binding.hourPredictionCardHour.setText(infoList.getDate() + "  " + infoList.getTime());
+
+            binding.hourPredictionCardOutlook.outlookOutlookIcon.setImageBitmap(infoList.getOutlookIcon());
 
             binding.hourPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
 

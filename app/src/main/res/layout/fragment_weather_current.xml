@@ -9,77 +9,86 @@
     tools:context=".ui.weather.WeatherCurrentFragment">
 
     <TextView
-        android:id="@+id/temperature_reading"
+        android:id="@+id/current_temperature_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_weathercurrent_tempreading"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/current_outlook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/outlook_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_weathercurrent_outlook"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/outlook_reading"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature_reading" />
+        app:layout_constraintStart_toEndOf="@+id/current_outlook"
+        app:layout_constraintTop_toTopOf="@+id/current_outlook" />
 
     <TextView
-        android:id="@+id/humidity_tab"
+        android:id="@+id/current_humidity_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:text="@string/text_weathercurrent_humidity"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/outlook_tab"
-        app:layout_constraintTop_toBottomOf="@+id/outlook_tab" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_outlook" />
 
     <TextView
-        android:id="@+id/humidity_reading"
+        android:id="@+id/current_humidity_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
         android:text="@string/text_weathercurrent_humidityreading"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/humidity_tab"
-        app:layout_constraintEnd_toEndOf="@+id/outlook_reading"
-        app:layout_constraintTop_toTopOf="@+id/humidity_tab" />
+        app:layout_constraintBottom_toBottomOf="@+id/current_humidity_tab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/current_humidity_tab" />
 
     <TextView
-        android:id="@+id/wind_tab"
+        android:id="@+id/current_wind_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/text_weathercurrent_wind"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/humidity_tab"
-        app:layout_constraintTop_toBottomOf="@+id/humidity_tab" />
+        app:layout_constraintStart_toStartOf="@+id/current_humidity_tab"
+        app:layout_constraintTop_toBottomOf="@+id/current_humidity_tab" />
 
     <TextView
-        android:id="@+id/wind_reading"
+        android:id="@+id/current_wind_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_weathercurrent_windreading"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/wind_tab"
-        app:layout_constraintEnd_toEndOf="@+id/humidity_reading"
-        app:layout_constraintTop_toTopOf="@+id/wind_tab" />
+        app:layout_constraintBottom_toBottomOf="@+id/current_wind_tab"
+        app:layout_constraintEnd_toEndOf="@+id/current_humidity_reading"
+        app:layout_constraintTop_toTopOf="@+id/current_wind_tab" />
 
-    <TextView
-        android:id="@+id/outlook_reading"
+    <include
+        android:id="@+id/current_outlook"
+        layout="@layout/fragment_weather_outlook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:text="@string/text_weathercurrent_outlookreading"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/current_temperature_reading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/current_visibility_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_weathercurrent_visibility"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/outlook_tab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/outlook_tab"
-        app:layout_constraintTop_toTopOf="@+id/outlook_tab" />
+        app:layout_constraintStart_toStartOf="@+id/current_wind_tab"
+        app:layout_constraintTop_toBottomOf="@+id/current_wind_tab" />
+
+    <TextView
+        android:id="@+id/current_visibility_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_weathercurrent_visibilityreading"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/current_visibility_tab"
+        app:layout_constraintEnd_toEndOf="@+id/current_wind_reading"
+        app:layout_constraintTop_toTopOf="@+id/current_visibility_tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

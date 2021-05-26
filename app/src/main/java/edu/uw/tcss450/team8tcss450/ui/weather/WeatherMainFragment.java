@@ -1,265 +1,265 @@
 package edu.uw.tcss450.team8tcss450.ui.weather;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.function.IntFunction;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
+import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment;
+import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment;
 
 /**
- * The main page for the weather feature.
+ * The primary page for the weather fragment that is
+ * the parent fragment for the child tab weather fragments.
  *
  * @author Brandon Kennedy
- * @version 19 May 2021
+ * @version 25 May 2021
  */
 public class WeatherMainFragment extends Fragment {
 
-    // The binding of this class to the XML view fragment_weather_main.xml
-    private FragmentWeatherMainBinding binding;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private WeatherPageAdapter mPagerAdapter;
 
-    // The view model associated with this Weather Main Fragment
-    private WeatherMainViewModel mWeatherMainModel;
-
-    /**
-     * Construct the main weather fragment
-     */
     public WeatherMainFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         new ViewModelProvider(
             getActivity(),
-            new WeatherZipcodeViewModel.WeatherZipcodeViewModelFactory("", ""))
+            new WeatherZipcodeViewModel.WeatherZipcodeViewModelFactory("98403", "Tacoma"))
                 .get(WeatherZipcodeViewModel.class);
 
-        WeatherZipcodeViewModel model = new ViewModelProvider(
-                getActivity()).get(WeatherZipcodeViewModel.class);
-
-        mWeatherMainModel = new ViewModelProvider(getActivity())
-                .get(WeatherMainViewModel.class);
-        mWeatherMainModel.setZipcode(model.getZipcode());
-
-        if (!model.getCity().equals("") && !model.getZipcode().equals(""))
-            mWeatherMainModel.connect(model.getZipcode());
-
-        Log.v("WeatherMainFragment.java","onCreate() finished");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWeatherMainBinding.inflate(inflater);
-        Log.v("WeatherMainFragment.java","onCreateView() finished");
-        return binding.getRoot();
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather_main, container, false);
+
+        mTabLayout = root.findViewById(R.id.weather_tab_layout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Current Weather"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("24-Hour Forecast"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("10-Day Forecast"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Weather Map"));
+        mViewPager = root.findViewById(R.id.weather_view_pager);
+
+        mPagerAdapter = new WeatherPageAdapter(
+                getChildFragmentManager(),
+                mTabLayout.getTabCount()
+        );
+        mViewPager.setAdapter(mPagerAdapter);
+
+        mViewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 0) {
+                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is Current Weather Tab");
+                    mPagerAdapter.notifyDataSetChanged();
+                } else if (tab.getPosition() == 1) {
+                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is 24-Hour Forecast Tab");
+                    mPagerAdapter.notifyDataSetChanged();
+                } else if (tab.getPosition() == 2) {
+                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is 10-Day Forecast Tab");
+                    mPagerAdapter.notifyDataSetChanged();
+                } else if (tab.getPosition() == 3) {
+                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is Weather Map Tab");
+                    mPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Set the click listener for the search button.
-        binding.buttonSearchZipcode.setOnClickListener(this::getWeatherForZipcode);
-
-        // Set the click listener for the 24-Hour Forecast button.
-        binding.buttonTwentyFourHourForecast.setOnClickListener(button -> {
-                WeatherZipcodeViewModel model =
-                        new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
-
-                Navigation.findNavController(getView()).navigate(
-                        WeatherMainFragmentDirections
-                                .actionNavigationWeatherToWeatherHourPredictionListFragment(
-                                        model.getZipcode(), model.getCity()
-                        )
-                );
-        });
-
-        // Set the click listener for the 10-Day Forecast button.
-        binding.buttonTenDayForecast.setOnClickListener(button -> {
-                WeatherZipcodeViewModel model =
-                        new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
-
-                Navigation.findNavController(getView()).navigate(
-                        WeatherMainFragmentDirections
-                                .actionNavigationWeatherToWeatherDayPredictionListFragment(
-                                        model.getZipcode(), model.getCity()
-                        )
-                );
-        });
-
-        // Set the click listener for the Weather Map button.
-        binding.buttonWeatherViewMap.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        WeatherMainFragmentDirections
-                                .actionNavigationWeatherToWeatherMapFragment()
-                )
-        );
-
-        mWeatherMainModel.addObserver(
-                getViewLifecycleOwner(),
-                this::observeResponse
-        );
-
-        Log.v("WeatherMainFragment.java","onViewCreated() finished");
-    }
-
-    @Override
-    public void onResume() {
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
 
-        mWeatherMainModel = new ViewModelProvider(getActivity())
-                .get(WeatherMainViewModel.class);
-        mWeatherMainModel.setZipcode(model.getZipcode());
+        Button searchZipcode = view.findViewById(R.id.button_search_zipcode);
+        searchZipcode.setOnClickListener(v -> {
+            TextView zipcodeField = view.findViewById(R.id.zipcode_search_field);
+            Log.i("Search Button Pushed", "Zipcode query is " + zipcodeField.getText().toString());
+            this.connectToOpenWeatherMap(zipcodeField.getText().toString(), model, view);
+        });
 
-
-        if (!model.getCity().equals("") && !model.getZipcode().equals(""))
-            mWeatherMainModel.connect(model.getZipcode());
-
-        Log.v("WeatherMainFragment.java","onResume() finished");
-        super.onResume();
+        TextView city = view.findViewById(R.id.zipcode_queried_location);
+        city.setText(model.getCity());
     }
 
     /**
-     * Observer the response JSON object from
-     * attempt to connect to the OpenWeatherMap API
+     * If connection to the OpenWeatherMap API is successful, a JSONObject
+     * is retrieved from it and is handled for validation.  If JSONObject
+     * is valid, we refresh the currently selected tab.
      *
-     * @param response the JSON object being observed for validity
+     * @param response the JSONObject retrieved from OpenWeatherMap API
+     * @param zipcode the zipcode in which the JSONObject was retrieved for
+     * @param model the WeatherZipcodeViewModel in which if JSONObject is valid, the zipcode and city will be stored there
      */
-    private void observeResponse(final JSONObject response) {
-        WeatherZipcodeViewModel model =
-                new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
-        IntFunction<String> getString = getResources()::getString;
+    private void handleResultFromOpenWeatherMap(final JSONObject response,
+                                             final String zipcode,
+                                             WeatherZipcodeViewModel model,
+                                                final View view) {
+        if (validateRetrievedJSONObject(response)) {
+            try {
+                String city = response.getString("name");
+                Log.i("WeatherPrimaryFragment.java", "Zipcode from search query is valid");
+                Log.i("WeatherPrimaryFragment.java",
+                        "Zipcode = " + zipcode + ", City = " + city);
 
-        if (!mWeatherMainModel.getZipcode().equals("")) {
-            if (response.length() > 0 && !response.has("error")) {
-                Log.i("WeatherMainFragment.java", "We have a JSON. Now we open it to look for 'cod' key");
-                if (response.has("cod")) {
-                    Log.i("WeatherMainFragment.java", "JSON object has 'cod' key, 'cod': " + String.valueOf(response.optInt("cod", 400)));
-                    try {
-                        if (response.optInt("cod", 400) != 200 ) {
-                            Log.e("WeatherMainFragment.java", "Looks like cod is not equal to 200. This JSON file has no data.");
-                            binding.zipcodeSearchField.setError(
-                                    "Error Authenticating: " +
-                                            response.getString("message"));
-                        } else {
-                            Log.i("JSON Response", "JSON response object has no error code key");
+                // Set the new WeatherZipcodeViewModel with the newest validated zipcode and city local
+                // Thus, display the new city name on WeatherMainFragment
+                model.setZipcode(zipcode);
+                model.setCity(city);
+                TextView cityText = view.findViewById(R.id.zipcode_queried_location);
+                cityText.setText(model.getCity());
 
-                            String city = response.getString("name");
+                Log.d("WeatherMainFragment", "WeatherZipcodeViewModel now has " + model.getZipcode() + " and " + model.getCity());
 
-                            Log.d("WeatherMainFragment.observeResponse()",
-                                    "WeatherZipcodeViewModel before being set. Zipcode:"
-                                            + model.getZipcode() + ", City:" + model.getCity());
+                // Refresh the currently selected tab with the new weather data
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.setReorderingAllowed(true);
+                if (mViewPager.getCurrentItem() == 0) {
+                    Log.d("WeatherMainFragment",
+                            "Current Item is " + mViewPager.getCurrentItem() +
+                                    ", so we should be refreshing CurrentWeatherCurrentFragment");
+                    ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
+                } else if (mViewPager.getCurrentItem() == 1) {
+                    Log.d("WeatherMainFragment",
+                            "Current Item is " + mViewPager.getCurrentItem() +
+                                    ", so we should be refreshing WeatherHourPredictionListFragment");
+                    ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
+                } else if (mViewPager.getCurrentItem() == 2) {
+                    Log.d("WeatherMainFragment",
+                            "Current Item is " + mViewPager.getCurrentItem() +
+                                    ", so we should be refreshing WeatherDayPredictionListFragment");
+                    ft.replace(R.id.weather_view_pager, WeatherDayPredictionListFragment.class, null);
+                }
+                ft.addToBackStack(null);
+                ft.commit();
 
-                            model.setZipcode(mWeatherMainModel.getZipcode());
-                            model.setCity(city);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("ERROR!", e.getMessage());
+            }
+        } else {
+            EditText zipcodeField = view.findViewById(R.id.zipcode_search_field);
+            zipcodeField.setError("Invalid Entry. Please enter another zipcode.");
+            Log.e("WeatherPrimaryFragment.java", "Zipcode from search query isn't valid");
+        }
+    }
 
-                            Log.d("WeatherMainFragment.observeResponse()",
-                                    "WeatherZipcodeViewModel after being set. Zipcode:"
-                                            + model.getZipcode() + ", City:" + model.getCity());
-
-                            binding.zipcodeQueriedLocation.setVisibility(View.VISIBLE);
-                            binding.weatherCurrentFragment.getRoot().setVisibility(View.VISIBLE);
-                            binding.zipcodeQueriedLocation.setText(city);
-
-                            binding.buttonTwentyFourHourForecast.setClickable(true);
-
-                            String readTemp = String.valueOf(
-                                    response.getJSONObject(getString(R.string.keys_json_weathermain_main))
-                                            .getInt(getString(R.string.keys_json_weathermain_temp)));
-                            binding.weatherCurrentFragment.temperatureReading.setText(readTemp + "\u00B0F");
-
-                            String readOutlook = String.valueOf(
-                                    response.getJSONArray(getString(R.string.keys_json_weathermain_weather))
-                                            .getJSONObject(0)
-                                            .getString(getString(R.string.keys_json_weathermain_main)));
-                            binding.weatherCurrentFragment.outlookReading.setText(readOutlook);
-
-                            String readHumidity = String.valueOf(
-                                    response.getJSONObject(getString(R.string.keys_json_weathermain_main))
-                                            .getInt(getString(R.string.keys_json_weathermain_humidity))) + "%";
-                            binding.weatherCurrentFragment.humidityReading.setText(readHumidity);
-
-                            String windSpeed = String.valueOf(
-                                    response.getJSONObject(getString(R.string.keys_json_weathermain_wind))
-                                            .getInt(getString(R.string.keys_json_weathermain_speed)));
-                            int windDegree =
-                                    response.getJSONObject(getString(R.string.keys_json_weathermain_wind))
-                                            .getInt(getString(R.string.keys_json_weathermain_deg));
-                            binding.weatherCurrentFragment.windReading
-                                    .setText(windDirection(windDegree) + " " + windSpeed + " MPH");
-
-                        }
-                    } catch (JSONException e) {
-                        Log.e("JSON Response Parse Error", e.getMessage());
-                    }
+    /**
+     * Validate the JSONObject retrieved from OpenWeatherMap API
+     * and return if the JSONObject is valid
+     *
+     * @param response the JSONObject retrieved from OpenWeatherMap API
+     * @return the boolean that tells if the retrieved JSONObject tells that the queried zipcode is valid or not
+     */
+    private Boolean validateRetrievedJSONObject(final JSONObject response) {
+        if (response.length() > 0 && !response.has("error")) {
+            Log.i("WeatherMainFragment.java", "We have a JSON. Now we open it to look for 'cod' key");
+            if (response.has("cod")) {
+                Log.i("WeatherMainFragment.java", "JSON object has 'cod' key, 'cod': "
+                        + String.valueOf(response.optInt("cod", 400)));
+                if ( response.optInt("cod", 400) == 200  ) {
+                    return true;
                 } else {
-                    Log.d("JSON Response", "JSON Object does not contain 'cod' key");
-                    binding.zipcodeSearchField.setError("Invalid Entry. Please enter a valid zipcode.");
+                    Log.e("WeatherPrimaryFragment.java",
+                            "Looks like cod is not equal to 200. This JSON file has no data.");
+                    return false;
                 }
             } else {
-                Log.d("JSON Response", "JSON Object contains 'error' key");
-                binding.zipcodeSearchField.setError("Invalid Entry. Please enter a valid zipcode.");
+                Log.d("JSON Response", "JSON Object does not contain 'cod' key");
+                return false;
             }
+        } else {
+            Log.d("JSON Response", "JSON Object contains 'error' key");
+            return false;
         }
-
-        Log.i("WeatherMainFragment.java", "We now observe response to JSON Object retrieved from OpenWeatherMap API");
-        Log.i("WeatherMainFragment.java", response.toString());
-
     }
+
 
     /**
-     * Connect to the OpenWeatherAPI when the button using this method is clicked
+     * Connect to the OpenWeatherMap API via Heroku app to obtain
+     * current weather data about the queried zipcode in a JSON object
      *
-     * @param view the view required to set this method to a button
+     * @param zipcode the queried zipcode used to obtain weather data on
      */
-    private void getWeatherForZipcode(View view) {
-        String zipcode = binding.zipcodeSearchField.getText().toString();
-        if (zipcode.equals("")) {
-            Log.e("WeatherMainFragment.getWeatherForZipcode()", "Nothing was entered for zipcode.");
-            binding.zipcodeSearchField.setError("No entry. Please enter a valid zipcode.");
-        } else {
-            mWeatherMainModel.setZipcode(zipcode);
-            mWeatherMainModel.connect(zipcode);
-        }
-
+    public void connectToOpenWeatherMap(final String zipcode,
+                                        final WeatherZipcodeViewModel model,
+                                        final View view) {
+        String url = "https://team8-tcss450-app.herokuapp.com/weather/current/openweathermap";
+        Log.i("WeatherMainViewModel.java", "Connecting to OpenWeatherMap API current weather conditions");
+        Request request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null, //no body for this get request
+                result -> {
+                    this.handleResultFromOpenWeatherMap(result, zipcode, model, view);
+                },
+                error -> {
+                    Log.e("CONNECTION ERROR", error.getLocalizedMessage());
+                    throw new IllegalStateException(error.getMessage());
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", "6543ce89bd26ded32186bae89a6a071e");
+                headers.put("zipcode", zipcode);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getContext()).add(request);
     }
-
-    /**
-     * Get the wind direction label depending on degrees
-     * relative to a clockwise compass (0 degrees for North, 180 degrees for South)
-     *
-     * @param degrees the degree amount (0 to 360)
-     * @return the compass direction of the wind
-     */
-    private String windDirection(final int degrees) {
-        String[] directions = {
-                "N", "NNE", "NE", "ENE",
-                "E", "ESE", "SE", "SSE",
-                "S", "SSW", "SW", "WSW",
-                "W", "WNW", "NW", "NNW"  };
-        if (degrees >= 0 && degrees <= 360) {
-            return directions[(int) (Math.floor(degrees/22.5) % directions.length)];
-        } else {
-            return "NaN";
-        }
-    }
-
 }

@@ -11,23 +11,12 @@
         android:id="@+id/hour_prediction_list_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hour_prediction_list_city"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".ui.weather.forecast.hours.WeatherHourPredictionListFragment"
         tools:listitem="@layout/fragment_weather_hour_prediction_card" />
 
-    <TextView
-        android:id="@+id/hour_prediction_list_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/text_weatherhourlist_city"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,8 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+
 import java.io.Serializable;
 
 /**
@@ -8,12 +11,13 @@ import java.io.Serializable;
  * a specific day in a 10-day forecast.
  *
  * @author Brandon Kennedy
- * @version 30 April 2021
+ * @version 21 May 2021
  */
 public class WeatherDayPostInfo implements Serializable {
 
     private final String mDate;
     private final String mOutlook;
+    private Bitmap mOutlookIcon;
     private final String mHighTemperature;
     private final String mLowTemperature;
 
@@ -49,6 +53,14 @@ public class WeatherDayPostInfo implements Serializable {
     }
 
     /**
+     * Return the outlook icon image of the weather day post
+     * @return the outlook icon image of the weather day post
+     */
+    public Bitmap getOutlookIcon() {
+        return mOutlookIcon;
+    }
+
+    /**
      * Return the high temperature reading of the weather day post
      *
      * @return the high temperature reading of the weather day post
@@ -65,14 +77,25 @@ public class WeatherDayPostInfo implements Serializable {
     public String getLowTemperature() { return mLowTemperature; }
 
     /**
+     * Set the outlook icon of the weather day post
+     *
+     * @param outlookIcon the outlook icon being stored with the weather day post
+     */
+    public void setOutlookIcon(final Bitmap outlookIcon) {
+        this.mOutlookIcon = outlookIcon;
+    }
+
+
+    /**
      * Helper class for building credentials of the weather forecast day post
      *
      * @author Brandon Kennedy
-     * @version 30 April 2021
+     * @version 21 May 2021
      */
     public static class WeatherDayInfoBuilder {
         private final String mDate;
         private String mOutlook;
+        private Bitmap mOutlookIcon;
         private String mHighTemperature;
         private String mLowTemperature;
 
@@ -86,14 +109,23 @@ public class WeatherDayPostInfo implements Serializable {
         }
 
         /**
-         * Add an outlook label that will be used to determine the outlook graphic
-         * for display on the weather forecast day post
+         * Add an outlook label for display on the weather forecast day post
          *
          * @param outlook the name of the outlook graphic
          * @return the builder of this weather forecast day post
          */
         public WeatherDayInfoBuilder addOutlook(final String outlook) {
             this.mOutlook = outlook;
+            return this;
+        }
+
+        /**
+         * Add an outlook image icon for display on the weather forecast day post
+         * @param outlookIcon the image of the outlook icon
+         * @return the builder of this weather forecast day post
+         */
+        public WeatherDayInfoBuilder addOutlookIcon(final Bitmap outlookIcon) {
+            this.mOutlookIcon = outlookIcon;
             return this;
         }
 

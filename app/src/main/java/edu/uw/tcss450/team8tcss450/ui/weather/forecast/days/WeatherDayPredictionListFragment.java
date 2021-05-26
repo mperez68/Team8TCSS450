@@ -1,5 +1,6 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherDayPredictionListBinding;
@@ -22,7 +25,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * A fragment that lists and displays the 10-day weather forecast predictions
  *
  * @author Brandon Kennedy
- * @version 19 May 2021
+ * @version 22 May 2021
  */
 public class WeatherDayPredictionListFragment extends Fragment {
 
@@ -43,13 +46,23 @@ public class WeatherDayPredictionListFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherDayPredictionViewModel.class);
 
-        WeatherDayPredictionListFragmentArgs args =
-                WeatherDayPredictionListFragmentArgs.fromBundle(getArguments());
+        WeatherZipcodeViewModel model = new ViewModelProvider(getActivity())
+                .get(WeatherZipcodeViewModel.class);
 
-        Log.i("WeatherDayPredictionListFragment.onCreate()",
-                "Zipcode from Args is " + args.getZipcode() + ".  City is " + args.getCity());
-        if (!args.getZipcode().equals("") && !args.getCity().equals(""))
-            mViewModel.connect(args.getZipcode());
+        Log.d("WeatherDayPredictionListFragment.onCreate()",
+                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
+
+        // If the saved zipcode in WeatherDayPredictionViewModel does not match the zipcode
+        // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
+        // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
+        // Otherwise, display information already saved in WeatherDayPredictionViewModel
+        if (!mViewModel.getZipcode().equals(model.getZipcode())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getZipcode());
+        }
+
+        Log.v("WeatherDayPredictionListFragment.java","onCreate() finished");
     }
 
     @Override
@@ -64,24 +77,31 @@ public class WeatherDayPredictionListFragment extends Fragment {
         FragmentWeatherDayPredictionListBinding binding
                 = FragmentWeatherDayPredictionListBinding.bind(getView());
 
-        WeatherZipcodeViewModel model = new ViewModelProvider(getActivity())
-                .get(WeatherZipcodeViewModel.class);
-
-        if (!model.getZipcode().equals(""))
-            binding.dayPredictionListCity.setText(model.getCity());
-
         mViewModel.addWeatherDayListObserver(getViewLifecycleOwner(), postList -> {
             if (!postList.isEmpty()) {
                 binding.dayPredictionListRoot.setAdapter(new WeatherDayRecyclerViewAdapter(postList));
                 binding.dayPredictionListRoot.setLayoutManager(new LinearLayoutManager(getContext()));
+            } else {
+                Log.e("WeatherHourPredictionListFragment", "Turns out post list is empty: " + postList.isEmpty());
             }
         });
+
     }
 
     @Override
-    public void onDestroy() {
-        mViewModel.clearList();
-        super.onDestroy();
+    public void onResume() {
+        WeatherZipcodeViewModel model = new ViewModelProvider(
+                getActivity()).get(WeatherZipcodeViewModel.class);
+/*
+        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
+            mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getZipcode());
+        }
+
+ */
+
+        Log.v("WeatherDayPredictionListFragment.java","onResume() finished");
+        super.onResume();
     }
 
 }

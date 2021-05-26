@@ -174,6 +174,7 @@ public class SignInFragment extends Fragment {
     private void navigateToSuccess(final String theEmail, final String theJwt) {
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity(theEmail, theJwt));
+        getActivity().finish();
     }
 
     /**

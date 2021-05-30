@@ -1,5 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.auth.signin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import com.auth0.android.jwt.JWT;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +47,10 @@ public class SignInFragment extends Fragment {
     private PasswordValidator myPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
+    private SharedPreferences mySharedPrefs;
+    public static final String sharedPrefKey = "Shared Prefs App";
+    public static final String sharedPrefJwt = "Shared Prefs JWT";
+
     /**
      * Empty constructor
      *
@@ -59,6 +67,7 @@ public class SignInFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
+        mySharedPrefs = getActivity().getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
         mySignInModel = new ViewModelProvider(getActivity())
                 .get(SignInViewModel.class);
 
@@ -172,6 +181,11 @@ public class SignInFragment extends Fragment {
      * @param theJwt the JSON Web Token supplied by the server
      */
     private void navigateToSuccess(final String theEmail, final String theJwt) {
+
+        if (myBinding.switchSignin.isChecked()) {
+            mySharedPrefs.edit().putString(sharedPrefJwt, theJwt).apply();
+        }
+
         Navigation.findNavController(getView())
                 .navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity(theEmail, theJwt));
         getActivity().finish();
@@ -241,6 +255,22 @@ public class SignInFragment extends Fragment {
      */
     private void sendPushyToken() {
         mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getmJwt());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (mySharedPrefs.contains(sharedPrefJwt)) {
+            String token = mySharedPrefs.getString(sharedPrefJwt, "");
+            JWT jwt = new JWT(token);
+            if (!jwt.isExpired(0)) {
+                // comment out the code below to disable automatic sign in
+                String email = jwt.getClaim("email").asString();
+                navigateToSuccess(email, token);
+                return;
+            }
+        }
     }
 
 }

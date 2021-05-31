@@ -15,11 +15,6 @@ import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
-import edu.uw.tcss450.team8tcss450.ui.auth.signin.SignInFragmentDirections;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatListViewModel;
-import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
-
-
 /**
  *
  * A simple {@link Fragment} subclass.
@@ -27,6 +22,7 @@ import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
 public class ContactsFragment extends Fragment {
 
     private ContactListViewModel mContactListViewModel;
+    private UserInfoViewModel mUserInfoViewModel;
 
     /**
      * empty constructor.
@@ -44,18 +40,10 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-//<<<<<<< HEAD
-//
-//        myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-//        myModel.connectGet(model.getmJwt());
-//
-//=======
         mContactListViewModel = new ViewModelProvider(getActivity())
                 .get(ContactListViewModel.class);
-        mContactListViewModel.connectGet(model.getEmail(), model.getmJwt());
-//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
     }
 
     /**
@@ -85,11 +73,13 @@ public class ContactsFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
 
-        //Listener for the contacts recycler view adapter.
+        mContactListViewModel.getContactList().getValue().clear();
+        mContactListViewModel.connectGet(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
+
         mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-                binding.contactsListRoot.setAdapter(
-                     mContactListViewModel.getViewAdapter()
-                );
+            binding.contactsListRoot.setAdapter(
+                    mContactListViewModel.getViewAdapter()
+            );
         });
 
         //Listener for the search contact button.

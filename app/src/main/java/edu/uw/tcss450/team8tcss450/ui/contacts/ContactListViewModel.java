@@ -16,12 +16,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
@@ -32,8 +35,8 @@ import edu.uw.tcss450.team8tcss450.R;
 public class ContactListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Contact>> mContactList;
+    private MutableLiveData<JSONObject> mResponse;
     private ContactsRecyclerViewAdapter mViewAdapter;
-
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
@@ -45,6 +48,8 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
         mViewAdapter = new ContactsRecyclerViewAdapter(mContactList.getValue());
+        mResponse = new MutableLiveData<>();
+        mResponse.setValue(new JSONObject());
     }
 
     /**
@@ -73,13 +78,8 @@ public class ContactListViewModel extends AndroidViewModel {
      * @return myViewAdapter
      */
     public ContactsRecyclerViewAdapter getViewAdapter() {
-
         return mViewAdapter;
     }
-
-
-
-
 
     /**
      * connect to endpoints using heroku app link. Can use get requests from endpoint.
@@ -147,21 +147,71 @@ public class ContactListViewModel extends AndroidViewModel {
         }
 
         mContactList.setValue(mContactList.getValue());
-
-        /*for (int i = 1; i <= 10; i++) {
-            Contact contact = new Contact.Builder(
-                    "Contact #" + i, "LastName" + i, "Nickname" + i, "testEmail" + i + "@test.edu")
-                    .build();
-
-            if (!mContactList.getValue().contains(contact)) {
-                mContactList.getValue().add(contact);
-            }
-        }
-
-        mContactList.setValue(mContactList.getValue());*/
     }
 
     private void handleGetError(VolleyError error) {
         mContactList.setValue(new ArrayList<>());
+    }
+
+
+    public void connectDelete(String theEmail, String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/contacts/" + theEmail;
+        Request request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null, //no body for this get request
+                mResponse::setValue,
+                this::handleDeleteError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", theJwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+
+        List<Contact> tempList = mContactList.getValue();
+        Contact tempContact = null;
+
+        for (Contact c : tempList) {
+            if (c.getEmail() == theEmail) {
+                tempContact = c;
+            }
+        }
+
+        tempList.remove(tempContact);
+        mContactList.setValue(tempList);
+    }
+
+    private void handleDeleteError(VolleyError theError) {
+        if (Objects.isNull(theError.networkResponse)) {
+            try {
+                mResponse.setValue(new JSONObject("{" +
+                        "error:\"" + theError.getMessage() +
+                        "\"}"));
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        }
+        else {
+            String data = new String(theError.networkResponse.data, Charset.defaultCharset())
+                    .replace('\"', '\'');
+            try {
+                JSONObject response = new JSONObject();
+                response.put("code", theError.networkResponse.statusCode);
+                response.put("data", new JSONObject(data));
+                mResponse.setValue(response);
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        }
     }
 }

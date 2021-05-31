@@ -29,9 +29,9 @@ import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
  * @version 6 May 2021
  */
 public class ChatFragment extends Fragment {
-    private ChatListViewModel mModel;
-    public FragmentChatBinding binding;
-    public UserInfoViewModel mUserModel;
+    private ChatListViewModel mChatListViewModel;
+    public FragmentChatBinding mBinding;
+    public UserInfoViewModel mUserInfoViewModel;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -44,13 +44,14 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-        mUserModel = new ViewModelProvider(getActivity())
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
+        mChatListViewModel = new ViewModelProvider(getActivity())
+                .get(ChatListViewModel.class);
 
-        //TODO this is 4 asyrchronous calls for hard coded chat rooms 1,2,3, and 4. This will need to be reworked.
+        //TODO this is 4 asynchronous calls for hard coded chat rooms 1,2,3, and 4. This will need to be reworked.
         for (int i = 1; i <= 4; i++) {
-            mModel.connectGet(mUserModel.getmJwt(), i);
+            mChatListViewModel.connectGet(mUserInfoViewModel.getmJwt(), i);
         }
         //Original
        // mModel.connectGet(model.getmJwt());
@@ -78,23 +79,20 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
-        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
 
+        mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             // TODO this is hard coded for the 4 chat rooms. In the future this will require broader implementation. Original down below.
             if (!chatList.isEmpty()) {
                 int size = chatList.size();
                 for (int i = 0; i < size; i++) {
-                    if (!(chatList.get(i).getmContact().contains(mUserModel.getEmail()))) {
+                    if (!(chatList.get(i).getmContact().contains(mUserInfoViewModel.getEmail()))) {
                         chatList.remove(i);
                     }
                 }
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
-
             }
-
-
         });
         //Original
 //        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {

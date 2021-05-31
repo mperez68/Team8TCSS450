@@ -14,15 +14,25 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="366dp" />
 
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="160dp"
+        android:layout_height="156dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:autofillHints="email"
-        android:ems="10"
         android:hint="@string/edit_email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/edit_password"
@@ -33,10 +43,9 @@
         android:id="@+id/edit_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:autofillHints="password"
-        android:ems="10"
         android:hint="@string/edit_password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/guideline_fifty"
@@ -44,49 +53,40 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_register"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_signin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/button_register"
-        android:textColor="#00BCD4"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/button_signin"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_fifty"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/button_reset"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/button_reset"
         android:textColor="#575757"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_register" />
-
-    <Button
-        android:id="@+id/button_signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/button_signin"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password"
+        app:layout_constraintTop_toBottomOf="@+id/button_signin"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/image_logo"
-        android:layout_width="140dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/ic_action_name"
-        app:layout_constraintBottom_toTopOf="@+id/edit_email"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/button_register"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_register"
+        android:textColor="#00BCD4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button_signin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

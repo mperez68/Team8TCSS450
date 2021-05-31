@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
@@ -132,7 +133,8 @@ public class ChatRecyclerViewAdapter extends
 //                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2));
             myBinding.textSender.setText(chatParticipants);
 
-            myBinding.textTimestamp.setText("7/5");
+            Calendar cal = Calendar.getInstance();
+            myBinding.textTimestamp.setText(cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DAY_OF_MONTH));
 
             //Use methods in the HTML class to format the HTML found in the text
 

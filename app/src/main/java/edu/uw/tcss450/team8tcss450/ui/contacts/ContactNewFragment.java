@@ -1,24 +1,31 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactNewBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
+import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ContactNewFragment extends Fragment {
 
-    private FragmentContactNewBinding myBinding;
+    private FragmentContactNewBinding mBinding;
+    private ContactSearchViewModel mContactSearchViewModel;
+    private UserInfoViewModel mUserInfoViewModel;
 
     public ContactNewFragment() { }
 
@@ -30,6 +37,10 @@ public class ContactNewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+        mContactSearchViewModel = new ViewModelProvider(getActivity())
+                .get(ContactSearchViewModel.class);
     }
 
     /**
@@ -44,8 +55,8 @@ public class ContactNewFragment extends Fragment {
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        myBinding = FragmentContactNewBinding.inflate(theInflater);
-        return myBinding.getRoot();
+        mBinding = FragmentContactNewBinding.inflate(theInflater);
+        return mBinding.getRoot();
     }
 
     /**
@@ -58,5 +69,35 @@ public class ContactNewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
+
+        FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
+
+        binding.buttonSearch.setOnClickListener(button -> {
+            if (binding.editTextEmail.getText().toString().equals(mUserInfoViewModel.getEmail())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Error");
+                builder.setMessage("You are searching yourself!");
+                builder.show();
+            } else {
+                mContactSearchViewModel.connectGet(binding.editTextEmail.getText().toString(), mUserInfoViewModel.getmJwt());
+                Log.d("variable", String.valueOf(mContactSearchViewModel.getSearch()));
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                if (mContactSearchViewModel.getSearch()) {
+                    builder.setTitle("User found");
+                    builder.setMessage("Send a contact request to this user?");
+                    builder.setPositiveButton("Send request", (dialog, id) -> {
+
+                    });
+                    builder.setNegativeButton("Cancel", (dialog, id) -> {
+                        return;
+                    });
+                } else {
+                    builder.setTitle("Error");
+                    builder.setMessage("User not found");
+                }
+                builder.show();
+                Log.d("variable", String.valueOf(mContactSearchViewModel.getSearch()));
+            }
+        });
     }
 }

@@ -47,9 +47,7 @@ public class ChatListViewModel extends AndroidViewModel {
      *  TODO DELETE LATER
      */
     private final String mTempMessage2 = "<Most Recent Chat Here>";
-    private final String mTempMessage = "Bacon ipsum dolor amet short ribs meatloaf chuck chislic capicola. Pork belly turkey ham spare ribs frankfurter brisket ball tip, pork loin flank drumstick turducken capicola andouille tenderloin beef ribs. Short loin kielbasa picanha tail pancetta. Chicken chislic pork chop landjaeger brisket beef ribs burgdoggen boudin andouille meatball pancetta. Meatloaf beef ribs pig, leberkas bacon burgdoggen beef shoulder t-bone short ribs kielbasa turkey cow spare ribs ball tip.\n" +
-            System.getProperty("line.separator") +
-            "    Ham pastrami pork chop picanha. Spare ribs salami cupim alcatra, flank tail jerky pig swine filet mignon ball tip buffalo sausage venison pork chop. Flank buffalo cupim, filet mignon tri-tip turkey sirloin ham hock frankfurter spare ribs pig beef ribs. Pancetta sausage meatloaf, brisket tongue chislic salami jowl kielbasa porchetta andouille. Shank t-bone pork belly brisket pork chop. Ball tip flank shankle andouille, alcatra spare ribs turducken kielbasa picanha meatball shank boudin landjaeger. Landjaeger bresaola swine pork kevin pig prosciutto.";
+
     /**
      * List of Conversation objects held by the recycler view.
      */
@@ -64,9 +62,6 @@ public class ChatListViewModel extends AndroidViewModel {
      * Integer to reset list to avoid duplications in recycler view.
      */
     private int myAsynchronousCallCount;
-
-
-
 
     /**
      * public constructor.
@@ -83,15 +78,7 @@ public class ChatListViewModel extends AndroidViewModel {
         //no observer
 //        myAsynchronousCallCount = new MutableLiveData<>();
 //        myAsynchronousCallCount.setValue(0);
-
-
     }
-
-
-
-
-
-
 
     /**
      * TODO fill in this javadoc
@@ -147,7 +134,7 @@ public class ChatListViewModel extends AndroidViewModel {
                 JSONObject message = messages.getJSONObject(i);
                 String email = message.getString("email");
                 myEmailList.getValue().add(email);
-                temp += email + " ";
+                temp += email + ", ";
             }
 
             //See the above TODO

@@ -1,9 +1,12 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,8 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
+import java.util.List;
+import java.util.stream.IntStream;
 
+import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
+import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +26,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 public class ContactProfileFragment extends Fragment {
 
     private FragmentContactProfileBinding mBinding;
+    private UserInfoViewModel mUserInfoViewModel;
 
     public ContactProfileFragment() {
 
@@ -33,6 +40,8 @@ public class ContactProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
     }
 
     /**
@@ -62,29 +71,39 @@ public class ContactProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
 
-
         ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
 
-        //Listener for the search contact button.
-        mBinding.buttonContactMessage.setOnClickListener(button ->
-                //commented out for later
-                Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
-//            Navigation.findNavController(getView()).navigate(
-//                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
-
-
-        ContactListViewModel contact = new ViewModelProvider(getActivity())
+        ContactListViewModel contactListViewModel = new ViewModelProvider(getActivity())
                 .get(ContactListViewModel.class);
 
-        mBinding.contactFirstname.setText(contact.getContactList().getValue().get(0).getFirstName());
-        mBinding.contactLastname.setText(contact.getContactList().getValue().get(0).getLastName());
-        mBinding.contactNickname.setText(contact.getContactList().getValue().get(0).getNickname());
+        //Listener for the message contact button.
+        mBinding.buttonContactMessage.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
+//              Navigation.findNavController(getView()).navigate(
+//                      ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
 
-//        //Listener for the search contact button.
-//        mBinding.buttonContactMessage.setOnClickListener(button ->
-//                Navigation.findNavController(getView()).navigate(
-//                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
-//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
+        mBinding.buttonContactDelete.setOnClickListener(button -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Delete contact?");
+            builder.setPositiveButton("Delete", (dialog, id) -> {
+                        contactListViewModel.connectDelete(args.getContactEmail(), mUserInfoViewModel.getmJwt());
+                        Toast.makeText(getActivity(), "Contact has been removed", Toast.LENGTH_SHORT).show();
+                    });
+            builder.setNegativeButton("Cancel", (dialog, id) ->
+                    Toast.makeText(getActivity(), "Request has been cancelled", Toast.LENGTH_SHORT).show());
+            builder.show();
+        });
+
+        List<Contact> contactList = contactListViewModel.getContactList().getValue();
+        String contactEmail = args.getContactEmail();
+        int index = IntStream.range(0, contactList.size())
+                .filter(i -> contactList.get(i).getEmail().equals(contactEmail))
+                .findFirst()
+                .orElse(-1);
+
+        mBinding.contactFirstname.setText(contactList.get(index).getFirstName());
+        mBinding.contactLastname.setText(contactList.get(index).getLastName());
+        mBinding.contactNickname.setText(contactList.get(index).getNickname());
     }
 }

@@ -293,8 +293,6 @@ public class ChatTestViewModel extends AndroidViewModel {
      * @param theJwt
      */
     public void connectChatID(String theChatRoomName, final String theJwt) {
-
-
         String url = "https://team8-tcss450-app.herokuapp.com/chats";
         //print statement for debugging
         JSONObject body = new JSONObject();
@@ -362,8 +360,6 @@ public class ChatTestViewModel extends AndroidViewModel {
     public int getChatID() {
         return myChatID.getValue();
     }
-
-
 //    public void addUsersToChat(int theChatID, String theChatter, String theJwt) {
 //        String url = "https://team8-tcss450-app.herokuapp.com/chats/" + theChatID ;
 //        //print statement for debugging

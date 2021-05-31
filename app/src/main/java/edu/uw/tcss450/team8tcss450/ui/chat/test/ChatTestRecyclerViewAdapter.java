@@ -81,7 +81,6 @@ public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRe
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
         private FragmentChatMessageTestBinding binding;
-//FragmentChatTestMessageBinding
 
         /**
          * Message view holder constructor

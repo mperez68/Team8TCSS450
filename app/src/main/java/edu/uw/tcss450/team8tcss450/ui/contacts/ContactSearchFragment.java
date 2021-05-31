@@ -21,8 +21,8 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
  */
 public class ContactSearchFragment extends Fragment {
 
-    public FragmentContactSearchBinding myBinding;
-    private ContactListViewModel myModel;
+    private FragmentContactSearchBinding mBinding;
+    private ContactListViewModel mContactListViewModel;
 
     /**
      * empty public constructor.
@@ -39,15 +39,8 @@ public class ContactSearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
 
-        myModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
-//<<<<<<< HEAD
-//        myModel.connectGet(model.getmJwt());
-//=======
-        myModel.connectGet(model.getEmail(), model.getmJwt());
-//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
+        mContactListViewModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
     }
 
     /**
@@ -61,8 +54,8 @@ public class ContactSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
-        myBinding = FragmentContactSearchBinding.inflate(theInflater);
-        return myBinding.getRoot();
+        mBinding = FragmentContactSearchBinding.inflate(theInflater);
+        return mBinding.getRoot();
     }
 
     /**
@@ -78,82 +71,46 @@ public class ContactSearchFragment extends Fragment {
 
 
         FragmentContactSearchBinding binding = FragmentContactSearchBinding.bind(getView());
-        //Listener for the contacts recycler view adapter.
-        //List<Contact> tempContactList = myModel.getContactList().getValue();
 
         //Listener for the search contact button.
         binding.buttonSearchContactSearch.setOnClickListener(button -> {
             String name = binding.contactSearchName.getText().toString();
-            String userName = binding.contactSearchUsername.getText().toString();
+            String nickname = binding.contactSearchNickname.getText().toString();
             String email = binding.contactSearchEmail.getText().toString();
 
-            List<Contact> tempContactList = myModel.getContactList().getValue();
-            List<Contact> filteredList = new ArrayList<Contact>();
+            List<Contact> tempContactList = mContactListViewModel.getContactList().getValue();
+            List<Contact> filteredList = new ArrayList<>();
 
             for (int i = 0; i < tempContactList.size(); i++) {
                 Contact temp = tempContactList.get(i);
-//                if (temp.getName().equals(name)) {
-//                    filteredList.add(temp);
-//                }
-//
-//                if (temp.getUserName().equals(userName)) {
-//                    filteredList.add(temp);
-//                }
+                if (temp.getName().equals(name)) {
+                    filteredList.add(temp);
+                }
+
+                if (temp.getNickname().equals(nickname)) {
+                    filteredList.add(temp);
+                }
 
                 if (temp.getEmail().equals(email)) {
                     filteredList.add(temp);
                 }
             }
 
-            List<Contact> resultList = removeDuplicates(filteredList);
-
-            myModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-                if (!resultList.isEmpty()) {
+            mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+                if (!filteredList.isEmpty()) {
                     binding.contactSearchListRoot.setAdapter(
-                            new ContactsRecyclerViewAdapter(resultList)
-
+                            new ContactsRecyclerViewAdapter(filteredList)
                     );
-
                 }
             });
         });
 
-//        myModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-//            if (!contactList.isEmpty()) {
-//                binding.contactSearchListRoot.setAdapter(
-//                        myModel.getViewAdapter()
-//
-//                );
-//
-//            }
-//        });
-    }
-
-    /**
-     * helper method to remove duplicates from a list for the contact search feature.
-     *
-     * @param theFilteredList - search results.
-     */
-    public static List<Contact> removeDuplicates(List<Contact> theFilteredList) {
-
-
-        // creating another array for only storing
-        // the unique elements
-        List<Contact> newList = new ArrayList<Contact>();
-
-
-        // Traverse through the first list
-        for (Contact element : theFilteredList) {
-
-            // If this element is not present in newList
-            // then add it
-            if (!newList.contains(element)) {
-
-                newList.add(element);
+        mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+            if (!contactList.isEmpty()) {
+                binding.contactSearchListRoot.setAdapter(
+                        mContactListViewModel.getViewAdapter()
+                );
             }
-        }
-
-        // return the new list
-        return newList;
+        });
     }
 }

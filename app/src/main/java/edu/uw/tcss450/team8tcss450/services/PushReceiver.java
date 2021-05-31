@@ -173,12 +173,12 @@ public class PushReceiver extends BroadcastReceiver {
 
         if (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE) {
             //app is in the foreground so send the message to the active Activities
-//            Log.d("PUSHY", "Contact requested in foreground: " + message);
-//
-//            //create an Intent to broadcast a message to other parts of the app.
+            Log.d("PUSHY", "Contact requested in foreground: ");
+
+            //create an Intent to broadcast a message to other parts of the app.
 //            Intent i = new Intent(RECEIVED_NEW_MESSAGE);
-//            i.putExtra("chatMessage", message);
-//            i.putExtra("chatid", chatId);
+//            i.putExtra("contactEmail", email);
+//            i.putExtra("memberid", memberId);
 //            i.putExtras(intent.getExtras());
 //
 //            context.sendBroadcast(i);

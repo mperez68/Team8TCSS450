@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactNewBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
@@ -89,7 +90,7 @@ public class ContactNewFragment extends Fragment {
                     builder.setMessage("Send a contact request to this user?");
 
                     builder.setPositiveButton("Send request", (dialog, id) -> {
-                        contactListViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
+                        contactListViewModel.connectPost(email, mUserInfoViewModel.getmJwt(), MainActivityArgs.fromBundle(getActivity().getIntent().getExtras()).getEmail());
                     });
 
                     builder.setNegativeButton("Cancel", (dialog, id) -> {

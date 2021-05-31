@@ -163,6 +163,10 @@ public class ChatListViewModel extends AndroidViewModel {
         myMaxNumberOfChatIDs.observe(owner, observer);
     }
 
+    public int getMaxNumberOfChatIDs() {
+        return myMaxNumberOfChatIDs.getValue();
+    }
+
     /**
      * Handler method for a volley error for a bad json request.
      * @param theError

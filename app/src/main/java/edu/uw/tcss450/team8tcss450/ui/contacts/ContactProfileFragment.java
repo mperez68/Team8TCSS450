@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import java.util.List;
+
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 
 
@@ -65,18 +67,19 @@ public class ContactProfileFragment extends Fragment {
 
         ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
 
+
         //Listener for the search contact button.
         mBinding.buttonContactMessage.setOnClickListener(button ->
                 //commented out for later
                 Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))); 
 //            Navigation.findNavController(getView()).navigate(
 //                    ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
 
 
         ContactListViewModel contact = new ViewModelProvider(getActivity())
                 .get(ContactListViewModel.class);
-
+        List<Contact> a = contact.getContactList().getValue();
         mBinding.contactFirstname.setText(contact.getContactList().getValue().get(0).getFirstName());
         mBinding.contactLastname.setText(contact.getContactList().getValue().get(0).getLastName());
         mBinding.contactNickname.setText(contact.getContactList().getValue().get(0).getNickname());

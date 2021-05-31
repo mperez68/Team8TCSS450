@@ -123,9 +123,6 @@
         <argument
             android:name="contactEmail"
             app:argType="string" />
-        <argument
-            android:name="chatID"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/navigation_settings"

@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
+import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.R;
 
 /**
@@ -81,11 +83,12 @@ public class ContactListViewModel extends AndroidViewModel {
         return mViewAdapter;
     }
 
-    public void connectPost(String theEmail, String theJwt) {
+    public void connectPost(String theSender, String theEmail, String theJwt) {
         String url = "https://team8-tcss450-app.herokuapp.com/contacts/";
         JSONObject body = new JSONObject();
         try {
             body.put("email", theEmail);
+            body.put("sender", theSender);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());

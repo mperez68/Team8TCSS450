@@ -340,14 +340,19 @@ public class ChatTestViewModel extends AndroidViewModel {
      * @param theResponse
      */
     private void handleChatID(JSONObject theResponse) {
-        int result = -1;
+        int chatID;
         if (!theResponse.has("rows")) {
             throw new IllegalStateException("Unexpected response in ChatViewModel: " + theResponse);
         }
         try {
             JSONArray responseList = (JSONArray) theResponse.get("rows");
-            JSONObject responseObj = (JSONObject) responseList.get(0);
-            int chatID = (int) responseObj.get("chatid");
+            if (theResponse.getBoolean("successNewChatRoom")) {
+                chatID = responseList.getInt(0);
+            } else {
+                JSONObject responseObj = (JSONObject) responseList.get(0);
+                chatID = (int) responseObj.get("chatid");
+            }
+
             myChatID.setValue(chatID);
 
 
@@ -368,13 +373,13 @@ public class ChatTestViewModel extends AndroidViewModel {
     }
 
     public void addUsersToChat(int theChatID, String theChatter, String theJwt) {
-        String url = "https://team8-tcss450-app.herokuapp.com/chats/" + theChatID ;
+        String url = "https://team8-tcss450-app.herokuapp.com/chats" ;
         //print statement for debugging
         JSONObject body = new JSONObject();
         try {
             body.put("chatID", theChatID);
 
-            body.put("memberID", theChatter);
+            body.put("email", theChatter);
 
 
         } catch (JSONException e) {

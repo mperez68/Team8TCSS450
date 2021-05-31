@@ -57,6 +57,7 @@ public class ChatTestFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatTestViewModel.class);
         ChatTestFragmentArgs args = ChatTestFragmentArgs.fromBundle(getArguments());
+
         //HARD CODED -------------------
 
 //        myChatID = args.getChatID();

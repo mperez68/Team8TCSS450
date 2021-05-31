@@ -22,6 +22,12 @@ public class ChatConversation implements Serializable {
      * name of the contact.
      */
     private final String mContact;
+
+    /**
+     * email of the contact.
+     */
+    private final String mEmail;
+
     /**
      * Message in this send.
      */
@@ -40,6 +46,7 @@ public class ChatConversation implements Serializable {
      */
     public static class Builder {
         private final String mContact;
+        private final String mEmail;
         private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
         private int myChatID;
 
@@ -49,8 +56,9 @@ public class ChatConversation implements Serializable {
          * @param contact
          * @param message
          */
-        public Builder(String contact, String message, int chatID) {
+        public Builder(String contact, String email, String message, int chatID) {
             this.mContact = contact;
+            this.mEmail = email;
             this.mMessage.add(message);
             this.myChatID = chatID;
         }
@@ -63,6 +71,7 @@ public class ChatConversation implements Serializable {
 
     private ChatConversation(final Builder builder) {
         this.mContact = builder.mContact;
+        this.mEmail = builder.mEmail;
         this.mMessage = builder.mMessage;
         this.myChatID = builder.myChatID;
     }
@@ -73,6 +82,14 @@ public class ChatConversation implements Serializable {
      */
     public String getmContact() {
         return mContact;
+    }
+
+    /**
+     * Getter function for the email of the contact.
+     * @return the email of the contact.
+     */
+    public String getmEmail() {
+        return mEmail;
     }
 
     /**

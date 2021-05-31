@@ -49,11 +49,12 @@ public class ChatFragment extends Fragment {
         mModel = new ViewModelProvider(getActivity()).get(ChatListViewModel.class);
 
         //TODO this is 4 asyrchronous calls for hard coded chat rooms 1,2,3, and 4. This will need to be reworked.
-        for (int i = 1; i <= 4; i++) {
-            mModel.connectGet(mUserModel.getmJwt(), i);
-        }
+//        for (int i = 1; i <= 4; i++) {
+//            mModel.connectGet(mUserModel.getmJwt(), i);
+//        }
         //Original
-       // mModel.connectGet(model.getmJwt());
+        mModel.connectNickName(mUserModel.getEmail(), mUserModel.getmJwt());
+        mModel.connectGetChatIDs(mUserModel.getEmail(), mUserModel.getmJwt());
     }
 
     /**
@@ -78,16 +79,25 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
+
+        //add lister for the chatID list
+        mModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
+            if (!chatIDList.isEmpty()) {
+                for (int i = 0; i < chatIDList.size(); i++) {
+                    mModel.connectGetUsernames(chatIDList.get(i), mUserModel.getmJwt());
+                }
+            }
+        });
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
 
             // TODO this is hard coded for the 4 chat rooms. In the future this will require broader implementation. Original down below.
-            if (!chatList.isEmpty()) {
-                int size = chatList.size();
-                for (int i = 0; i < size; i++) {
-                    if (!(chatList.get(i).getmContact().contains(mUserModel.getEmail()))) {
-                        chatList.remove(i);
-                    }
-                }
+            if (!chatList.isEmpty()) { //maxSize?
+//                int size = chatList.size();
+//                for (int i = 0; i < size; i++) {
+//                    if (!(chatList.get(i).getmContact().contains(mUserModel.getEmail()))) {
+//                        chatList.remove(i);
+//                    }
+//                }
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
@@ -105,11 +115,11 @@ public class ChatFragment extends Fragment {
 //            }
 //        });
 
-        //Listener for the chat test
-        binding.testButton.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ChatFragmentDirections.actionNavigationChatToChatTestFragment("test1@test.com", 1) //these parameters are trivial
-                ));
+//        //Listener for the chat test
+//        binding.testButton.setOnClickListener(button ->
+//                Navigation.findNavController(getView()).navigate(
+//                        ChatFragmentDirections.actionNavigationChatToChatTestFragment("test1@test.com", 1) //these parameters are trivial
+//                ));
     }
 
 }

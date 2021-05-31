@@ -1,24 +1,18 @@
 package edu.uw.tcss450.team8tcss450.ui.chat;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
-import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
-import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 /**
  * Chat Fragment for a recycler list of chat messages. Users navigate here from the bottom bar
@@ -49,12 +43,8 @@ public class ChatFragment extends Fragment {
         mChatListViewModel = new ViewModelProvider(getActivity())
                 .get(ChatListViewModel.class);
 
-        //TODO this is 4 asynchronous calls for hard coded chat rooms 1,2,3, and 4. This will need to be reworked.
-        for (int i = 1; i <= 4; i++) {
-            mChatListViewModel.connectGet(mUserInfoViewModel.getmJwt(), i);
-        }
-        //Original
-       // mModel.connectGet(model.getmJwt());
+        mChatListViewModel.connectNickName(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
+        mChatListViewModel.connectGetChatIDs(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
     }
 
     /**
@@ -80,34 +70,23 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
 
-        mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-            // TODO this is hard coded for the 4 chat rooms. In the future this will require broader implementation. Original down below.
-            if (!chatList.isEmpty()) {
-                int size = chatList.size();
-                for (int i = 0; i < size; i++) {
-                    if (!(chatList.get(i).getmContact().contains(mUserInfoViewModel.getEmail()))) {
-                        chatList.remove(i);
-                    }
+        //add lister for the chatID list
+        mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
+            if (!chatIDList.isEmpty()) {
+                for (int i = 0; i < chatIDList.size(); i++) {
+                    mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
                 }
+            }
+        });
+
+        mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+
+            if (!chatList.isEmpty()) {
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
             }
         });
-        //Original
-//        mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-//            if (!chatList.isEmpty()) {
-//                binding.listRoot.setAdapter(
-//                        new ChatRecyclerViewAdapter(chatList)
-//                );
-//            }
-//        });
-
-        //Listener for the chat test
-        binding.testButton.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ChatFragmentDirections.actionNavigationChatToChatTestFragment("test1@test.com", 1) //these parameters are trivial
-                ));
     }
 
 }

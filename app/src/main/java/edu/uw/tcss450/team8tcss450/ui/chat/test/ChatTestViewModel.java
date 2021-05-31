@@ -292,12 +292,15 @@ public class ChatTestViewModel extends AndroidViewModel {
      * @param theChatRoomName
      * @param theJwt
      */
-    public void connectChatID(String theChatRoomName, final String theJwt) {
+
+    public void connectChatID(String theChatRoomName, final String theJwt, String theUserEmail, String theConnectionEmail) {
         String url = "https://team8-tcss450-app.herokuapp.com/chats";
         //print statement for debugging
         JSONObject body = new JSONObject();
         try {
-            body.put("name", theChatRoomName); //CHAT ROOM NAME
+            body.put("name", theChatRoomName);
+            body.put("userEmail", theUserEmail);
+            body.put("connectionEmail", theConnectionEmail);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -338,11 +341,14 @@ public class ChatTestViewModel extends AndroidViewModel {
      */
     private void handleChatID(JSONObject theResponse) {
         int result = -1;
-        if (!theResponse.has("chatID")) {
+        if (!theResponse.has("rows")) {
             throw new IllegalStateException("Unexpected response in ChatViewModel: " + theResponse);
         }
         try {
-            myChatID.setValue(theResponse.getInt("chatID"));
+            JSONArray responseList = (JSONArray) theResponse.get("rows");
+            JSONObject responseObj = (JSONObject) responseList.get(0);
+            int chatID = (int) responseObj.get("chatid");
+            myChatID.setValue(chatID);
 
 
             //inform observers of the change (setValue)
@@ -360,47 +366,48 @@ public class ChatTestViewModel extends AndroidViewModel {
     public int getChatID() {
         return myChatID.getValue();
     }
-//    public void addUsersToChat(int theChatID, String theChatter, String theJwt) {
-//        String url = "https://team8-tcss450-app.herokuapp.com/chats/" + theChatID ;
-//        //print statement for debugging
-//        JSONObject body = new JSONObject();
-//        try {
-//            body.put("chatId", theChatID);
-//
-//            body.put("memberid", theChatter);
-//
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        int temp;
-//        Request request = new JsonObjectRequest(
-//                Request.Method.PUT,
-//                url,
-//                body,
-//                this::handleAddUsers, //nothing for now
-//                this::handleError) {
-//
-//            @Override
-//            public Map<String, String> getHeaders() {
-//                Map<String, String> headers = new HashMap<>();
-//                // add headers <key,value>
-//                headers.put("Authorization", theJwt);
-//                return headers;
-//            }
-//        };
-//
-//
-//        request.setRetryPolicy(new DefaultRetryPolicy(
-//                10_000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//
-//        Volley.newRequestQueue(getApplication().getApplicationContext())
-//                .add(request);
-//    }
-//
-//    private void handleAddUsers(JSONObject jsonObject) {
-//        Log.e("Success", "PUT User into chat was successful");
-//    }
+
+    public void addUsersToChat(int theChatID, String theChatter, String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/chats/" + theChatID ;
+        //print statement for debugging
+        JSONObject body = new JSONObject();
+        try {
+            body.put("chatID", theChatID);
+
+            body.put("memberID", theChatter);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int temp;
+        Request request = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                body,
+                this::handleAddUsers, //nothing for now
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", theJwt);
+                return headers;
+            }
+        };
+
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    private void handleAddUsers(JSONObject jsonObject) {
+        Log.e("Success", "PUT User into chat was successful");
+    }
 }

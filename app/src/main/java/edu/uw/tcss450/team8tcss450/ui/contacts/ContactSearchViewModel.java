@@ -82,7 +82,6 @@ public class ContactSearchViewModel extends AndroidViewModel {
             JSONObject root = theResult;
             if(root.has(getString.apply(R.string.keys_json_success))) {
                 mSearch = true;
-                Log.d("here", "here");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences mySharedPrefs;
     public static final String sharedPrefKey = "Shared Prefs App";
     public static final String sharedPrefTheme = "Shared Prefs Theme";
+    public static final String sharedPrefJwt = "Shared Prefs JWT";
 
 // PUSHY MESSAGING added from lab 5
     private ActivityMainBinding myBinding;
@@ -214,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void signOut() {
         PushyTokenViewModel model = new ViewModelProvider(this).get(PushyTokenViewModel.class);
+
+        mySharedPrefs.edit().remove(sharedPrefJwt).apply();
 
         //when we hear back from the web service quit
         model.addResponseObserver(this, result -> {

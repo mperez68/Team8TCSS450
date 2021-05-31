@@ -71,23 +71,27 @@ public class ContactNewFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
 
         FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
+        ContactListViewModel contactListViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListViewModel.class);
+        String email = binding.editTextEmail.getText().toString();
 
         binding.buttonSearch.setOnClickListener(button -> {
-            if (binding.editTextEmail.getText().toString().equals(mUserInfoViewModel.getEmail())) {
+            if (email.equals(mUserInfoViewModel.getEmail())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Error");
                 builder.setMessage("You are searching yourself!");
                 builder.show();
             } else {
-                mContactSearchViewModel.connectGet(binding.editTextEmail.getText().toString(), mUserInfoViewModel.getmJwt());
-                Log.d("variable", String.valueOf(mContactSearchViewModel.getSearch()));
+                mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 if (mContactSearchViewModel.getSearch()) {
                     builder.setTitle("User found");
                     builder.setMessage("Send a contact request to this user?");
-                    builder.setPositiveButton("Send request", (dialog, id) -> {
 
+                    builder.setPositiveButton("Send request", (dialog, id) -> {
+                        contactListViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
                     });
+
                     builder.setNegativeButton("Cancel", (dialog, id) -> {
                         return;
                     });
@@ -96,7 +100,6 @@ public class ContactNewFragment extends Fragment {
                     builder.setMessage("User not found");
                 }
                 builder.show();
-                Log.d("variable", String.valueOf(mContactSearchViewModel.getSearch()));
             }
         });
     }

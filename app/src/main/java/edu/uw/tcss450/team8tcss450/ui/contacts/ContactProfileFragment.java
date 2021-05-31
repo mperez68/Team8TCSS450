@@ -1,7 +1,6 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,9 +76,11 @@ public class ContactProfileFragment extends Fragment {
                 .get(ContactListViewModel.class);
 
         //Listener for the message contact button.
+
+        //Listener for the search contact button.
         mBinding.buttonContactMessage.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail(), 1))); //1 is the global chat room
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))); //1 is the global chat room
 //              Navigation.findNavController(getView()).navigate(
 //                      ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
 

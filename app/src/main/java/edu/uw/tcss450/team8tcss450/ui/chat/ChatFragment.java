@@ -90,7 +90,6 @@ public class ChatFragment extends Fragment {
         });
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
 
-            // TODO this is hard coded for the 4 chat rooms. In the future this will require broader implementation. Original down below.
             if (!chatList.isEmpty()) { //maxSize?
 //                int size = chatList.size();
 //                for (int i = 0; i < size; i++) {

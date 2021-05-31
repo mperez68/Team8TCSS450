@@ -84,6 +84,7 @@ public class ContactNewFragment extends Fragment {
             } else {
                 mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
                 if (mContactSearchViewModel.getSearch()) {
                     builder.setTitle("User found");
                     builder.setMessage("Send a contact request to this user?");
@@ -99,6 +100,7 @@ public class ContactNewFragment extends Fragment {
                     builder.setTitle("Error");
                     builder.setMessage("User not found");
                 }
+
                 builder.show();
             }
         });

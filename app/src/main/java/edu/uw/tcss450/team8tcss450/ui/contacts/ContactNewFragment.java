@@ -2,22 +2,19 @@ package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactNewBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,8 +69,8 @@ public class ContactNewFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
 
         FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
-        ContactListViewModel contactListViewModel = new ViewModelProvider(getActivity())
-                .get(ContactListViewModel.class);
+        ContactListTabViewModel contactListTabViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListTabViewModel.class);
         String email = binding.editTextEmail.getText().toString();
 
         binding.buttonSearch.setOnClickListener(button -> {
@@ -91,7 +88,7 @@ public class ContactNewFragment extends Fragment {
                     builder.setMessage("Send a contact request to this user?");
 
                     builder.setPositiveButton("Send request", (dialog, id) -> {
-                        contactListViewModel.connectPost(email, mUserInfoViewModel.getmJwt(), MainActivityArgs.fromBundle(getActivity().getIntent().getExtras()).getEmail());
+                        contactListTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt(), MainActivityArgs.fromBundle(getActivity().getIntent().getExtras()).getEmail());
                     });
 
                     builder.setNegativeButton("Cancel", (dialog, id) -> {

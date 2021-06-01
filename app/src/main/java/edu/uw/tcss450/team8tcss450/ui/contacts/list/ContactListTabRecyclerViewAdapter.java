@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +12,12 @@ import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactCardBinding;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 
 /**
  * Adapter for the contacts recycler view.
  */
-public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
+public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<ContactListTabRecyclerViewAdapter.ContactViewHolder> {
 
     //Store all of the blogs to present
     private final List<Contact> mContacts;
@@ -26,7 +27,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      *
      * @params theItems list of contacts to be instantiated.
      */
-    public ContactsRecyclerViewAdapter(List<Contact> theItems) {
+    public ContactListTabRecyclerViewAdapter(List<Contact> theItems) {
         this.mContacts = theItems;
     }
 
@@ -55,7 +56,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      * @return ContactViewHolder
      */
     @Override
-    public void onBindViewHolder(@NonNull ContactsRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
+    public void onBindViewHolder(@NonNull ContactListTabRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
         theHolder.setContacts(mContacts.get(thePosition));
     }
 
@@ -91,10 +92,8 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
 
         @Override
         public void onClick(View theView) {
-            String a = myContact.getNickname();
-            String b = myContact.getEmail();
             Navigation.findNavController(theView).navigate(
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
+                    ContactListTabFragmentDirections.actionContactListTabFragmentToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
         }
 
         /**

@@ -13,19 +13,7 @@
         android:id="@+id/navigation_contacts"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         android:label="@string/title_mainnav_contacts"
-        tools:layout="@layout/fragment_contacts">
-        <action
-            android:id="@+id/action_navigation_contacts_to_contactSearchFragment"
-            app:destination="@id/contactSearchFragment" />
-        <action
-            android:id="@+id/action_navigation_contacts_to_contactProfileFragment"
-            app:destination="@+id/contactProfileFragment" />
-        <action
-            android:id="@+id/action_navigation_contacts_to_contactNewFragment"
-            app:destination="@id/contactNewFragment" />
-    </fragment><![CDATA[
-    tools:layout="@layout/fragment_contacts" />
-    ]]>
+        tools:layout="@layout/fragment_contacts"/>
     <fragment
         android:id="@+id/contactSearchFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactSearchFragment"
@@ -35,49 +23,6 @@
             android:id="@+id/action_contactSearchFragment_to_chatMessageFragment"
             app:destination="@id/chatMessageFragment" />
     </fragment>
-
-    <!--
-    <fragment
-        android:id="@+id/navigation_weather"
-        android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
-        android:label="@string/title_mainnav_weather"
-        tools:layout="@layout/fragment_weather_main">
-        <action
-            android:id="@+id/action_navigation_weather_to_weatherDayPredictionListFragment"
-            app:destination="@id/weatherDayPredictionListFragment" />
-        <action
-            android:id="@+id/action_navigation_weather_to_weatherHourPredictionListFragment"
-            app:destination="@id/weatherHourPredictionListFragment" />
-        <action
-            android:id="@+id/action_navigation_weather_to_weatherMapFragment"
-            app:destination="@id/weatherMapFragment"
-    </fragment>
-    <fragment
-        android:id="@+id/weatherDayPredictionListFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment"
-        android:label="@string/title_mainnav_10dayforecast"
-        tools:layout="@layout/fragment_weather_day_prediction_list" >
-        <argument
-            android:name="zipcode"
-            app:argType="string" />
-        <argument
-            android:name="city"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/weatherHourPredictionListFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment"
-        android:label="@string/title_mainnav_24hourforecast"
-        tools:layout="@layout/fragment_weather_hour_prediction_list" >
-        <argument
-            android:name="zipcode"
-            app:argType="string" />
-        <argument
-            android:name="city"
-            app:argType="string" />
-    </fragment>
-            -->
-
     <fragment
         android:id="@+id/navigation_chat"
         android:name="edu.uw.tcss450.team8tcss450.ui.chat.ChatFragment"
@@ -148,34 +93,19 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
         android:label="@string/title_mainnav_weather"
         tools:layout="@layout/fragment_weather_main" />
-    <!--
-        <activity
-            android:id="@+id/navigation_weather_activity"
-            android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherActivity"
-            android:label="@string/title_mainnav_weather"
-            tools:layout="@layout/activity_weather" >
-            <argument
-                android:name="latitude"
-                app:argType="string" />
-            <argument
-                android:name="longitude"
-                app:argType="string" />
-            <argument
-                android:name="zipcode"
-                app:argType="string" />
-        </activity>
-        -->
-
-    <!--    <fragment-->
-<!--        android:id="@+id/contactProfileFragment"-->
-<!--        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"-->
-<!--        android:label="ContactProfileFragment" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"-->
-<!--            app:destination="@id/chatMessageFragment" />-->
-<!--        <argument-->
-<!--            android:name="contactNickname"-->
-<!--            app:argType="string" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/contactListTabFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment"
+        android:label="ContactListTabFragment" >
+        <action
+            android:id="@+id/action_contactListTabFragment_to_contactNewFragment"
+            app:destination="@id/contactNewFragment" />
+        <action
+            android:id="@+id/action_contactListTabFragment_to_contactProfileFragment"
+            app:destination="@id/contactProfileFragment" />
+        <action
+            android:id="@+id/action_contactListTabFragment_to_contactSearchFragment"
+            app:destination="@id/contactSearchFragment" />
+    </fragment>
 
 </navigation>

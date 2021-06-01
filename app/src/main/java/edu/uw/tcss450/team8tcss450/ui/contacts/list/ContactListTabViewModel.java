@@ -1,7 +1,6 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,28 +27,28 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
-import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 
 /**
  * A view model for the contact fragment to keep myContactList as a mutable live data object.
  */
-public class ContactListViewModel extends AndroidViewModel {
+public class ContactListTabViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Contact>> mContactList;
     private MutableLiveData<JSONObject> mResponse;
-    private ContactsRecyclerViewAdapter mViewAdapter;
+    private ContactListTabRecyclerViewAdapter mViewAdapter;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
      *
      * @param theApplication
      */
-    public ContactListViewModel(@NonNull Application theApplication) {
+    public ContactListTabViewModel(@NonNull Application theApplication) {
         super(theApplication);
         mContactList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
-        mViewAdapter = new ContactsRecyclerViewAdapter(mContactList.getValue());
+        mViewAdapter = new ContactListTabRecyclerViewAdapter(mContactList.getValue());
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
@@ -79,7 +78,7 @@ public class ContactListViewModel extends AndroidViewModel {
      *
      * @return myViewAdapter
      */
-    public ContactsRecyclerViewAdapter getViewAdapter() {
+    public ContactListTabRecyclerViewAdapter getViewAdapter() {
         return mViewAdapter;
     }
 

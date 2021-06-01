@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,8 +73,8 @@ public class ContactProfileFragment extends Fragment {
 
         ContactProfileFragmentArgs args = ContactProfileFragmentArgs.fromBundle(getArguments());
 
-        ContactListViewModel contactListViewModel = new ViewModelProvider(getActivity())
-                .get(ContactListViewModel.class);
+        ContactListTabViewModel contactListTabViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListTabViewModel.class);
 
         //Listener for the message contact button.
 
@@ -88,7 +89,7 @@ public class ContactProfileFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Delete contact?");
             builder.setPositiveButton("Delete", (dialog, id) -> {
-                        contactListViewModel.connectDelete(args.getContactEmail(), mUserInfoViewModel.getmJwt());
+                        contactListTabViewModel.connectDelete(args.getContactEmail(), mUserInfoViewModel.getmJwt());
                         Toast.makeText(getActivity(), "Contact has been removed", Toast.LENGTH_SHORT).show();
                     });
             builder.setNegativeButton("Cancel", (dialog, id) ->
@@ -96,7 +97,7 @@ public class ContactProfileFragment extends Fragment {
             builder.show();
         });
 
-        List<Contact> contactList = contactListViewModel.getContactList().getValue();
+        List<Contact> contactList = contactListTabViewModel.getContactList().getValue();
         String contactEmail = args.getContactEmail();
         int index = IntStream.range(0, contactList.size())
                 .filter(i -> contactList.get(i).getEmail().equals(contactEmail))

@@ -13,7 +13,17 @@
         android:id="@+id/navigation_contacts"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
         android:label="@string/title_mainnav_contacts"
-        tools:layout="@layout/fragment_contacts"/>
+        tools:layout="@layout/fragment_contacts">
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactNewFragment"
+            app:destination="@id/contactNewFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactProfileFragment"
+            app:destination="@id/contactProfileFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactSearchFragment"
+            app:destination="@id/contactSearchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactSearchFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactSearchFragment"
@@ -93,19 +103,5 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
         android:label="@string/title_mainnav_weather"
         tools:layout="@layout/fragment_weather_main" />
-    <fragment
-        android:id="@+id/contactListTabFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment"
-        android:label="ContactListTabFragment" >
-        <action
-            android:id="@+id/action_contactListTabFragment_to_contactNewFragment"
-            app:destination="@id/contactNewFragment" />
-        <action
-            android:id="@+id/action_contactListTabFragment_to_contactProfileFragment"
-            app:destination="@id/contactProfileFragment" />
-        <action
-            android:id="@+id/action_contactListTabFragment_to_contactSearchFragment"
-            app:destination="@id/contactSearchFragment" />
-    </fragment>
 
 </navigation>

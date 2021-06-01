@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 /**
  *
@@ -84,12 +85,12 @@ public class ContactListTabFragment extends Fragment {
         //Listener for the search contact button.
         binding.buttonSearchContacts.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ContactListTabFragmentDirections.actionContactListTabFragmentToContactSearchFragment()
+                        ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
                 ));
 
         binding.buttonCreateContact.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ContactListTabFragmentDirections.actionContactListTabFragmentToContactNewFragment()
+                        ContactsFragmentDirections.actionNavigationContactsToContactNewFragment()
                 ));
     }
 }

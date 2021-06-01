@@ -71,6 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsSearchFragment"
-        tools:listitem="@layout/fragment_contact_card" />
+        tools:listitem="@layout/fragment_contact_list_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

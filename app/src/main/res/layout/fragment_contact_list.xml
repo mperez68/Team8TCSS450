@@ -42,6 +42,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment"
-        tools:listitem="@layout/fragment_contact_card" />
+        tools:listitem="@layout/fragment_contact_list_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

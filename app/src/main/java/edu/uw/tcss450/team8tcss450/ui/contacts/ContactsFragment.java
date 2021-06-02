@@ -38,10 +38,8 @@ import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredicti
  * A simple {@link Fragment} subclass.
  */
 public class ContactsFragment extends Fragment {
-    private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ContactPageAdapter mPageAdapter;
-
 
     /**
      * empty constructor.

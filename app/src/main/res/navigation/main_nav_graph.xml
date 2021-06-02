@@ -23,10 +23,13 @@
         <action
             android:id="@+id/action_navigation_contacts_to_contactSearchFragment"
             app:destination="@id/contactSearchFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactRequestOptionsFragment"
+            app:destination="@id/contactRequestOptionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/contactSearchFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactSearchFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactSearchFragment"
         android:label="@string/title_mainnav_contactsearch"
         tools:layout="@layout/fragment_contact_search">
         <action
@@ -55,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/contactProfileFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragment"
         android:label="ContactProfileFragment" >
         <action
             android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
@@ -91,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/contactNewFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactNewFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactNewFragment"
         android:label="ContactNewFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -103,5 +106,13 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
         android:label="@string/title_mainnav_weather"
         tools:layout="@layout/fragment_weather_main" />
+    <fragment
+        android:id="@+id/contactRequestOptionsFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestOptionsFragment"
+        android:label="ContactRequestOptionsFragment" >
+        <argument
+            android:name="requestEmail"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

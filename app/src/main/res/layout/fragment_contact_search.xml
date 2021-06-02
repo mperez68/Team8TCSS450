@@ -6,7 +6,7 @@
     android:id="@+id/contact_search_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contacts.ContactSearchFragment">
+    tools:context=".ui.contacts.list.ContactSearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchBinding;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabRecyclerViewAdapter;
 

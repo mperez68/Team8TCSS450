@@ -77,7 +77,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
         public FragmentContactListCardBinding mBinding;
-        private Contact myContact;
+        private Contact mContact;
 
         /**
          * Constructor for the view and the binding.
@@ -94,7 +94,8 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
         @Override
         public void onClick(View theView) {
             Navigation.findNavController(theView).navigate(
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
+                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+            );
         }
 
         /**
@@ -103,7 +104,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
          * @params theContact
          */
         void setContacts(Contact theContact) {
-            myContact = theContact;
+            mContact = theContact;
             mBinding.contactNickname.setText(theContact.getNickname());
         }
     }

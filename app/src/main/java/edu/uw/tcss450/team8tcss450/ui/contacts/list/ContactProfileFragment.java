@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactProfileBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 
 /**
@@ -76,14 +77,10 @@ public class ContactProfileFragment extends Fragment {
         ContactListTabViewModel contactListTabViewModel = new ViewModelProvider(getActivity())
                 .get(ContactListTabViewModel.class);
 
-        //Listener for the message contact button.
-
-        //Listener for the search contact button.
         mBinding.buttonContactMessage.setOnClickListener(button ->
                 Navigation.findNavController(getView()).navigate(
-                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))); //1 is the global chat room
-//              Navigation.findNavController(getView()).navigate(
-//                      ContactProfileFragmentDirections.actionContactProfileFragmentToChatMessageFragment("Default")));
+                        ContactProfileFragmentDirections.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))
+        );
 
         mBinding.buttonContactDelete.setOnClickListener(button -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

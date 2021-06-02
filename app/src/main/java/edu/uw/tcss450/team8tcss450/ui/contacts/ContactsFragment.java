@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +9,37 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabFragment;
+import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabViewModel;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherCurrentFragment;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherMapFragment;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherPageAdapter;
+import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment;
+import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment;
 
 /**
  *
  * A simple {@link Fragment} subclass.
  */
 public class ContactsFragment extends Fragment {
-
-    private ContactListViewModel mContactListViewModel;
-    private UserInfoViewModel mUserInfoViewModel;
+    private ViewPager mViewPager;
+    private ContactPageAdapter mPageAdapter;
 
     /**
      * empty constructor.
@@ -40,10 +57,6 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
-        mUserInfoViewModel = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
-        mContactListViewModel = new ViewModelProvider(getActivity())
-                .get(ContactListViewModel.class);
     }
 
     /**
@@ -57,7 +70,6 @@ public class ContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
-        // Inflate the layout for this fragment
         return theInflater.inflate(R.layout.fragment_contacts, theContainer, false);
     }
 
@@ -71,26 +83,42 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
-        FragmentContactsBinding binding = FragmentContactsBinding.bind(getView());
+        mPageAdapter = new ContactPageAdapter(getChildFragmentManager());
+        mViewPager = theView.findViewById(R.id.contact_view_pager);
+        mViewPager.setAdapter(mPageAdapter);
+        TabLayout tabLayout = theView.findViewById(R.id.contact_tab_layout);
+        tabLayout.setupWithViewPager(mViewPager);
 
-        mContactListViewModel.getContactList().getValue().clear();
-        mContactListViewModel.connectGet(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
+        String[] tabNames = {"Contacts", "Requests"};
+        for (int i = 0; i < tabNames.length; i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setText(tabNames[i]);
+        }
+    }
 
-        mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
-            binding.contactsListRoot.setAdapter(
-                    mContactListViewModel.getViewAdapter()
-            );
-        });
+    public class ContactPageAdapter extends FragmentStatePagerAdapter {
 
-        //Listener for the search contact button.
-        binding.buttonSearchContacts.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactsFragmentDirections.actionNavigationContactsToContactSearchFragment()
-                ));
+        /**
+         * Constructor for the WeatherPageAdapter
+         *
+         * @param manager the manager for the pages of the view pager the adapter is connected to
+         */
+        public ContactPageAdapter(FragmentManager manager) {
+            super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
 
-        binding.buttonCreateContact.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactsFragmentDirections.actionNavigationContactsToContactNewFragment()
-                ));
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return new ContactListTabFragment();
+            } else {
+                return new ContactRequestsTabFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 }

@@ -1,7 +1,6 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.requests;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,28 +27,25 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
-import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 
-/**
- * A view model for the contact fragment to keep myContactList as a mutable live data object.
- */
-public class ContactListViewModel extends AndroidViewModel {
+public class ContactRequestsTabViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Contact>> mContactList;
+    private MutableLiveData<List<ContactRequest>> mRequestList;
     private MutableLiveData<JSONObject> mResponse;
-    private ContactsRecyclerViewAdapter mViewAdapter;
+    private ContactRequestsTabRecyclerViewAdapter mViewAdapter;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
      *
      * @param theApplication
      */
-    public ContactListViewModel(@NonNull Application theApplication) {
+    public ContactRequestsTabViewModel(@NonNull Application theApplication) {
         super(theApplication);
-        mContactList = new MutableLiveData<>();
-        mContactList.setValue(new ArrayList<>());
-        mViewAdapter = new ContactsRecyclerViewAdapter(mContactList.getValue());
+        mRequestList = new MutableLiveData<>();
+        mRequestList.setValue(new ArrayList<>());
+        mViewAdapter = new ContactRequestsTabRecyclerViewAdapter(mRequestList.getValue());
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
@@ -60,9 +56,9 @@ public class ContactListViewModel extends AndroidViewModel {
      * @param theOwner
      * @param theObserver
      */
-    public void addContactListObserver(@NonNull LifecycleOwner theOwner,
-                                    @NonNull Observer<? super List<Contact>> theObserver) {
-        mContactList.observe(theOwner, theObserver);
+    public void addContactRequestObserver(@NonNull LifecycleOwner theOwner,
+                                       @NonNull Observer<? super List<ContactRequest>> theObserver) {
+        mRequestList.observe(theOwner, theObserver);
     }
 
     /**
@@ -70,8 +66,8 @@ public class ContactListViewModel extends AndroidViewModel {
      *
      * @return myContactList
      */
-    public MutableLiveData<List<Contact>> getContactList() {
-        return mContactList;
+    public MutableLiveData<List<ContactRequest>> getRequestList() {
+        return mRequestList;
     }
 
     /**
@@ -79,16 +75,15 @@ public class ContactListViewModel extends AndroidViewModel {
      *
      * @return myViewAdapter
      */
-    public ContactsRecyclerViewAdapter getViewAdapter() {
+    public ContactRequestsTabRecyclerViewAdapter getViewAdapter() {
         return mViewAdapter;
     }
 
-    public void connectPost(String theSender, String theEmail, String theJwt) {
-        String url = "https://team8-tcss450-app.herokuapp.com/contacts/";
+    public void connectPost(String theEmail, String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/requests/";
         JSONObject body = new JSONObject();
         try {
             body.put("email", theEmail);
-            body.put("sender", theSender);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
@@ -116,16 +111,14 @@ public class ContactListViewModel extends AndroidViewModel {
                 .add(request);
     }
 
-
-
     /**
      * connect to endpoints using heroku app link. Can use get requests from endpoint.
      *
      * @param theJwt the jason web token to connect to
      * @param theEmail
-      */
+     */
     public void connectGet(String theEmail, String theJwt) {
-        String url = "https://team8-tcss450-app.herokuapp.com/contacts/" + theEmail;
+        String url = "https://team8-tcss450-app.herokuapp.com/requests/" + theEmail;
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -159,21 +152,15 @@ public class ContactListViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = theResult;
-            if (root.has(getString.apply(R.string.keys_json_contacts))) {
-                JSONArray response = root.getJSONArray(getString.apply(R.string.keys_json_contacts));
+            if (root.has(getString.apply(R.string.keys_json_requests))) {
+                JSONArray response = root.getJSONArray(getString.apply(R.string.keys_json_requests));
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject jsonContact = response.getJSONObject(i);
-                    Contact contact = new Contact.Builder(
-                            jsonContact.getString(
-                                    getString.apply(R.string.keys_json_contact_firstname)),
-                            jsonContact.getString(
-                                    getString.apply(R.string.keys_json_contact_lastname)),
-                            jsonContact.getString(
-                                    getString.apply(R.string.keys_json_contact_nickname)),
+                    ContactRequest contactRequest = new ContactRequest.Builder(
                             jsonContact.getString(
                                     getString.apply(R.string.keys_json_contact_email)))
                             .build();
-                    mContactList.getValue().add(contact);
+                    mRequestList.getValue().add(contactRequest);
                 }
             } else {
                 Log.e("ERROR!", "No data array");
@@ -183,16 +170,15 @@ public class ContactListViewModel extends AndroidViewModel {
             Log.e("ERROR!", e.getMessage());
         }
 
-        mContactList.setValue(mContactList.getValue());
+        mRequestList.setValue(mRequestList.getValue());
     }
 
     private void handleGetError(VolleyError error) {
-        mContactList.setValue(new ArrayList<>());
+        mRequestList.setValue(new ArrayList<>());
     }
 
-
     public void connectDelete(String theEmail, String theJwt) {
-        String url = "https://team8-tcss450-app.herokuapp.com/contacts/" + theEmail;
+        String url = "https://team8-tcss450-app.herokuapp.com/requests/" + theEmail;
         Request request = new JsonObjectRequest(
                 Request.Method.DELETE,
                 url,
@@ -215,17 +201,17 @@ public class ContactListViewModel extends AndroidViewModel {
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
 
-        List<Contact> tempList = mContactList.getValue();
-        Contact tempContact = null;
+        List<ContactRequest> tempList = mRequestList.getValue();
+        ContactRequest tempRequest = null;
 
-        for (Contact c : tempList) {
-            if (c.getEmail() == theEmail) {
-                tempContact = c;
+        for (ContactRequest r : tempList) {
+            if (r.getEmail() == theEmail) {
+                tempRequest = r;
             }
         }
 
-        tempList.remove(tempContact);
-        mContactList.setValue(tempList);
+        tempList.remove(tempRequest);
+        mRequestList.setValue(tempList);
     }
 
     private void handleError(VolleyError theError) {

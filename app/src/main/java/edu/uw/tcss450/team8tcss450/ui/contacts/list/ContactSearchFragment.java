@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchBinding;
-import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +24,7 @@ import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 public class ContactSearchFragment extends Fragment {
 
     private FragmentContactSearchBinding mBinding;
-    private ContactListViewModel mContactListViewModel;
+    private ContactListTabViewModel mContactListTabViewModel;
 
     /**
      * empty public constructor.
@@ -40,7 +42,7 @@ public class ContactSearchFragment extends Fragment {
     public void onCreate(@Nullable Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
 
-        mContactListViewModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
+        mContactListTabViewModel = new ViewModelProvider(getActivity()).get(ContactListTabViewModel.class);
     }
 
     /**
@@ -78,7 +80,7 @@ public class ContactSearchFragment extends Fragment {
             String nickname = binding.contactSearchNickname.getText().toString();
             String email = binding.contactSearchEmail.getText().toString();
 
-            List<Contact> tempContactList = mContactListViewModel.getContactList().getValue();
+            List<Contact> tempContactList = mContactListTabViewModel.getContactList().getValue();
             List<Contact> filteredList = new ArrayList<>();
 
             for (int i = 0; i < tempContactList.size(); i++) {
@@ -96,19 +98,19 @@ public class ContactSearchFragment extends Fragment {
                 }
             }
 
-            mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+            mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
                 if (!filteredList.isEmpty()) {
                     binding.contactSearchListRoot.setAdapter(
-                            new ContactsRecyclerViewAdapter(filteredList)
+                            new ContactListTabRecyclerViewAdapter(filteredList)
                     );
                 }
             });
         });
 
-        mContactListViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+        mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.contactSearchListRoot.setAdapter(
-                        mContactListViewModel.getViewAdapter()
+                        mContactListTabViewModel.getViewAdapter()
                 );
             }
         });

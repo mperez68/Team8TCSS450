@@ -18,6 +18,7 @@
     <string name="button_register">Register</string>
     <string name="button_reset">Forgot Password?</string>
     <string name="button_sendreset">Reset Password</string>
+    <string name="switch_signin">Stay logged in</string>
 
     <!-- Registration fragment -->
     <string name="hint_first">First name</string>

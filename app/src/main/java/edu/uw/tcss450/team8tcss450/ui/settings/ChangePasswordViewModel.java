@@ -89,13 +89,10 @@ public class ChangePasswordViewModel extends AndroidViewModel {
     public void connect(final String theEmail,
                         final String theOldPassword,
                         final String theNewPassword) {
-        // TODO encode better
-        String e1 = theEmail.substring(0,theEmail.indexOf("@"));
-        String e2 = theEmail.substring(theEmail.indexOf("@") + 1,theEmail.indexOf("."));
-        String e3 = theEmail.substring(theEmail.indexOf(".") + 1);
-        String url = "https://team8-tcss450-app.herokuapp.com/newpw?e1=" + e1 + "&e2=" + e2 + "&e3=" + e3;
+        String url = "https://team8-tcss450-app.herokuapp.com/newpw";
         JSONObject body = new JSONObject();
         try {
+            body.put("email", theEmail);
             body.put("oldpass", theOldPassword);
             body.put("password", theNewPassword);
         } catch (JSONException e) {

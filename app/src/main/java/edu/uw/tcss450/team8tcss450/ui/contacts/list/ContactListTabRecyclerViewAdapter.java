@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactCardBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentContactListCardBinding;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 /**
  * Adapter for the contacts recycler view.
  */
-public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRecyclerViewAdapter.ContactViewHolder> {
+public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<ContactListTabRecyclerViewAdapter.ContactViewHolder> {
 
     //Store all of the blogs to present
     private final List<Contact> mContacts;
@@ -26,7 +28,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      *
      * @params theItems list of contacts to be instantiated.
      */
-    public ContactsRecyclerViewAdapter(List<Contact> theItems) {
+    public ContactListTabRecyclerViewAdapter(List<Contact> theItems) {
         this.mContacts = theItems;
     }
 
@@ -43,7 +45,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup theParent, int theViewType) {
         return new ContactViewHolder(LayoutInflater
                 .from(theParent.getContext())
-                .inflate(R.layout.fragment_contact_card, theParent, false));
+                .inflate(R.layout.fragment_contact_list_card, theParent, false));
     }
 
     /**
@@ -55,7 +57,7 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      * @return ContactViewHolder
      */
     @Override
-    public void onBindViewHolder(@NonNull ContactsRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
+    public void onBindViewHolder(@NonNull ContactListTabRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
         theHolder.setContacts(mContacts.get(thePosition));
     }
 
@@ -74,8 +76,8 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
      */
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
-        public FragmentContactCardBinding mBinding;
-        private Contact myContact;
+        public FragmentContactListCardBinding mBinding;
+        private Contact mContact;
 
         /**
          * Constructor for the view and the binding.
@@ -85,27 +87,24 @@ public class ContactsRecyclerViewAdapter extends RecyclerView.Adapter<ContactsRe
         public ContactViewHolder(View theView) {
             super(theView);
             mView = theView;
-            mBinding = FragmentContactCardBinding.bind(theView);
+            mBinding = FragmentContactListCardBinding.bind(theView);
             theView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View theView) {
             Navigation.findNavController(theView).navigate(
-
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
-//=======
-//                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname()));
-//>>>>>>> c0273a3c6e22a6abd6e4a366be5a4e74a99c94da
+                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+            );
         }
-       // ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getName(), myContact.getEmail())
+
         /**
          * Setter method for the contact.
          *
          * @params theContact
          */
         void setContacts(Contact theContact) {
-            myContact = theContact;
+            mContact = theContact;
             mBinding.contactNickname.setText(theContact.getNickname());
         }
     }

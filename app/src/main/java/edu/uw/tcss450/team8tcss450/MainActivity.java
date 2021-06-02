@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
 import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
+import edu.uw.tcss450.team8tcss450.model.PushyTokenViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 import edu.uw.tcss450.team8tcss450.services.PushReceiver;
 import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
@@ -32,8 +33,10 @@ import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences mySharedPrefs;
     public static final String sharedPrefKey = "Shared Prefs App";
     public static final String sharedPrefTheme = "Shared Prefs Theme";
+    public static final String sharedPrefJwt = "Shared Prefs JWT";
 
 // PUSHY MESSAGING added from lab 5
     private ActivityMainBinding myBinding;
@@ -52,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle theSavedInstanceState) {
         super.onCreate(theSavedInstanceState);
 
-        SharedPreferences prefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
+        mySharedPrefs = getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE);
 
-        String theme = prefs.getString(sharedPrefTheme, "Default");
+        String theme = mySharedPrefs.getString(sharedPrefTheme, "Default");
 
         if (theme.equals("Alt")) {
             ColorTheme.setTheme(ColorTheme.THEME_ALT);
@@ -192,9 +195,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.action_sign_out) {
             // if sign out is clicked, return to log in page
-            Intent auth = new Intent(this, AuthActivity.class);
-            startActivity(auth);
-            this.finish();
+//            Intent auth = new Intent(this, AuthActivity.class);
+//            startActivity(auth);
+//            this.finish();
+
+            signOut();
 
             Log.d("SIGN OUT", "Clicked");
             return true;
@@ -202,10 +207,35 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(theItem);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
-    /**
-     * A BroadcastReceiver that listens for messages sent from PushReceiver
-     */
+    }
+
+    private void signOut() {
+        PushyTokenViewModel model = new ViewModelProvider(this).get(PushyTokenViewModel.class);
+
+        mySharedPrefs.edit().remove(sharedPrefJwt).apply();
+
+        //when we hear back from the web service quit
+        model.addResponseObserver(this, result -> {
+            Intent auth = new Intent(this, AuthActivity.class);
+            startActivity(auth);
+            this.finish();
+        });
+
+        model.deleteTokenFromWebservice(
+                new ViewModelProvider(this)
+                        .get(UserInfoViewModel.class)
+                        .getmJwt()
+        );
+    }
+
+
+        /**
+         * A BroadcastReceiver that listens for messages sent from PushReceiver
+         */
     private class MainPushMessageReceiver extends BroadcastReceiver {
 
         private ChatTestViewModel mModel =

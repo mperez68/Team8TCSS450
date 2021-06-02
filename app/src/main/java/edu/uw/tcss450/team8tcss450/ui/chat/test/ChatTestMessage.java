@@ -17,7 +17,6 @@ public class ChatTestMessage implements Serializable {
     private final String mSender;
     private final String mTimeStamp;
 
-
     /**
      * ChatTestMessage constructor
      *

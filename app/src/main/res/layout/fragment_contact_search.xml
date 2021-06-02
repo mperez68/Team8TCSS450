@@ -1,120 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_search_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contacts.ContactSearchFragment">
+    tools:context=".ui.contacts.list.ContactSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/contact_search_list_root">
 
-    <TextView
-        android:id="@+id/contact_search_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/text_contacts_header"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/contact_search_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_contactsearch_name"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/contact_search_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_contactsearch_nickname"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/contact_search_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/contact_search_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_contactsearch_email"
+            android:inputType="textPersonName"
+            tools:ignore="TextFields"
+            app:layout_constraintTop_toBottomOf="@+id/contact_search_nickname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_search_contactSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_contacts_search"
+            app:layout_constraintTop_toBottomOf="@+id/contact_search_email"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contact_search_list_root"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsSearchFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="200dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
-
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsSearchFragment"
-        tools:listitem="@layout/fragment_contact_card" />
-
-    <!--    android:id="@+id/contacts_list_root"-->
-
-    <!--    android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:layout_marginStart="8dp"-->
-    <!--    android:layout_marginEnd="8dp"-->
-    <!--    android:orientation="vertical"-->
-    <!--    app:layoutManager="LinearLayoutManager"-->
-    <!--    android:layout_marginTop="140dp"-->
-    <!--    app:layout_constraintEnd_toEndOf="parent"-->
-    <!--    app:layout_constraintHorizontal_bias="0.0"-->
-    <!--    app:layout_constraintStart_toStartOf="parent"-->
-    <!--    app:layout_constraintTop_toTopOf="parent"-->
-    <!--    tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"-->
-    <!--    tools:listitem="@layout/fragment_contact_card" />-->
-
-    <EditText
-        android:id="@+id/contact_search_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="@string/hint_contactsearch_name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_search_title" />
-
-    <EditText
-        android:id="@+id/contact_search_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="@string/hint_contactsearch_nickname"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_search_name" />
-
-    <EditText
-        android:id="@+id/contact_search_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="@string/hint_contactsearch_email"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_search_username"
-        tools:ignore="TextFields" />
-
-    <Button
-        android:id="@+id/button_search_contactSearch"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="286dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/button_contacts_search"
-        app:layout_constraintBottom_toTopOf="@+id/contact_search_list_root"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_search_email" />
+        tools:listitem="@layout/fragment_contact_list_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

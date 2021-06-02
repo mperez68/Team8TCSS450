@@ -70,9 +70,10 @@ public class ContactNewFragment extends Fragment {
         FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
         ContactRequestsTabViewModel contactRequestsTabViewModel = new ViewModelProvider(getActivity())
                 .get(ContactRequestsTabViewModel.class);
-        String email = binding.editTextEmail.getText().toString();
 
         binding.buttonSearch.setOnClickListener(button -> {
+            String email = binding.editTextEmail.getText().toString();
+
             if (email.equals(mUserInfoViewModel.getEmail())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Error");
@@ -80,9 +81,14 @@ public class ContactNewFragment extends Fragment {
                 builder.show();
             } else {
                 mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
+
+                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), search ->
+                    binding.editTextEmail.getText()
+                );
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                if (mContactSearchViewModel.getSearch()) {
+                if (mContactSearchViewModel.getSearch().getValue()) {
                     builder.setTitle("User found");
                     builder.setMessage("Send a contact request to this user?");
 

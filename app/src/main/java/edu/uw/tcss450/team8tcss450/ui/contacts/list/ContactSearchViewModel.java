@@ -5,9 +5,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -18,15 +21,18 @@ import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequest;
 
 public class ContactSearchViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> mResponse;
-    private boolean mSearch;
+    private MutableLiveData<Boolean> mSearch;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
@@ -37,10 +43,22 @@ public class ContactSearchViewModel extends AndroidViewModel {
         super(theApplication);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
-        mSearch = false;
+        mSearch = new MutableLiveData<>();
+        mSearch.setValue(new Boolean(false));
     }
 
-    public boolean getSearch() {
+    /**
+     * Method that creates an observer for myContactList.
+     *
+     * @param theOwner
+     * @param theObserver
+     */
+    public void searchContactObserver(@NonNull LifecycleOwner theOwner,
+                                          @NonNull Observer<? super Boolean> theObserver) {
+        mSearch.observe(theOwner, theObserver);
+    }
+
+    public MutableLiveData<Boolean> getSearch() {
         return mSearch;
     }
 
@@ -80,8 +98,8 @@ public class ContactSearchViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = theResult;
-            if(root.has(getString.apply(R.string.keys_json_success))) {
-                mSearch = true;
+            if (root.has(getString.apply(R.string.keys_json_success))) {
+                mSearch.setValue(new Boolean(true));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +108,26 @@ public class ContactSearchViewModel extends AndroidViewModel {
     }
 
     private void handleGetError(VolleyError theError) {
-        mSearch = false;
+        if (Objects.isNull(theError.networkResponse)) {
+            try {
+                mResponse.setValue(new JSONObject("{" +
+                        "error:\"" + theError.getMessage() +
+                        "\"}"));
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        }
+        else {
+            String data = new String(theError.networkResponse.data, Charset.defaultCharset())
+                    .replace('\"', '\'');
+            try {
+                JSONObject response = new JSONObject();
+                response.put("code", theError.networkResponse.statusCode);
+                response.put("data", new JSONObject(data));
+                mResponse.setValue(response);
+            } catch (JSONException e) {
+                Log.e("JSON PARSE", "JSON Parse Error in handleError");
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 package edu.uw.tcss450.team8tcss450.ui.contacts;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactsBinding;
-import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment;
-import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabFragment;
-import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabViewModel;
-import edu.uw.tcss450.team8tcss450.ui.weather.WeatherPageAdapter;
-import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment;
-import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment;
 
 /**
  *
@@ -41,7 +28,6 @@ public class ContactsFragment extends Fragment {
 
     /**
      * empty constructor.
-     *
      */
     public ContactsFragment() {
         // Required empty public constructor

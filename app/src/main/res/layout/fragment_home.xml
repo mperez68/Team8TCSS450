@@ -71,44 +71,31 @@
             android:id="@+id/weather_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tacoma, WA"
+            android:text="_____"
             android:textAlignment="center"
             android:textSize="20dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/weather_outlook_icon"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_weather_black_24dp"
-            app:layout_constraintTop_toBottomOf="@+id/weather_location"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_fifty" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_fifty"
+            app:layout_constraintTop_toBottomOf="@+id/weather_location" />
 
         <TextView
             android:id="@+id/weather_temperature"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_marginStart="16dp"
-            android:text="80&#xb0;"
+            android:text="___"
             android:textAlignment="center"
-            android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/weather_location"
-            app:layout_constraintStart_toEndOf="@+id/guideline_fifty" />
-
-        <TextView
-            android:id="@+id/weather_high_low"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="H:90&#xb0; / L:70&#xb0;"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/weather_temperature"
-            app:layout_constraintStart_toEndOf="@+id/guideline_fifty"/>
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="@+id/weather_outlook_icon"
+            app:layout_constraintStart_toEndOf="@+id/guideline_fifty"
+            app:layout_constraintTop_toTopOf="@+id/weather_outlook_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

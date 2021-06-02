@@ -47,7 +47,11 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
     private MutableLiveData<List<WeatherDayPostInfo>> mWeatherDayPostList;
 
     // The saved zipcode for this WeatherDayPredictionViewModel
-    private String mZipcode;
+    //private String mZipcode;
+
+    private String mLatitude;
+
+    private String mLongitude;
 
     /**
      * Construct the view model of the 10-day weather forecast
@@ -56,28 +60,45 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      */
     public WeatherDayPredictionViewModel(@NonNull Application application) {
         super(application);
+        Log.v("WeatherDayPredictionViewModel", "The view model for WeatherDayPredictionList is created");
 
-        this.mZipcode = "";
+        //this.mZipcode = "";
+        mLatitude = "";
+        mLongitude = "";
 
         mWeatherDayPostList = new MutableLiveData<>();
         mWeatherDayPostList.setValue(new ArrayList<>());
     }
 
+    public String getLatitude() {
+        return this.mLatitude;
+    }
+
+    public String getLongitude() {
+        return this.mLongitude;
+    }
+
+    public void setLatLongCoordinates(final String latitude,
+                                      final String longitude) {
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
+    }
+
     /**
      * Return the saved zipcode for the daily weather forecast list
      * @return the saved current weather zipcode
-     */
     public String getZipcode() {
         return this.mZipcode;
     }
+     */
 
     /**
      * Set the zipcode for the daily weather forecast list
      * @param zipcode the zipcode
-     */
     public void setZipcode(final String zipcode) {
         this.mZipcode = zipcode;
     }
+     */
 
     /**
      * Add an observer for this view model
@@ -199,7 +220,9 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      *
      * @params zipcode the successfully validated zipcode used to obtain daily forecast weather information
      */
-    public void connectToWeatherBit(final String zipcode) {
+    public void connectToWeatherBit(//final String zipcode
+                                        final String latitude,
+                                        final String longitude) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/daily";
         Log.i("WeatherDayPredictionViewModel.java", "Connecting to OpenWeatherMap API for Daily Forecast Weather");
         Request request = new JsonObjectRequest(
@@ -213,7 +236,9 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
                 headers.put("Authorization", "37cb34eeb8df469796e2a87f43c7f9be");
-                headers.put("zipcode", zipcode);
+//                headers.put("zipcode", zipcode);
+                headers.put("latitude", latitude);
+                headers.put("longitude", longitude);
                 return headers;
             }
         };

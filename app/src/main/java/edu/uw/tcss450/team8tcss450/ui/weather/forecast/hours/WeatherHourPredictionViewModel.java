@@ -47,7 +47,11 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
     private MutableLiveData<List<WeatherHourPostInfo>> mWeatherHourPostList;
 
     // The saved zipcode for this WeatherHourPredictionViewModel
-    private String mZipcode;
+    //private String mZipcode;
+
+    private String mLatitude;
+
+    private String mLongitude;
 
     /**
      * Construct the view model of the 24-hour weather forecast
@@ -56,28 +60,47 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      */
     public WeatherHourPredictionViewModel(@NonNull Application application) {
         super(application);
+        Log.v("WeatherHourPredictionViewModel", "The view model for WeatherHourPredictionList is created");
 
-        this.mZipcode = "";
+        //this.mZipcode = "";
+
+        this.mLatitude = "";
+        this.mLongitude = "";
 
         mWeatherHourPostList = new MutableLiveData<>();
         mWeatherHourPostList.setValue(new ArrayList<>());
     }
 
+    public String getLatitude() {
+        return this.mLatitude;
+    }
+
+    public String getLongitude() {
+        return this.mLongitude;
+    }
+
+    public void setLatLongCoordinates(final String latitude,
+                                      final String longitude) {
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
+    }
+
+
     /**
      * Return the saved zipcode for the hourly weather forecast list
      * @return the saved current weather zipcode
-     */
     public String getZipcode() {
         return this.mZipcode;
     }
+     */
 
     /**
      * Set the zipcode for the hourly weather forecast list
      * @param zipcode the zipcode
-     */
     public void setZipcode(final String zipcode) {
         this.mZipcode = zipcode;
     }
+     */
 
     /**
      * Add an observer for the hourly forecast post list of this view model

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.weather;
+package edu.uw.tcss450.team8tcss450.ui.weather.current;
 
 import android.os.Bundle;
 
@@ -11,13 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import java.util.function.IntFunction;
-
-import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherCurrentBinding;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 
 /**
  * The fragment for the current-weather display
@@ -50,12 +46,18 @@ public class WeatherCurrentFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
 
+//        Log.d("WeatherCurrentFragment.onCreateView()",
+//                "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherCurrentViewModel=" + mViewModel.getZipcode());
+
         // If the saved zipcode in WeatherCurrentViewModel does not match the zipcode
         // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
         // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
         // Otherwise, display information already saved in WeatherCurrentViewModel
-        if (!mViewModel.getZipcode().equals(model.getZipcode())) {
-            mViewModel.connectToOpenWeatherMap(model.getZipcode(), model, binding);
+        //if (!mViewModel.getZipcode().equals(model.getZipcode())) {
+            //mViewModel.connectToOpenWeatherMap(model.getZipcode(), model, binding);
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLongitude())) {
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding);
         } else {
             mViewModel.displayInformation(binding, mViewModel.getWeatherInfo());
         }
@@ -77,8 +79,13 @@ public class WeatherCurrentFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherCurrentViewModel.class);
 
-        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
-            mViewModel.connectToOpenWeatherMap(model.getZipcode(), model, binding);
+//        Log.d("WeatherCurrentFragment.onResume()",
+//                "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherCurrentViewModel=" + mViewModel.getZipcode());
+//        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
+//            mViewModel.connectToOpenWeatherMap(model.getZipcode(), model, binding);
+        if (!model.getLatitude().equals(mViewModel.getLatitude()) &&
+                !model.getLongitude().equals(mViewModel.getLongitude())) {
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding);
         } else {
             mViewModel.displayInformation(binding, mViewModel.getWeatherInfo());
         }
@@ -98,9 +105,9 @@ public class WeatherCurrentFragment extends Fragment {
      *
      * @param zipcode the queried zipcode
      * @param model the WeatherZipcodeViewModel to be used in case queried zipcode is valid
-     */
     public void getInformation(final String zipcode, final WeatherZipcodeViewModel model) {
         mViewModel.connectToOpenWeatherMap(zipcode, model, binding);
     }
+     */
 
 }

@@ -48,10 +48,11 @@ public class WeatherDayPredictionListFragment extends Fragment {
 
         WeatherZipcodeViewModel model = new ViewModelProvider(getActivity())
                 .get(WeatherZipcodeViewModel.class);
-
+/*
         Log.d("WeatherDayPredictionListFragment.onCreate()",
                 "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
-
+        Log.d("WeatherDayPredictionListFragment.onCreate()",
+                "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherDayPredictionViewModel=" + mViewModel.getZipcode());
         // If the saved zipcode in WeatherDayPredictionViewModel does not match the zipcode
         // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
         // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
@@ -60,6 +61,14 @@ public class WeatherDayPredictionListFragment extends Fragment {
             if (!mViewModel.isEmpty())
                 mViewModel.clearList();
             mViewModel.connectToWeatherBit(model.getZipcode());
+        }
+ */
+
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLatitude())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
         }
 
         Log.v("WeatherDayPredictionListFragment.java","onCreate() finished");
@@ -92,13 +101,23 @@ public class WeatherDayPredictionListFragment extends Fragment {
     public void onResume() {
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
+
 /*
+        Log.d("WeatherDayPredictionListFragment.onResume()",
+                "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherDayPredictionViewModel=" + mViewModel.getZipcode());
+
         if (!model.getZipcode().equals(mViewModel.getZipcode())) {
             mViewModel.clearList();
             mViewModel.connectToWeatherBit(model.getZipcode());
         }
-
  */
+
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLatitude())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
+        }
 
         Log.v("WeatherDayPredictionListFragment.java","onResume() finished");
         super.onResume();

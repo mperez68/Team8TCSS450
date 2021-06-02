@@ -52,17 +52,26 @@ public class WeatherHourPredictionListFragment extends Fragment {
         WeatherZipcodeViewModel model =
                 new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
 
-        Log.d("WeatherHourPredictionListFragment.onCreate()",
-                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
-
+//        Log.d("WeatherHourPredictionListFragment.onCreate()",
+//                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
+//        Log.d("WeatherHourPredictionListFragment.onCreate()",
+//                "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherHourPredictionViewModel=" + mViewModel.getZipcode());
         // If the saved zipcode in WeatherHourPredictionViewModel does not match the zipcode
         // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
         // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
         // Otherwise, display information already saved in WeatherHourPredictionViewModel
+        /*
         if (!mViewModel.getZipcode().equals(model.getZipcode())) {
             if (!mViewModel.isEmpty())
                 mViewModel.clearList();
             mViewModel.connectToWeatherBit(model.getZipcode());
+        }
+        */
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLatitude())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
         }
 
     }
@@ -94,13 +103,22 @@ public class WeatherHourPredictionListFragment extends Fragment {
     public void onResume() {
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
+
+        //Log.d("WeatherHourPredictionListFragment.onResume()",
+        //        "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherHourPredictionViewModel=" + mViewModel.getZipcode());
 /*
         if (!model.getZipcode().equals(mViewModel.getZipcode())) {
             mViewModel.clearList();
             mViewModel.connectToWeatherBit(model.getZipcode());
         }
-
  */
+
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLatitude())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
+        }
 
         Log.v("WeatherHourPredictionListFragment.java","onResume() finished");
         super.onResume();

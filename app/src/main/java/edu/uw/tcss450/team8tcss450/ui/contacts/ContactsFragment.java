@@ -27,8 +27,6 @@ import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabFragment;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabFragment;
 import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabViewModel;
-import edu.uw.tcss450.team8tcss450.ui.weather.WeatherCurrentFragment;
-import edu.uw.tcss450.team8tcss450.ui.weather.WeatherMapFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherPageAdapter;
 import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment;

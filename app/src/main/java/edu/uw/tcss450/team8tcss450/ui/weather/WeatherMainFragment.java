@@ -76,9 +76,6 @@ public class WeatherMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather_main, container, false);
 
-
-        //mPagerAdapter.addFragment(new WeatherMapFragment());
-
         //mViewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
         /*
@@ -122,12 +119,12 @@ public class WeatherMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTabLayout = view.findViewById(R.id.weather_tab_layout);
+        mViewPager = view.findViewById(R.id.weather_view_pager);
         mPagerAdapter = new WeatherPageAdapter(
                 getChildFragmentManager()
         );
-        mViewPager = view.findViewById(R.id.weather_view_pager);
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
         mTabLayout.addTab(mTabLayout.newTab().setText("Current Weather"));
@@ -140,6 +137,28 @@ public class WeatherMainFragment extends Fragment {
         //mPagerAdapter.addFragment(new WeatherDayPredictionListFragment());
 
         mTabLayout.addTab(mTabLayout.newTab().setText("Weather Map"));
+        //mPagerAdapter.addFragment(new WeatherMapFragment());
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+                mPagerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
@@ -192,18 +211,21 @@ public class WeatherMainFragment extends Fragment {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.setReorderingAllowed(true);
                 if (mViewPager.getCurrentItem() == 0) {
+                    //Fragment frag = getChildFragmentManager().findFragmentByTag("Current Weather");
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing CurrentWeatherCurrentFragment");
                     ft.detach(mPagerAdapter.getItem(0)).attach(new WeatherMapFragment());
                     //ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 1) {
+                    //Fragment frag = getChildFragmentManager().findFragmentByTag("24-Hour Forecast");
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherHourPredictionListFragment");
                     ft.detach(mPagerAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
                     //ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 2) {
+                    //Fragment frag = getChildFragmentManager().findFragmentByTag("10-Day Forecast");
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherDayPredictionListFragment");

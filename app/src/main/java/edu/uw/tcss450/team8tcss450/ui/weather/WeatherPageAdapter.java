@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
@@ -54,16 +55,16 @@ public class WeatherPageAdapter extends FragmentStatePagerAdapter {
         //return mFragmentList.get(position);
         switch (position) {
             case 0:
-                Log.i("WeatherPageAdapter", "Clicked " + position + "Returned new WeatherCurrentFragment");
+                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherCurrentFragment");
                 return new WeatherCurrentFragment();
             case 1:
-                Log.i("WeatherPageAdapter", "Clicked " + position + "Returned new WeatherHourPredictionListFragment");
+                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherHourPredictionListFragment");
                 return new WeatherHourPredictionListFragment();
             case 2:
-                Log.i("WeatherPageAdapter", "Clicked " + position + "Returned new WeatherDayPredictionListFragment");
+                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherDayPredictionListFragment");
                 return new WeatherDayPredictionListFragment();
             case 3:
-                Log.i("WeatherPageAdapter", "Clicked " + position + "Returned new WeatherMapFragment");
+                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherMapFragment");
                 return new WeatherMapFragment();
             default:
                 return null;

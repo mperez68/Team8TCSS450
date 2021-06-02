@@ -49,8 +49,6 @@ public class WeatherHourPredictionListFragment extends Fragment {
         mViewModel = new ViewModelProvider(
                 getActivity()).get(WeatherHourPredictionViewModel.class);
 
-        WeatherZipcodeViewModel model =
-                new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
 
 //        Log.d("WeatherHourPredictionListFragment.onCreate()",
 //                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
@@ -67,12 +65,7 @@ public class WeatherHourPredictionListFragment extends Fragment {
             mViewModel.connectToWeatherBit(model.getZipcode());
         }
         */
-        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
-                !mViewModel.getLongitude().equals(model.getLatitude())) {
-            if (!mViewModel.isEmpty())
-                mViewModel.clearList();
-            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
-        }
+
 
     }
 
@@ -88,6 +81,16 @@ public class WeatherHourPredictionListFragment extends Fragment {
         FragmentWeatherHourPredictionListBinding binding
             = FragmentWeatherHourPredictionListBinding.bind(getView());
 
+        WeatherZipcodeViewModel model =
+                new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
+
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+                !mViewModel.getLongitude().equals(model.getLatitude())) {
+            if (!mViewModel.isEmpty())
+                mViewModel.clearList();
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
+        }
+
         mViewModel.addWeatherHourListObserver(
             getViewLifecycleOwner(),
             postList -> {
@@ -99,29 +102,29 @@ public class WeatherHourPredictionListFragment extends Fragment {
         );
     }
 
-    @Override
-    public void onResume() {
-        WeatherZipcodeViewModel model = new ViewModelProvider(
-                getActivity()).get(WeatherZipcodeViewModel.class);
-
-        //Log.d("WeatherHourPredictionListFragment.onResume()",
-        //        "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherHourPredictionViewModel=" + mViewModel.getZipcode());
-/*
-        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
-            mViewModel.clearList();
-            mViewModel.connectToWeatherBit(model.getZipcode());
-        }
- */
-
-        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
-                !mViewModel.getLongitude().equals(model.getLatitude())) {
-            if (!mViewModel.isEmpty())
-                mViewModel.clearList();
-            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
-        }
-
-        Log.v("WeatherHourPredictionListFragment.java","onResume() finished");
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//        WeatherZipcodeViewModel model = new ViewModelProvider(
+//                getActivity()).get(WeatherZipcodeViewModel.class);
+//
+//        //Log.d("WeatherHourPredictionListFragment.onResume()",
+//        //        "WeatherZipcodeViewModel=" + model.getZipcode() + ", WeatherHourPredictionViewModel=" + mViewModel.getZipcode());
+///*
+//        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
+//            mViewModel.clearList();
+//            mViewModel.connectToWeatherBit(model.getZipcode());
+//        }
+// */
+//
+//        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+//                !mViewModel.getLongitude().equals(model.getLatitude())) {
+//            if (!mViewModel.isEmpty())
+//                mViewModel.clearList();
+//            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
+//        }
+//
+//        Log.v("WeatherHourPredictionListFragment.java","onResume() finished");
+//        super.onResume();
+//    }
 
 }

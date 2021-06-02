@@ -46,7 +46,7 @@ public class WeatherMainFragment extends Fragment {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private WeatherPageAdapter mPagerAdapter;
+    private WeatherPageAdapter mPageAdapter;
 
     //private WeatherCurrentFragment currentFragment;
     //private WeatherHourPredictionListFragment hourPredictionListFragment;
@@ -122,24 +122,17 @@ public class WeatherMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPagerAdapter = new WeatherPageAdapter(
-                getChildFragmentManager()
-        );
+        mPageAdapter = new WeatherPageAdapter(getChildFragmentManager());
         mViewPager = view.findViewById(R.id.weather_view_pager);
-        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setAdapter(mPageAdapter);
         mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText("Current Weather"));
-        //mPagerAdapter.addFragment(new WeatherCurrentFragment());
-
-        mTabLayout.addTab(mTabLayout.newTab().setText("24-Hour Forecast"));
-        //mPagerAdapter.addFragment(new WeatherHourPredictionListFragment());
-
-        mTabLayout.addTab(mTabLayout.newTab().setText("10-Day Forecast"));
-        //mPagerAdapter.addFragment(new WeatherDayPredictionListFragment());
-
-        mTabLayout.addTab(mTabLayout.newTab().setText("Weather Map"));
+        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Weather Map"};
+        for (int i = 0; i < tabNames.length; i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            tab.setText(tabNames[i]);
+        }
 
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
@@ -195,25 +188,25 @@ public class WeatherMainFragment extends Fragment {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing CurrentWeatherCurrentFragment");
-                    ft.detach(mPagerAdapter.getItem(0)).attach(new WeatherMapFragment());
+                    ft.detach(mPageAdapter.getItem(0)).attach(new WeatherMapFragment());
                     //ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 1) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherHourPredictionListFragment");
-                    ft.detach(mPagerAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
+                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
                     //ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 2) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherDayPredictionListFragment");
-                    ft.detach(mPagerAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
+                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
                     //ft.replace(R.id.weather_view_pager, WeatherDayPredictionListFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 3) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherMapFragment");
-                    ft.detach(mPagerAdapter.getItem(3)).attach(new WeatherMapFragment());
+                    ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
                 }
                 ft.addToBackStack(null);
                 ft.commit();

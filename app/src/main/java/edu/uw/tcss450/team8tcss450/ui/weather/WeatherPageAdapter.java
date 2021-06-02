@@ -23,8 +23,6 @@ import edu.uw.tcss450.team8tcss450.ui.weather.map.WeatherMapFragment;
  */
 public class WeatherPageAdapter extends FragmentStatePagerAdapter {
 
-    private int mNumberOfTabs;
-
     private List<Fragment> mFragmentList;
 
     /**
@@ -35,7 +33,6 @@ public class WeatherPageAdapter extends FragmentStatePagerAdapter {
      */
     public WeatherPageAdapter(FragmentManager manager) {
         super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.mNumberOfTabs = 4;
         this.mFragmentList = new ArrayList<>();
     }
 

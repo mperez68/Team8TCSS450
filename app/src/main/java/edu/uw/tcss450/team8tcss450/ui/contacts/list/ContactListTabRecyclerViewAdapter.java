@@ -96,7 +96,8 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
             String a = mContact.getNickname();
             String b = mContact.getEmail();
             Navigation.findNavController(theView).navigate(
-                    ContactSearchFragmentDirections.actionContactSearchFragmentToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+
 
 
 //                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())

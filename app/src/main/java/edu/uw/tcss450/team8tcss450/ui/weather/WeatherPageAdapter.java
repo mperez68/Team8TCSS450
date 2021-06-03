@@ -20,36 +20,21 @@ import edu.uw.tcss450.team8tcss450.ui.weather.map.WeatherMapFragment;
  * fragment pages on the WeatherMainFragment's view pager.
  *
  * @author Brandon Kennedy
- * @version 31 May 2021
+ * @version 2 June 2021
  */
 public class WeatherPageAdapter extends FragmentStatePagerAdapter {
-
-    private List<Fragment> mFragmentList;
 
     /**
      * Constructor for the WeatherPageAdapter
      *
      * @param manager the manager for the pages of the view pager the adapter is connected to
-     * numOfTabs the number of tab pages on the view pager the adapter is connected to
      */
     public WeatherPageAdapter(FragmentManager manager) {
         super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.mFragmentList = new ArrayList<>();
-    }
-
-    /**
-     * Add a new fragment to the page adapter's list of fragments used in tab layout
-     *
-     * @param fragment the fragment to be added
-     */
-    public void addFragment(Fragment fragment) {
-        this.mFragmentList.add(fragment);
     }
 
     @Override
     public Fragment getItem(int position) {
-        //Log.d("WeatherPageAdapter", "Clicked " + position + ".  Returned " + mFragmentList.get(position).getClass().toString());
-        //return mFragmentList.get(position);
         switch (position) {
             case 0:
                 Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherCurrentFragment");

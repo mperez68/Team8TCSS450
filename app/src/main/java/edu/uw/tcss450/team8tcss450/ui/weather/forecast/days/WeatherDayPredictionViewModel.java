@@ -25,9 +25,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 
@@ -39,20 +43,19 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * on the 10-day weather forecast fragment
  *
  * @author Brandon Kennedy
- * @version 25 May 2021
+ * @version 2 June 2021
  */
 public class WeatherDayPredictionViewModel extends AndroidViewModel {
 
+    // The number of weather day posts in the weather day prediction fragment
     private final static int POSTS = 10;
 
     // The encapsulated data and statistics of the 10-day weather forecast
     private MutableLiveData<List<WeatherDayPostInfo>> mWeatherDayPostList;
 
-    // The saved zipcode for this WeatherDayPredictionViewModel
-    //private String mZipcode;
-
+    // The latitude and longitude coordinates in which
+    // the hourly prediction fragment displays about
     private String mLatitude;
-
     private String mLongitude;
 
     /**
@@ -64,7 +67,6 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
         super(application);
         Log.v("WeatherDayPredictionViewModel", "The view model for WeatherDayPredictionList is created");
 
-        //this.mZipcode = "";
         mLatitude = "";
         mLongitude = "";
 
@@ -72,35 +74,33 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
         mWeatherDayPostList.setValue(new ArrayList<>());
     }
 
+    /**
+     * Get the latitude coordinates saved in this view model
+     * @return the saved latitude coordinates
+     */
     public String getLatitude() {
         return this.mLatitude;
     }
 
+    /**
+     * Get the longitude coordinates saved in this view model
+     * @return the saved longitude coordinates
+     */
     public String getLongitude() {
         return this.mLongitude;
     }
 
+    /**
+     * Set the latitude and longitude coordinates for this view model
+     *
+     * @param latitude the latitude coordinates
+     * @param longitude the longitude coordinates
+     */
     public void setLatLongCoordinates(final String latitude,
                                       final String longitude) {
         this.mLatitude = latitude;
         this.mLongitude = longitude;
     }
-
-    /**
-     * Return the saved zipcode for the daily weather forecast list
-     * @return the saved current weather zipcode
-    public String getZipcode() {
-        return this.mZipcode;
-    }
-     */
-
-    /**
-     * Set the zipcode for the daily weather forecast list
-     * @param zipcode the zipcode
-    public void setZipcode(final String zipcode) {
-        this.mZipcode = zipcode;
-    }
-     */
 
     /**
      * Add an observer for this view model
@@ -164,6 +164,15 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 mWeatherDayPostList.getValue().clear();
                 for (int i = 0; i < POSTS; i++) {
                     JSONObject dailyInterval = data.getJSONObject(i);
+
+                    Calendar calendar = Calendar.getInstance();
+                    int calendarDay = calendar.get(Calendar.DAY_OF_WEEK);
+                    calendar.set(Calendar.DAY_OF_WEEK, calendarDay + i + 1);
+                    Date date = calendar.getTime();
+                    String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+                    String day = dayOfWeek.toUpperCase() + " " + dailyInterval.getString(getString.apply(
+                            R.string.keys_json_weatherdailyprediction_validdate)).substring(5);
+
                     String outlook = dailyInterval.getJSONObject(getString.apply(
                         R.string.keys_json_weatherdailyprediction_weather)).getString(
                             getString.apply(R.string.keys_json_weatherdailyprediction_description));
@@ -172,9 +181,7 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                     String lowTemp = String.valueOf(dailyInterval.getInt(getString.apply(
                             R.string.keys_json_weatherdailyprediction_lowtemp)));
                     WeatherDayPostInfo dayPost =
-                        new WeatherDayPostInfo.WeatherDayInfoBuilder(
-                            dailyInterval.getString(getString.apply(
-                                R.string.keys_json_weatherdailyprediction_validdate)))
+                        new WeatherDayPostInfo.WeatherDayInfoBuilder(day)
                         .addOutlook(outlook)
                         .addHighTemperature(highTemp)
                         .addLowTemperature(lowTemp)
@@ -246,7 +253,6 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
                 headers.put("Authorization", "37cb34eeb8df469796e2a87f43c7f9be");
-//                headers.put("zipcode", zipcode);
                 headers.put("latitude", latitude);
                 headers.put("longitude", longitude);
                 return headers;

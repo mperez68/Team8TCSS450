@@ -48,11 +48,9 @@ public class WeatherMainFragment extends Fragment {
     private ViewPager mViewPager;
     private WeatherPageAdapter mPageAdapter;
 
-    //private WeatherCurrentFragment currentFragment;
-    //private WeatherHourPredictionListFragment hourPredictionListFragment;
-    //private WeatherDayPredictionListFragment dayPredictionListFragment;
-    //private WeatherMapFragment mapFragment;
-
+    /**
+     * Constructor for the weather main fragment
+     */
     public WeatherMainFragment() {
         // Required empty public constructor
     }
@@ -61,45 +59,6 @@ public class WeatherMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather_main, container, false);
-
-
-        //mPagerAdapter.addFragment(new WeatherMapFragment());
-
-        //mViewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-
-        /*
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-                mPagerAdapter.notifyDataSetChanged();
-                if (tab.getPosition() == 0) {
-                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is Current Weather Tab");
-                    mPagerAdapter.notifyDataSetChanged();
-                } else if (tab.getPosition() == 1) {
-                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is 24-Hour Forecast Tab");
-                    mPagerAdapter.notifyDataSetChanged();
-                } else if (tab.getPosition() == 2) {
-                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is 10-Day Forecast Tab");
-                    mPagerAdapter.notifyDataSetChanged();
-                } else if (tab.getPosition() == 3) {
-                    Log.i("WeatherPrimaryFragment", "Selected Tab " + tab.getPosition() + " is Weather Map Tab");
-                    mPagerAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-         */
-
         return root;
     }
 
@@ -171,26 +130,26 @@ public class WeatherMainFragment extends Fragment {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherCurrentFragment");
-                    //ft.detach(mPageAdapter.getItem(0)).attach(new WeatherCurrentFragment());
-                    ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
+                    ft.detach(mPageAdapter.getItem(0)).attach(new WeatherCurrentFragment());
+                    //ft.replace(R.id.weather_view_pager, new WeatherCurrentFragment());
                 } else if (mViewPager.getCurrentItem() == 1) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherHourPredictionListFragment");
-                    //ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
-                    ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
+                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
+                    //ft.replace(R.id.weather_view_pager, new WeatherHourPredictionListFragment());
                 } else if (mViewPager.getCurrentItem() == 2) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherDayPredictionListFragment");
-                    //ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
-                    ft.replace(R.id.weather_view_pager, WeatherDayPredictionListFragment.class, null);
+                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
+                    //ft.replace(R.id.weather_view_pager, new WeatherDayPredictionListFragment());
                 } else if (mViewPager.getCurrentItem() == 3) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherMapFragment");
-                    //ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
-                    ft.replace(R.id.weather_view_pager, WeatherMapFragment.class, null);
+                    ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
+                    //ft.replace(R.id.weather_view_pager, new WeatherMapFragment());
                 }
                 ft.addToBackStack(null);
                 ft.commit();

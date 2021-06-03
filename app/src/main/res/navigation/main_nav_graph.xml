@@ -87,6 +87,9 @@
         <argument
             android:name="contactEmail"
             app:argType="string" />
+        <action
+            android:id="@+id/action_chatTestFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/navigation_settings"

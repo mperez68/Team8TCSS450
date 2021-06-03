@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.io.RequestQueueSingleton;
@@ -45,6 +46,8 @@ public class ChatTestViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;
 
+    private MutableLiveData<Boolean> mDelete;
+
     /**
      * Constructor for the ChatTestViewModel
      *
@@ -57,9 +60,24 @@ public class ChatTestViewModel extends AndroidViewModel {
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
 
+        mDelete = new MutableLiveData<>();
+        mDelete.setValue(new Boolean(false));
+
         //chatID
         myChatID = new MutableLiveData<>();
         myChatID.setValue(-1);
+    }
+
+
+    /**
+     * Method that creates an observer for delete flag
+     *
+     * @param theOwner
+     * @param theObserver
+     */
+    public void addDeleteSuccessObserver(@NonNull LifecycleOwner theOwner,
+                                    @NonNull Observer<? super Boolean> theObserver) {
+        mDelete.observe(theOwner, theObserver);
     }
 
     /**
@@ -103,6 +121,10 @@ public class ChatTestViewModel extends AndroidViewModel {
      */
     public List<ChatTestMessage> getMessageListByChatId(final int theChatID) {
         return getOrCreateMapEntry(theChatID).getValue();
+    }
+
+    public void setDeleteBoolean(boolean theBool) {
+        mDelete.setValue(theBool);
     }
 
     public void setMyChatID(int theValue) {
@@ -418,5 +440,50 @@ public class ChatTestViewModel extends AndroidViewModel {
 
     private void handleAddUsers(JSONObject jsonObject) {
         Log.e("Success", "PUT User into chat was successful");
+    }
+
+    public void deleteChatRoom(int theChatID, String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/chats/chatRoom/" + theChatID ;
+        //print statement for debugging
+
+        int temp;
+        Request request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                this::handleDeleteSuccess,
+                this::handleError) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", theJwt);
+                return headers;
+            }
+        };
+
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    private void handleDeleteSuccess(JSONObject theResponse) {
+        IntFunction<String> getString =
+                getApplication().getResources()::getString;
+        try {
+            JSONObject root = theResponse;
+            if (root.has(getString.apply(R.string.keys_json_success))) {
+                mDelete.setValue(new Boolean(true));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("ERROR!", e.getMessage());
+        }
     }
 }

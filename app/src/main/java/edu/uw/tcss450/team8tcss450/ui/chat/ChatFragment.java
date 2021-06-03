@@ -1,6 +1,7 @@
 package edu.uw.tcss450.team8tcss450.ui.chat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabRecyclerViewAdapter;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragmentDirections;
 
 /**
  * Chat Fragment for a recycler list of chat messages. Users navigate here from the bottom bar
@@ -70,23 +78,68 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
 
-        //add lister for the chatID list
+        //Listener for the search contact button.
+        binding.buttonNewChatFragmentChat.setOnClickListener(button -> {
+            Navigation.findNavController(getView()).navigate(
+                    ChatFragmentDirections.actionNavigationChatToNavigationContacts());
+                    //Dire.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))
+
+        });
+
         mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
-            if (!chatIDList.isEmpty()) {
-                for (int i = 0; i < chatIDList.size(); i++) {
+            int a = chatIDList.size();
+            int b = mChatListViewModel.getTotalNumberOfChatIDs();
+            if (chatIDList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && b != 0) {
+                for (int i = 0; i < chatIDList.size(); i++) { //DO I NEED THE FOR LOOP?
+                    mChatListViewModel.connectMessages(chatIDList.get(i), mUserInfoViewModel.getmJwt());
+                    //mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
+                }
+            }
+        });
+
+        mChatListViewModel.addMessageMapObserver(getViewLifecycleOwner(), messageMap -> {
+            int listSize = messageMap.size();
+            int totalChatRooms = mChatListViewModel.getTotalNumberOfChatIDs();
+            ArrayList<Integer> chatIDList = (ArrayList<Integer>) mChatListViewModel.getChatIDs();
+            if (messageMap.size() == totalChatRooms && totalChatRooms != 0) {
+                for (int i = 0; i < listSize; i++) { //DO I NEED THE FOR LOOP?
+                    //mChatListViewModel.connectMessages(chatIDList.get(i), mUserInfoViewModel.getmJwt());
                     mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
                 }
             }
         });
 
         mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-
-            if (!chatList.isEmpty()) {
+            int a = chatList.size();
+            int b = mChatListViewModel.getTotalNumberOfChatIDs();
+            if (chatList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && b != 0) { //if new data is not showing up, clear map here
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
+                //resets lists and numbers for each time chatId's is returned to. Needed to refresh data.
+                mChatListViewModel.clearChatList();
+                mChatListViewModel.clearNicknameList();
+                mChatListViewModel.setTotalNumberOfChatIDs(0);
             }
         });
+
+        //add lister for the chatID list
+//        mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
+//            if (!chatIDList.isEmpty()) {
+//                for (int i = 0; i < chatIDList.size(); i++) {
+//                    mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
+//                }
+//            }
+//        });
+//
+//        mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
+//            int a = mChatListViewModel.getMaxNumberOfChatIDs();
+//            if (!chatList.isEmpty()) {
+//                binding.listRoot.setAdapter(
+//                        new ChatRecyclerViewAdapter(chatList)
+//                );
+//            }
+//        });
     }
 
 }

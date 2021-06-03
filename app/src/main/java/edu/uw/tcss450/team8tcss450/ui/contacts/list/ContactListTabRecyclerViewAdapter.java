@@ -93,8 +93,13 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
 
         @Override
         public void onClick(View theView) {
+            String a = mContact.getNickname();
+            String b = mContact.getEmail();
             Navigation.findNavController(theView).navigate(
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+                    ContactSearchFragmentDirections.actionContactSearchFragmentToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+
+
+//                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
             );
         }
 

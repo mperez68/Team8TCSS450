@@ -105,6 +105,10 @@ public class ChatTestViewModel extends AndroidViewModel {
         return getOrCreateMapEntry(theChatID).getValue();
     }
 
+    public void setMyChatID(int theValue) {
+        myChatID.setValue(theValue);
+    }
+
     /**
      * Gets or creates a map of integer to arraylist for the chats based on the chatID
      *

@@ -135,7 +135,7 @@ public class ChatRecyclerViewAdapter extends
             myBinding.textSender.setText(chatParticipants);
 
             Calendar cal = Calendar.getInstance();
-            myBinding.textTimestamp.setText(cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DAY_OF_MONTH));
+            myBinding.textTimestamp.setText(theChatConversation.getmTimeStamp());
 
             //Use methods in the HTML class to format the HTML found in the text
 
@@ -145,7 +145,16 @@ public class ChatRecyclerViewAdapter extends
 //                    Html.FROM_HTML_MODE_COMPACT)
 //                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2))
 //                    + "...";
-            final String preview = theChatConversation.getmMessage().get(0).toString();
+            String preview = "";
+            if (theChatConversation.getmMessage().get(0).toString().length() < MAX_TEASER) {
+                preview = theChatConversation.getmMessage().get(0).toString();
+            } else {
+                preview = Html.fromHtml(
+                    theChatConversation.getmMessage().get(0).toString(),
+                    Html.FROM_HTML_MODE_COMPACT)
+                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2))
+                    + "...";
+            }
             myBinding.textMessage.setText(preview);
         }
     }

@@ -12,6 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 
 /**
  * The view model that holds information to be displayed
@@ -147,7 +149,9 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      *
      * @param result the JSON file and data containing the need info for the 10-day forecast fragment
      */
-    private void handleResultFromWeatherBitConnect(final JSONObject result) {
+    private void handleResultFromWeatherBitConnect(final JSONObject result,
+                                                   final String latitude,
+                                                   final String longitude) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
         List<String> outlookIconCodes = new ArrayList<>();
@@ -157,6 +161,7 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 JSONArray data =
                     root.getJSONArray(getString.apply(
                         R.string.keys_json_weatherdailyprediction_data));
+                mWeatherDayPostList.getValue().clear();
                 for (int i = 0; i < POSTS; i++) {
                     JSONObject dailyInterval = data.getJSONObject(i);
                     String outlook = dailyInterval.getJSONObject(getString.apply(
@@ -189,9 +194,9 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
-        if (outlookIconCodes.size() == POSTS) {
+        if (outlookIconCodes.size() == POSTS && mWeatherDayPostList.getValue().size() == POSTS) {
             String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes);
+            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
         }
     }
 
@@ -204,14 +209,17 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      * @param outlookIconCodes the list of icon codes retrieved from the daily JSONObject file
      */
     private void handleResultFromOutlookIconConnect(final Bitmap response,
-                                                    final List<String> outlookIconCodes) {
+                                                    final List<String> outlookIconCodes,
+                                                    final String latitude,
+                                                    final String longitude) {
         mWeatherDayPostList.getValue()
             .get(POSTS - outlookIconCodes.size() - 1).setOutlookIcon(response);
         if (!outlookIconCodes.isEmpty()) {
             String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes);
+            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
         } else {
             mWeatherDayPostList.setValue(mWeatherDayPostList.getValue());
+            this.setLatLongCoordinates(latitude, longitude);
         }
     }
 
@@ -229,7 +237,9 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handleResultFromWeatherBitConnect,
+                result -> {
+                    this.handleResultFromWeatherBitConnect(result, latitude, longitude);
+                },
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
@@ -258,12 +268,14 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      * @param iconCode the code used to get the specified weather icon image
      */
     public void connectToOutlookIcon(final String iconCode,
-                                     final List<String> outlookIconCodes) {
+                                     final List<String> outlookIconCodes,
+                                     final String latitude,
+                                     final String longitude) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/weatherbit";
         Request request = new ImageRequest(
                 url,
                 result -> {
-                    this.handleResultFromOutlookIconConnect(result, outlookIconCodes);
+                    this.handleResultFromOutlookIconConnect(result, outlookIconCodes, latitude, longitude);
                 },
                 60,
                 60,

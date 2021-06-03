@@ -55,7 +55,7 @@ public class WeatherCurrentFragment extends Fragment {
         // Otherwise, display information already saved in WeatherCurrentViewModel
         //if (!mViewModel.getZipcode().equals(model.getZipcode())) {
             //mViewModel.connectToOpenWeatherMap(model.getZipcode(), model, binding);
-        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
                 !mViewModel.getLongitude().equals(model.getLongitude())) {
             mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding);
         } else {

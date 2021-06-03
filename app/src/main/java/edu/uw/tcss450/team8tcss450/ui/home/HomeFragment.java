@@ -98,6 +98,10 @@ public class HomeFragment extends Fragment {
                         "-122.4575"))
                 .get(WeatherZipcodeViewModel.class);
 
+        WeatherZipcodeViewModel model = new ViewModelProvider(
+                getActivity()).get(WeatherZipcodeViewModel.class);
+        model.setCity("Tacoma");
+
         if (ActivityCompat.checkSelfPermission(
                 activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED

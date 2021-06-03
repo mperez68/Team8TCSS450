@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -44,7 +45,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMapBinding;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 
 /**
@@ -208,12 +211,12 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                                         .get(WeatherMapViewModel.class);
                             }
                             mViewModel.setLocation(location);
-                            WeatherZipcodeViewModel model = new ViewModelProvider(
-                                    getActivity()).get(WeatherZipcodeViewModel.class);
-                            model.setLocation(
-                                    String.valueOf(location.getLatitude()),
-                                    String.valueOf(location.getLongitude())
-                            );
+                            //WeatherZipcodeViewModel model = new ViewModelProvider(
+                            //        getActivity()).get(WeatherZipcodeViewModel.class);
+                            //model.setLocation(
+                            //        String.valueOf(location.getLatitude()),
+                            //        String.valueOf(location.getLongitude())
+                            //);
                         }
                     }
                 });
@@ -263,9 +266,9 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
     public void onMapClick(@NonNull LatLng latLng) {
         Log.d("LAT/LONG", latLng.toString());
         mMap.clear();
-        Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title("New Marker"));
+        //Marker marker = mMap.addMarker(new MarkerOptions()
+        //        .position(latLng)
+        //        .title("New Marker"));
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
@@ -301,9 +304,13 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                         .position(latLng)
                         .title(city));
                 model.setLocation(latitude, longitude);
+
+                WeatherMainFragment parent = (WeatherMainFragment) WeatherMapFragment.this.getParentFragment();
+                TextView cityName = parent.getView().findViewById(R.id.zipcode_queried_location);
+                cityName.setText(model.getCity());
                 //TextView cityText = getView().findViewById(R.id.zipcode_queried_location);
                 //cityText.setText(model.getCity());
-                getActivity().recreate();
+                //getActivity().recreate();
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("ERROR!", e.getMessage());

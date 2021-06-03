@@ -187,26 +187,27 @@ public class WeatherMainFragment extends Fragment {
                 if (mViewPager.getCurrentItem() == 0) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing CurrentWeatherCurrentFragment");
-                    ft.detach(mPageAdapter.getItem(0)).attach(new WeatherMapFragment());
-                    //ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
+                                    ", so we should be refreshing WeatherCurrentFragment");
+                    //ft.detach(mPageAdapter.getItem(0)).attach(new WeatherCurrentFragment());
+                    ft.replace(R.id.weather_view_pager, WeatherCurrentFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 1) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherHourPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
+                    //ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
+                    ft.replace(R.id.weather_view_pager, WeatherHourPredictionListFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 2) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherDayPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, WeatherDayPredictionListFragment.class, null);
+                    //ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
+                    ft.replace(R.id.weather_view_pager, WeatherDayPredictionListFragment.class, null);
                 } else if (mViewPager.getCurrentItem() == 3) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherMapFragment");
-                    ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
+                    //ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
+                    ft.replace(R.id.weather_view_pager, WeatherMapFragment.class, null);
                 }
                 ft.addToBackStack(null);
                 ft.commit();

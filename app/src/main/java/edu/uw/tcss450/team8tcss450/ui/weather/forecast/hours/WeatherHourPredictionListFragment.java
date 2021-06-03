@@ -84,10 +84,9 @@ public class WeatherHourPredictionListFragment extends Fragment {
         WeatherZipcodeViewModel model =
                 new ViewModelProvider(getActivity()).get(WeatherZipcodeViewModel.class);
 
-        if (!mViewModel.getLatitude().equals(model.getLatitude()) &&
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
                 !mViewModel.getLongitude().equals(model.getLatitude())) {
-            if (!mViewModel.isEmpty())
-                mViewModel.clearList();
+            mViewModel.clearList();
             mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
         }
 

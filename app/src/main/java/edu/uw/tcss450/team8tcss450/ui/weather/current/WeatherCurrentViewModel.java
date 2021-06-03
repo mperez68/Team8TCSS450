@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -58,7 +59,6 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
         //mZipcode = "";
 
         mLatitude = "";
-
         mLongitude = "";
 
         mWeatherCurrentInfo = new MutableLiveData<>();
@@ -120,7 +120,6 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                                                 final FragmentWeatherCurrentBinding binding) {
         if (validateResponseFromOpenWeatherMap(response)) {
             //this.setZipcode(zipcode);
-            this.setLatLongCoordindates(latitude, longitude);
 
             // Get all needed information from JSONObject file and place it in WeatherCurrentInfo field
             getInformationFromOpenWeatherMap(response);
@@ -133,7 +132,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 String outlookIconCode = response.getJSONArray(
                         getString.apply(R.string.keys_json_weathercurrent_weather))
                         .getJSONObject(0).getString(getString.apply(R.string.keys_json_weathercurrent_icon));
-                this.connectToOutlookIcon(outlookIconCode, binding);
+                this.connectToOutlookIcon(outlookIconCode, binding, latitude, longitude);
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("ERROR!", e.getMessage());
@@ -247,8 +246,11 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
      * @param binding the binding of the WeatherMainFragment
      */
     private void handleResultFromOutlookIconConnect(final Bitmap response,
-                                                    final FragmentWeatherCurrentBinding binding) {
+                                                    final FragmentWeatherCurrentBinding binding,
+                                                    final String latitude,
+                                                    final String longitude) {
         this.setOutlookIcon(response);
+        this.setLatLongCoordindates(latitude, longitude);
         this.displayInformation(binding, this.getWeatherInfo());
     }
 
@@ -261,7 +263,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
     public void displayInformation(final FragmentWeatherCurrentBinding binding,
                                    final WeatherCurrentInfo currentInfo) {
         String readTemp = currentInfo.getTemperature() + "\u00B0F";
-        binding.currentHumidityReading.setText(readTemp);
+        binding.currentTemperatureReading.setText(readTemp);
 
         Bitmap outlookIcon = currentInfo.getOutlookIcon();
         binding.currentOutlook.outlookOutlookIcon.setImageBitmap(outlookIcon);
@@ -361,12 +363,14 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
      * @param binding the binding of the WeatherMainFragment
      */
     public void connectToOutlookIcon(final String iconCode,
-                                     final FragmentWeatherCurrentBinding binding) {
+                                     final FragmentWeatherCurrentBinding binding,
+                                     final String latitude,
+                                     final String longitude) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/openweathermap";
         Request request = new ImageRequest(
                 url,
                 result -> {
-                    this.handleResultFromOutlookIconConnect(result, binding);
+                    this.handleResultFromOutlookIconConnect(result, binding, latitude, longitude);
                 },
                 60,
                 60,

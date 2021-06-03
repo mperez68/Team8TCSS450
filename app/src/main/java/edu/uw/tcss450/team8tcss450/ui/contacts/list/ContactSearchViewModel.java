@@ -1,13 +1,16 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -18,15 +21,19 @@ import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequest;
 
 public class ContactSearchViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> mResponse;
-    private boolean mSearch;
+    private MutableLiveData<Boolean> mSearch;
+    private MutableLiveData<Boolean> mError;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
@@ -37,11 +44,42 @@ public class ContactSearchViewModel extends AndroidViewModel {
         super(theApplication);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
-        mSearch = false;
+
+        mSearch = new MutableLiveData<>();
+        mSearch.setValue(new Boolean(false));
+
+        mError = new MutableLiveData<>();
+        mError.setValue(new Boolean(false));
     }
 
-    public boolean getSearch() {
-        return mSearch;
+    /**
+     * Method that creates an observer for myContactList.
+     *
+     * @param theOwner
+     * @param theObserver
+     */
+    public void searchContactObserver(@NonNull LifecycleOwner theOwner,
+                                          @NonNull Observer<? super Boolean> theObserver) {
+        mSearch.observe(theOwner, theObserver);
+    }
+
+    public void setSearchBoolean(boolean theBool) {
+        mSearch.setValue(theBool);
+    }
+
+    /**
+     * Method that creates an observer for myContactList.
+     *
+     * @param theOwner
+     * @param theObserver
+     */
+    public void searchErrorObserver(@NonNull LifecycleOwner theOwner,
+                                      @NonNull Observer<? super Boolean> theObserver) {
+        mError.observe(theOwner, theObserver);
+    }
+
+    public void setErrorBoolean(boolean theBool) {
+        mError.setValue(theBool);
     }
 
     /**
@@ -80,8 +118,8 @@ public class ContactSearchViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = theResult;
-            if(root.has(getString.apply(R.string.keys_json_success))) {
-                mSearch = true;
+            if (root.has(getString.apply(R.string.keys_json_success))) {
+                mSearch.setValue(new Boolean(true));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +128,6 @@ public class ContactSearchViewModel extends AndroidViewModel {
     }
 
     private void handleGetError(VolleyError theError) {
-        mSearch = false;
+        mError.setValue(new Boolean(true));
     }
 }

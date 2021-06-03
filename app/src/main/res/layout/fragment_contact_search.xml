@@ -6,7 +6,7 @@
     android:id="@+id/contact_search_layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contacts.ContactSearchFragment">
+    tools:context=".ui.contacts.list.ContactSearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,36 +16,18 @@
         app:layout_constraintBottom_toTopOf="@+id/contact_search_list_root">
 
         <EditText
-            android:id="@+id/contact_search_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_contactsearch_name"
-            android:inputType="textPersonName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
-            android:id="@+id/contact_search_nickname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_contactsearch_nickname"
-            android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/contact_search_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
             android:id="@+id/contact_search_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:ems="10"
             android:hint="@string/hint_contactsearch_email"
             android:inputType="textPersonName"
-            tools:ignore="TextFields"
-            app:layout_constraintTop_toBottomOf="@+id/contact_search_nickname"
+            app:layout_constraintBottom_toTopOf="@+id/button_search_contactSearch"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
 
         <Button
             android:id="@+id/button_search_contactSearch"
@@ -71,6 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsSearchFragment"
-        tools:listitem="@layout/fragment_contact_list_card" />
+        tools:listitem="@layout/fragment_contact_search_list_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

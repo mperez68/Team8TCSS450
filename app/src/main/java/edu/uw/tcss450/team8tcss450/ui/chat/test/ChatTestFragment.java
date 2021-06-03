@@ -189,6 +189,9 @@ public class ChatTestFragment extends Fragment {
                             mUserModel.getmJwt(), //edited here from mUserModel.getmJWT from Lab 5,
                             binding.editMessage.getText().toString());
                 });
+
+                //restart so listener does not use previous chatID value.
+                mChatModel.setMyChatID(-1);
             }
         });
 

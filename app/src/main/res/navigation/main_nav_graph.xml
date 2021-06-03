@@ -8,7 +8,14 @@
         android:id="@+id/navigation_home"
         android:name="edu.uw.tcss450.team8tcss450.ui.home.HomeFragment"
         android:label="@string/title_mainnav_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragment"
@@ -23,15 +30,21 @@
         <action
             android:id="@+id/action_navigation_contacts_to_contactSearchFragment"
             app:destination="@id/contactSearchFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactRequestOptionsFragment"
+            app:destination="@id/contactRequestOptionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/contactSearchFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactSearchFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactSearchFragment"
         android:label="@string/title_mainnav_contactsearch"
         tools:layout="@layout/fragment_contact_search">
         <action
             android:id="@+id/action_contactSearchFragment_to_chatMessageFragment"
             app:destination="@id/chatMessageFragment" />
+        <action
+            android:id="@+id/action_contactSearchFragment_to_contactProfileFragment"
+            app:destination="@id/contactProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
@@ -43,6 +56,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatTestFragment"
             app:destination="@id/chatTestFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
 
     </fragment>
     <fragment
@@ -55,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/contactProfileFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactProfileFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragment"
         android:label="ContactProfileFragment" >
         <action
             android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
@@ -91,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/contactNewFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.ContactNewFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactNewFragment"
         android:label="ContactNewFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -103,5 +119,13 @@
         android:name="edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment"
         android:label="@string/title_mainnav_weather"
         tools:layout="@layout/fragment_weather_main" />
+    <fragment
+        android:id="@+id/contactRequestOptionsFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestOptionsFragment"
+        android:label="ContactRequestOptionsFragment" >
+        <argument
+            android:name="requestEmail"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

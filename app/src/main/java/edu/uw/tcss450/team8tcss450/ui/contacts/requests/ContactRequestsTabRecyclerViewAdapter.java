@@ -5,12 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactRequestCardBinding;
+import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 public class ContactRequestsTabRecyclerViewAdapter extends RecyclerView.Adapter<ContactRequestsTabRecyclerViewAdapter.ContactRequestViewHolder> {
 
@@ -86,9 +88,10 @@ public class ContactRequestsTabRecyclerViewAdapter extends RecyclerView.Adapter<
         }
 
         @Override
-        public void onClick(View theView) {
-//            Navigation.findNavController(theView).navigate(
-//                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(myContact.getNickname(), myContact.getEmail()));
+        public void onClick(View theView ) {
+            Navigation.findNavController(theView).navigate(
+                    ContactsFragmentDirections.actionNavigationContactsToContactRequestOptionsFragment(mContactRequest.getEmail())
+            );
         }
 
         /**

@@ -12,7 +12,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,28 +60,9 @@ public class HomeViewModel extends AndroidViewModel {
      */
     public void addResponseObserver(@NonNull LifecycleOwner theOwner,
                                     @NonNull Observer<? super JSONObject> theObserver) {
-        mResponse.observe(theOwner, theObserver);
+        if (mResponse.hasObservers()) mResponse.removeObservers(theOwner);
+        else mResponse.observe(theOwner, theObserver);
     }
-
-    public int getNumContacts(){
-        ArrayList<String> tempList = new ArrayList<String>();
-        int count = 0;
-        for (int i = 0; i < mNotifList.getValue().size(); i++){
-            if (mNotifList.getValue().get(i).equals("contact")) count++;
-        }
-        return count;
-    }
-
-    public int getNumMessages(){
-        ArrayList<String> tempList = new ArrayList<String>();
-        int count = 0;
-        for (int i = 0; i < mNotifList.getValue().size(); i++){
-            if (mNotifList.getValue().get(i).equals("message")) count++;
-        }
-        return count;
-    }
-
-    public void resetNotifications(){ mNotifList.getValue().clear(); }
 
     /**
      * Error handling for the connection.
@@ -113,17 +93,49 @@ public class HomeViewModel extends AndroidViewModel {
         }
     }
 
-    public void connectGet(String theEmail, String theJwt) {
+    public void connectGet(String theJwt) {
         String url = "https://team8-tcss450-app.herokuapp.com/notifs";
         JSONObject body = new JSONObject();
         try {
-            body.put("email", theEmail);
+            //body.put("email", theEmail);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
+                url,
+                body,
+                mResponse::setValue,
+                this::handleError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", theJwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    public void connectPost(final String theType, final String theJwt) {
+        String url = "https://team8-tcss450-app.herokuapp.com/notifs";
+        JSONObject body = new JSONObject();
+        try {
+            body.put("type", theType);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("ERROR!", e.getMessage());
+        }
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
                 url,
                 body,
                 mResponse::setValue,

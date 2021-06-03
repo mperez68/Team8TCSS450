@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchBinding;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
 import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabRecyclerViewAdapter;
 
@@ -43,6 +44,7 @@ public class ContactSearchFragment extends Fragment {
 
         mContactListTabViewModel = new ViewModelProvider(getActivity()).get(ContactListTabViewModel.class);
     }
+
 
     /**
      * onCreate view that inflates the view with fragment contact search..
@@ -75,8 +77,7 @@ public class ContactSearchFragment extends Fragment {
 
         //Listener for the search contact button.
         binding.buttonSearchContactSearch.setOnClickListener(button -> {
-            String name = binding.contactSearchName.getText().toString();
-            String nickname = binding.contactSearchNickname.getText().toString();
+
             String email = binding.contactSearchEmail.getText().toString();
 
             List<Contact> tempContactList = mContactListTabViewModel.getContactList().getValue();
@@ -84,23 +85,16 @@ public class ContactSearchFragment extends Fragment {
 
             for (int i = 0; i < tempContactList.size(); i++) {
                 Contact temp = tempContactList.get(i);
-                if (temp.getName().equals(name)) {
-                    filteredList.add(temp);
-                }
-
-                if (temp.getNickname().equals(nickname)) {
-                    filteredList.add(temp);
-                }
-
                 if (temp.getEmail().equals(email)) {
                     filteredList.add(temp);
+                    break;
                 }
             }
 
             mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
                 if (!filteredList.isEmpty()) {
                     binding.contactSearchListRoot.setAdapter(
-                            new ContactListTabRecyclerViewAdapter(filteredList)
+                            new ContactSearchListTabRecyclerViewAdapter(filteredList)
                     );
                 }
             });
@@ -109,7 +103,7 @@ public class ContactSearchFragment extends Fragment {
         mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.contactSearchListRoot.setAdapter(
-                        mContactListTabViewModel.getViewAdapter()
+                        mContactListTabViewModel.getSearchViewAdapter()
                 );
             }
         });

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.contacts;
+package edu.uw.tcss450.team8tcss450.ui.contacts.list;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import edu.uw.tcss450.team8tcss450.MainActivityArgs;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactNewBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
-import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequestsTabViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,11 +68,12 @@ public class ContactNewFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
 
         FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
-        ContactListTabViewModel contactListTabViewModel = new ViewModelProvider(getActivity())
-                .get(ContactListTabViewModel.class);
-        String email = binding.editTextEmail.getText().toString();
+        ContactRequestsTabViewModel contactRequestsTabViewModel = new ViewModelProvider(getActivity())
+                .get(ContactRequestsTabViewModel.class);
 
         binding.buttonSearch.setOnClickListener(button -> {
+            String email = binding.editTextEmail.getText().toString();
+
             if (email.equals(mUserInfoViewModel.getEmail())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Error");
@@ -81,25 +81,34 @@ public class ContactNewFragment extends Fragment {
                 builder.show();
             } else {
                 mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                if (mContactSearchViewModel.getSearch()) {
-                    builder.setTitle("User found");
-                    builder.setMessage("Send a contact request to this user?");
+                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), searchBoolean -> {
+                    if (searchBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("User found");
+                        builder.setMessage("Send a contact request to this user?");
 
-                    builder.setPositiveButton("Send request", (dialog, id) -> {
-                        contactListTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt(), MainActivityArgs.fromBundle(getActivity().getIntent().getExtras()).getEmail());
-                    });
+                        builder.setPositiveButton("Send request", (dialog, id) -> {
+                            contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
+                        });
 
-                    builder.setNegativeButton("Cancel", (dialog, id) -> {
-                        return;
-                    });
-                } else {
-                    builder.setTitle("Error");
-                    builder.setMessage("User not found");
-                }
+                        builder.setNegativeButton("Cancel", (dialog, id) -> {
+                            return;
+                        });
+                        builder.show();
+                        mContactSearchViewModel.setSearchBoolean(false);
+                    }
+                });
 
-                builder.show();
+                mContactSearchViewModel.searchErrorObserver(getViewLifecycleOwner(), errorBoolean -> {
+                    if (errorBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Error");
+                        builder.setMessage("User not found");
+                        builder.show();
+                        mContactSearchViewModel.setErrorBoolean(false);
+                    }
+                });
             }
         });
     }

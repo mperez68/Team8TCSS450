@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,23 +32,27 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 
 /**
  * The view model that holds information to be displayed
  * on the 24-hour weather forecast fragment
  *
  * @author Brandon Kennedy
- * @version 25 May 2021
+ * @version 2 June 2021
  */
 public class WeatherHourPredictionViewModel extends AndroidViewModel {
 
+    // The number of weather hour posts in the weather hour prediction fragment
     private final static int POSTS = 24;
 
     // The encapsulated data and statistics of the 24-hour weather forecast
     private MutableLiveData<List<WeatherHourPostInfo>> mWeatherHourPostList;
 
-    // The saved zipcode for this WeatherHourPredictionViewModel
-    private String mZipcode;
+    // The latitude and longitude coordinates in which
+    // the hourly prediction fragment displays about
+    private String mLatitude;
+    private String mLongitude;
 
     /**
      * Construct the view model of the 24-hour weather forecast
@@ -56,27 +61,41 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      */
     public WeatherHourPredictionViewModel(@NonNull Application application) {
         super(application);
+        Log.v("WeatherHourPredictionViewModel", "The view model for WeatherHourPredictionList is created");
 
-        this.mZipcode = "";
+        this.mLatitude = "";
+        this.mLongitude = "";
 
         mWeatherHourPostList = new MutableLiveData<>();
         mWeatherHourPostList.setValue(new ArrayList<>());
     }
 
     /**
-     * Return the saved zipcode for the hourly weather forecast list
-     * @return the saved current weather zipcode
+     * Get the latitude coordinates saved in this view model
+     * @return the saved latitude coordinates
      */
-    public String getZipcode() {
-        return this.mZipcode;
+    public String getLatitude() {
+        return this.mLatitude;
     }
 
     /**
-     * Set the zipcode for the hourly weather forecast list
-     * @param zipcode the zipcode
+     * Get the longitude coordinates saved in this view model
+     * @return the saved longitude coordinates
      */
-    public void setZipcode(final String zipcode) {
-        this.mZipcode = zipcode;
+    public String getLongitude() {
+        return this.mLongitude;
+    }
+
+    /**
+     * Set the latitude and longitude coordinates for this view model
+     *
+     * @param latitude the latitude coordinates
+     * @param longitude the longitude coordinates
+     */
+    public void setLatLongCoordinates(final String latitude,
+                                      final String longitude) {
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
     }
 
     /**
@@ -101,14 +120,6 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
     }
 
     /**
-     * Return whether or not the list of hourly weather information is empty
-     * @return the state of whether the hourly weather list is empty or not
-     */
-    public boolean isEmpty() {
-        return mWeatherHourPostList.getValue().isEmpty();
-    }
-
-    /**
      * In case an error occurs in connecting to and getting data from an API,
      * display a message acknowledging a connection or state error.
      *
@@ -120,50 +131,13 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
     }
 
     /**
-     * If the connection to the WeatherBit API is successful,
-     * use the data that comes through this connection to get
-     * the latitude and longitude coordinates of the zipcode
-     * to be used to get the 24-hour forecast from OpenWeatherMap
-     *
-     * @param response the JSON file and data containing the needed latitude/longitude coordinates
-     */
-    private void handleResultFromWeatherBit(final JSONObject response) {
-        IntFunction<String> getString =
-                getApplication().getResources()::getString;
-
-        Log.i("WeatherHourPredictionViewModel.java", "We now observe response to JSON Object retrieved from WeatherBit API");
-        Log.i("WeatherHourPredictionViewModel.java", response.toString());
-        if (response.length() > 0) {
-            if (response.has(getString.apply(R.string.keys_json_weatherhourlyprediction_data))) {
-                try {
-                    JSONObject data = response.getJSONArray(getString.apply
-                            (R.string.keys_json_weatherhourlyprediction_data)).getJSONObject(0);
-                    String lat = String.valueOf(data.getDouble(getString.apply
-                            (R.string.keys_json_weatherhourlyprediction_lat)));
-                    String lon = String.valueOf(data.getDouble(getString.apply
-                            (R.string.keys_json_weatherhourlyprediction_lon)));
-                    Log.i("WeatherHourPredictionListFragment.java","lat=" + lat + ", lon=" + lon);
-
-                    this.connectToOpenWeatherMap(lat, lon);
-                } catch (JSONException e) {
-                    Log.e("JSON Response", "Error in getting lat/long coordinates");
-                }
-            } else {
-                Log.e("JSON Response", "Response does not contain data");
-            }
-        } else {
-            Log.d("JSON Response in WeatherHourPredictionListFragment.java", "No Response");
-        }
-    }
-
-    /**
      * If the connection to the OpenWeatherMap API is successful,
      * use the data that comes through this connection to store
      * into to the 24-hour weather forecast predictions list
      *
      * @param result the JSON file and data containing the need info for the 24-hour forecast fragment
      */
-    private void handleResultFromOpenWeatherMap(final JSONObject result) {
+    private void handleResultFromOpenWeatherMap(final JSONObject result, final String latitude, final String longitude) {
         Log.i("WeatherHourPredictionViewModel.java", "We now handle response to JSON Object retrieved from WeatherBit API");
         Log.i("WeatherHourPredictionViewModel.java", result.toString());
         IntFunction<String> getString =
@@ -224,9 +198,9 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
-        if (outlookIconCodes.size() == POSTS) {
+        if (outlookIconCodes.size() == POSTS && mWeatherHourPostList.getValue().size() == POSTS) {
             String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes);
+            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
         }
     }
 
@@ -238,51 +212,20 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      * @param response the bitmap retrieved from the OpenWeatherMap API
      */
     private void handleResultFromOpenWeatherMapIconRetrieval(final Bitmap response,
-                                                             final List<String> outlookIconCodes) {
+                                                             final List<String> outlookIconCodes,
+                                                             final String latitude,
+                                                             final String longitude) {
         Log.i("WeatherHourPredictionViewModel", "Got outlook icon from API");
         mWeatherHourPostList.getValue()
                 .get(POSTS - outlookIconCodes.size() - 1).setOutlookIcon(response);
         if (!outlookIconCodes.isEmpty()) {
             String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes);
+            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
         } else {
             mWeatherHourPostList.setValue(mWeatherHourPostList.getValue());
             Log.i("WeatherHourPredictionViewModel", "Got all needed outlook icons");
+            this.setLatLongCoordinates(latitude, longitude);
         }
-    }
-
-    /**
-     * Connect to the WeatherBit API to obtain primarily the
-     * latitude and longitude coordinates of the validated zipcode
-     *
-     * @params zipcode the zipcode that will be used to find its lat/lon coordinates
-     */
-    public void connectToWeatherBit(final String zipcode) {
-        String url = "https://team8-tcss450-app.herokuapp.com/weather/zipcode_to_lat_long";
-        Log.i("WeatherHourPredictionViewModel.java", "Connecting to WeatherBit API for latitude and longitude coordinates from zipcode");
-
-        Request request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null, //no body for this get request
-                this::handleResultFromWeatherBit,
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                headers.put("Authorization", "37cb34eeb8df469796e2a87f43c7f9be");
-                headers.put("zipcode", zipcode);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
     }
 
     /**
@@ -303,7 +246,9 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handleResultFromOpenWeatherMap,
+                result -> {
+                    this.handleResultFromOpenWeatherMap(result, latitude, longitude);
+                },
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
@@ -330,13 +275,16 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      *
      * @param iconCode the code used to get the specified weather icon image
      */
-    public void connectToOutlookIcon(final String iconCode, final List<String> outlookIconCodes) {
+    public void connectToOutlookIcon(final String iconCode,
+                                     final List<String> outlookIconCodes,
+                                     final String latitude,
+                                     final String longitude) {
         Log.i("WeatherHourPredictionViewModel.connectToOutlookIcon", "About to connect to get outlook icon.");
         String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/openweathermap";
         Request request = new ImageRequest(
                 url,
                 result -> {
-                    this.handleResultFromOpenWeatherMapIconRetrieval(result, outlookIconCodes);
+                    this.handleResultFromOpenWeatherMapIconRetrieval(result, outlookIconCodes, latitude, longitude);
                 },
                 60,
                 60,

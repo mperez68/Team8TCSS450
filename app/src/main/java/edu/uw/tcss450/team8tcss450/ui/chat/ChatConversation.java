@@ -34,6 +34,11 @@ public class ChatConversation implements Serializable {
     private LinkedList<String> mMessage;   // TODO change to message object pt. 1
 
     /**
+     * date and/or time message was sent.
+     */
+    private String mTimeStamp;
+
+    /**
      * Chat ID
      */
     private int myChatID;
@@ -47,6 +52,7 @@ public class ChatConversation implements Serializable {
     public static class Builder {
         private final String mContact;
         private final String mEmail;
+        private final String mTimeStamp;
         private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
         private int myChatID;
 
@@ -56,11 +62,12 @@ public class ChatConversation implements Serializable {
          * @param contact
          * @param message
          */
-        public Builder(String contact, String email, String message, int chatID) {
+        public Builder(String contact, String email, String message, String timeStamp, int chatID) {
             this.mContact = contact;
             this.mEmail = email;
             this.mMessage.add(message);
             this.myChatID = chatID;
+            this.mTimeStamp = timeStamp;
         }
 
         public ChatConversation build() {
@@ -74,6 +81,7 @@ public class ChatConversation implements Serializable {
         this.mEmail = builder.mEmail;
         this.mMessage = builder.mMessage;
         this.myChatID = builder.myChatID;
+        this.mTimeStamp = builder.mTimeStamp;
     }
 
     /**
@@ -90,6 +98,14 @@ public class ChatConversation implements Serializable {
      */
     public String getmEmail() {
         return mEmail;
+    }
+
+    /**
+     * Getter function for the timestamp
+     * @return the timestamp
+     */
+    public String getmTimeStamp() {
+        return mTimeStamp;
     }
 
     /**

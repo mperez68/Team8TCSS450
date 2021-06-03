@@ -10,20 +10,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentContactRequestsBinding;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import edu.uw.tcss450.team8tcss450.databinding.FragmentContactRequestOptionsBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragmentArgs;
 
-/**
- *
- * A simple {@link Fragment} subclass.
- */
-public class ContactRequestsTabFragment extends Fragment {
+public class ContactRequestOptionsFragment extends Fragment {
 
-    private ContactRequestsTabViewModel mContactRequestsTabViewModel;
+    private FragmentContactRequestOptionsBinding mBinding;
     private UserInfoViewModel mUserInfoViewModel;
 
-    public ContactRequestsTabFragment() {
+    public ContactRequestOptionsFragment() {
 
     }
 
@@ -37,8 +38,6 @@ public class ContactRequestsTabFragment extends Fragment {
         super.onCreate(theSavedInstanceState);
         mUserInfoViewModel = new ViewModelProvider(getActivity())
                 .get(UserInfoViewModel.class);
-        mContactRequestsTabViewModel = new ViewModelProvider(getActivity())
-                .get(ContactRequestsTabViewModel.class);
     }
 
     /**
@@ -53,7 +52,8 @@ public class ContactRequestsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedInstanceState) {
         // Inflate the layout for this fragment
-        return theInflater.inflate(R.layout.fragment_contact_requests, theContainer, false);
+        mBinding = FragmentContactRequestOptionsBinding.inflate(theInflater);
+        return mBinding.getRoot();
     }
 
     /**
@@ -66,14 +66,21 @@ public class ContactRequestsTabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View theView, @Nullable Bundle theSavedInstanceState) {
         super.onViewCreated(theView, theSavedInstanceState);
-        FragmentContactRequestsBinding binding = FragmentContactRequestsBinding.bind(getView());
 
-        mContactRequestsTabViewModel.getRequestList().getValue().clear();
-        mContactRequestsTabViewModel.connectGet(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
+        ContactRequestOptionsFragmentArgs args = ContactRequestOptionsFragmentArgs.fromBundle(getArguments());
 
-        mContactRequestsTabViewModel.addContactRequestObserver(getViewLifecycleOwner(), requestList ->
-            binding.contactRequestsRoot.setAdapter(
-                    mContactRequestsTabViewModel.getViewAdapter())
-        );
+        ContactListTabViewModel contactListTabViewModel = new ViewModelProvider(getActivity())
+                .get(ContactListTabViewModel.class);
+
+        ContactRequestsTabViewModel contactRequestsTabViewModel = new ViewModelProvider(getActivity())
+                .get(ContactRequestsTabViewModel.class);
+
+        mBinding.buttonRequestAccept.setOnClickListener(button ->
+            contactListTabViewModel.connectPost(mUserInfoViewModel.getEmail(), args.getRequestEmail(), mUserInfoViewModel.getmJwt()));
+
+        mBinding.buttonRequestDecline.setOnClickListener(button ->
+            contactRequestsTabViewModel.connectDelete(args.getRequestEmail(), mUserInfoViewModel.getmJwt()));
+
+        mBinding.contactEmail.setText(args.getRequestEmail());
     }
 }

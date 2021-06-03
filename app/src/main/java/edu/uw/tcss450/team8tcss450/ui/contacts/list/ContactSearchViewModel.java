@@ -63,23 +63,19 @@ public class ContactSearchViewModel extends AndroidViewModel {
         mSearch.observe(theOwner, theObserver);
     }
 
+    public void setSearchBoolean(boolean theBool) {
+        mSearch.setValue(theBool);
+    }
+
     /**
      * Method that creates an observer for myContactList.
      *
      * @param theOwner
      * @param theObserver
      */
-    public void errorContactObserver(@NonNull LifecycleOwner theOwner,
+    public void searchErrorObserver(@NonNull LifecycleOwner theOwner,
                                       @NonNull Observer<? super Boolean> theObserver) {
         mError.observe(theOwner, theObserver);
-    }
-
-    public MutableLiveData<Boolean> getSearch() {
-        return mSearch;
-    }
-
-    public void setSearchBoolean(boolean theBool) {
-        mSearch.setValue(theBool);
     }
 
     public void setErrorBoolean(boolean theBool) {

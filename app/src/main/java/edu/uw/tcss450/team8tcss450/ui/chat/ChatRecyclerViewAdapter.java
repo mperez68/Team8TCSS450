@@ -134,8 +134,8 @@ public class ChatRecyclerViewAdapter extends
 //                    .toString().substring(0,Math.min(MAX_TEASER, theChatConversation.getmMessage().get(0).toString().length()-2));
             myBinding.textSender.setText(chatParticipants);
 
-            Calendar cal = Calendar.getInstance();
-            myBinding.textTimestamp.setText(theChatConversation.getmTimeStamp());
+            String temp = theChatConversation.getmTimeStamp().substring(0, 16);
+            myBinding.textTimestamp.setText(temp);
 
             //Use methods in the HTML class to format the HTML found in the text
 

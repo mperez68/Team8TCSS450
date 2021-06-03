@@ -76,8 +76,7 @@ public class ContactSearchFragment extends Fragment {
 
         //Listener for the search contact button.
         binding.buttonSearchContactSearch.setOnClickListener(button -> {
-            String name = binding.contactSearchName.getText().toString();
-            String nickname = binding.contactSearchNickname.getText().toString();
+
             String email = binding.contactSearchEmail.getText().toString();
 
             List<Contact> tempContactList = mContactListTabViewModel.getContactList().getValue();
@@ -85,16 +84,9 @@ public class ContactSearchFragment extends Fragment {
 
             for (int i = 0; i < tempContactList.size(); i++) {
                 Contact temp = tempContactList.get(i);
-                if (temp.getName().equals(name)) {
-                    filteredList.add(temp);
-                }
-
-                if (temp.getNickname().equals(nickname)) {
-                    filteredList.add(temp);
-                }
-
                 if (temp.getEmail().equals(email)) {
                     filteredList.add(temp);
+                    break;
                 }
             }
 

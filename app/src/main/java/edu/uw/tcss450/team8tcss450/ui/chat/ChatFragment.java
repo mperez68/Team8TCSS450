@@ -10,12 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactListTabRecyclerViewAdapter;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragmentDirections;
 
 /**
  * Chat Fragment for a recycler list of chat messages. Users navigate here from the bottom bar
@@ -73,7 +78,13 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
 
+        //Listener for the search contact button.
+        binding.buttonNewChatFragmentChat.setOnClickListener(button -> {
+            Navigation.findNavController(getView()).navigate(
+                    ChatFragmentDirections.actionNavigationChatToNavigationContacts());
+                    //Dire.actionContactProfileFragmentToChatTestFragment(args.getContactEmail()))
 
+        });
 
         mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
             int a = chatIDList.size();

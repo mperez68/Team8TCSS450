@@ -70,9 +70,10 @@ public class ContactNewFragment extends Fragment {
         FragmentContactNewBinding binding = FragmentContactNewBinding.bind(getView());
         ContactRequestsTabViewModel contactRequestsTabViewModel = new ViewModelProvider(getActivity())
                 .get(ContactRequestsTabViewModel.class);
-        String email = binding.editTextEmail.getText().toString();
 
         binding.buttonSearch.setOnClickListener(button -> {
+            String email = binding.editTextEmail.getText().toString();
+
             if (email.equals(mUserInfoViewModel.getEmail())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Error");
@@ -80,25 +81,34 @@ public class ContactNewFragment extends Fragment {
                 builder.show();
             } else {
                 mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                if (mContactSearchViewModel.getSearch()) {
-                    builder.setTitle("User found");
-                    builder.setMessage("Send a contact request to this user?");
+                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), searchBoolean -> {
+                    if (searchBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("User found");
+                        builder.setMessage("Send a contact request to this user?");
 
-                    builder.setPositiveButton("Send request", (dialog, id) -> {
-                        contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
-                    });
+                        builder.setPositiveButton("Send request", (dialog, id) -> {
+                            contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
+                        });
 
-                    builder.setNegativeButton("Cancel", (dialog, id) -> {
-                        return;
-                    });
-                } else {
-                    builder.setTitle("Error");
-                    builder.setMessage("User not found");
-                }
+                        builder.setNegativeButton("Cancel", (dialog, id) -> {
+                            return;
+                        });
+                        builder.show();
+                        mContactSearchViewModel.setSearchBoolean(false);
+                    }
+                });
 
-                builder.show();
+                mContactSearchViewModel.searchErrorObserver(getViewLifecycleOwner(), errorBoolean -> {
+                    if (errorBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Error");
+                        builder.setMessage("User not found");
+                        builder.show();
+                        mContactSearchViewModel.setErrorBoolean(false);
+                    }
+                });
             }
         });
     }

@@ -71,10 +71,9 @@ public class ContactRequestsTabFragment extends Fragment {
         mContactRequestsTabViewModel.getRequestList().getValue().clear();
         mContactRequestsTabViewModel.connectGet(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
 
-        mContactRequestsTabViewModel.addContactRequestObserver(getViewLifecycleOwner(), requestList -> {
+        mContactRequestsTabViewModel.addContactRequestObserver(getViewLifecycleOwner(), requestList ->
             binding.contactRequestsRoot.setAdapter(
-                    mContactRequestsTabViewModel.getViewAdapter()
-            );
-        });
+                    mContactRequestsTabViewModel.getViewAdapter())
+        );
     }
 }

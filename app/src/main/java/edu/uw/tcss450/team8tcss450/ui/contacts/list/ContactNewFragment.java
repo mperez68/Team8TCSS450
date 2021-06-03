@@ -82,29 +82,68 @@ public class ContactNewFragment extends Fragment {
             } else {
                 mContactSearchViewModel.connectGet(email, mUserInfoViewModel.getmJwt());
 
-                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), search ->
-                    binding.editTextEmail.getText()
-                );
+//                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), search ->
+//                    binding.editTextEmail.getText()
+//                );
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                if (mContactSearchViewModel.getSearch().getValue()) {
-                    builder.setTitle("User found");
-                    builder.setMessage("Send a contact request to this user?");
+                //add lister for the chatID list
+                mContactSearchViewModel.searchContactObserver(getViewLifecycleOwner(), searchBoolean -> {
 
-                    builder.setPositiveButton("Send request", (dialog, id) -> {
-                        contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
-                    });
+                    if (searchBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("User found");
+                        builder.setMessage("Send a contact request to this user?");
 
-                    builder.setNegativeButton("Cancel", (dialog, id) -> {
-                        return;
-                    });
-                } else {
-                    builder.setTitle("Error");
-                    builder.setMessage("User not found");
-                }
+                        builder.setPositiveButton("Send request", (dialog, id) -> {
+                            contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
+                        });
 
-                builder.show();
+                        builder.setNegativeButton("Cancel", (dialog, id) -> {
+                            return;
+                        });
+                        builder.show();
+                        mContactSearchViewModel.setSearchBoolean(false);
+                    }
+
+
+                });
+
+                mContactSearchViewModel.errorContactObserver(getViewLifecycleOwner(), errorBoolean -> {
+
+                    if (errorBoolean) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Error");
+                        builder.setMessage("User not found");
+                        builder.show();
+                        mContactSearchViewModel.setErrorBoolean(false);
+                    }
+
+
+                });
+
+
+
+
+
+//                if (mContactSearchViewModel.getSearch().getValue()) {
+//                    builder.setTitle("User found");
+//                    builder.setMessage("Send a contact request to this user?");
+//
+//                    builder.setPositiveButton("Send request", (dialog, id) -> {
+//                        contactRequestsTabViewModel.connectPost(email, mUserInfoViewModel.getmJwt());
+//                    });
+//
+//                    builder.setNegativeButton("Cancel", (dialog, id) -> {
+//                        return;
+//                    });
+//                } else {
+//                    builder.setTitle("Error");
+//                    builder.setMessage("User not found");
+//                }
+//
+//                builder.show();
             }
         });
     }

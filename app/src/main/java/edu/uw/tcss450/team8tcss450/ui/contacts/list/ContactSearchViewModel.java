@@ -33,6 +33,7 @@ import edu.uw.tcss450.team8tcss450.ui.contacts.requests.ContactRequest;
 public class ContactSearchViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> mResponse;
     private MutableLiveData<Boolean> mSearch;
+    private MutableLiveData<Boolean> mError;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
@@ -43,8 +44,12 @@ public class ContactSearchViewModel extends AndroidViewModel {
         super(theApplication);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
+
         mSearch = new MutableLiveData<>();
         mSearch.setValue(new Boolean(false));
+
+        mError = new MutableLiveData<>();
+        mError.setValue(new Boolean(false));
     }
 
     /**
@@ -58,8 +63,27 @@ public class ContactSearchViewModel extends AndroidViewModel {
         mSearch.observe(theOwner, theObserver);
     }
 
+    /**
+     * Method that creates an observer for myContactList.
+     *
+     * @param theOwner
+     * @param theObserver
+     */
+    public void errorContactObserver(@NonNull LifecycleOwner theOwner,
+                                      @NonNull Observer<? super Boolean> theObserver) {
+        mError.observe(theOwner, theObserver);
+    }
+
     public MutableLiveData<Boolean> getSearch() {
         return mSearch;
+    }
+
+    public void setSearchBoolean(boolean theBool) {
+        mSearch.setValue(theBool);
+    }
+
+    public void setErrorBoolean(boolean theBool) {
+        mError.setValue(theBool);
     }
 
     /**
@@ -108,26 +132,6 @@ public class ContactSearchViewModel extends AndroidViewModel {
     }
 
     private void handleGetError(VolleyError theError) {
-        if (Objects.isNull(theError.networkResponse)) {
-            try {
-                mResponse.setValue(new JSONObject("{" +
-                        "error:\"" + theError.getMessage() +
-                        "\"}"));
-            } catch (JSONException e) {
-                Log.e("JSON PARSE", "JSON Parse Error in handleError");
-            }
-        }
-        else {
-            String data = new String(theError.networkResponse.data, Charset.defaultCharset())
-                    .replace('\"', '\'');
-            try {
-                JSONObject response = new JSONObject();
-                response.put("code", theError.networkResponse.statusCode);
-                response.put("data", new JSONObject(data));
-                mResponse.setValue(response);
-            } catch (JSONException e) {
-                Log.e("JSON PARSE", "JSON Parse Error in handleError");
-            }
-        }
+        mError.setValue(new Boolean(true));
     }
 }

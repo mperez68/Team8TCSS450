@@ -36,11 +36,11 @@ import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredicti
 import edu.uw.tcss450.team8tcss450.ui.weather.map.WeatherMapFragment;
 
 /**
- * The primary page for the weather fragment that is
+ * The main page for the weather fragment that is
  * the parent fragment for the child tab weather fragments.
  *
  * @author Brandon Kennedy
- * @version 31 May 2021
+ * @version 2 June 2021
  */
 public class WeatherMainFragment extends Fragment {
 
@@ -55,20 +55,6 @@ public class WeatherMainFragment extends Fragment {
 
     public WeatherMainFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        /*
-        new ViewModelProvider(
-            getActivity(),
-            new WeatherZipcodeViewModel.WeatherZipcodeViewModelFactory(
-                "Tacoma","47.2643","-122.4575"))
-                .get(WeatherZipcodeViewModel.class);
-        */
-
     }
 
     @Override
@@ -114,8 +100,6 @@ public class WeatherMainFragment extends Fragment {
         });
          */
 
-
-
         return root;
     }
 
@@ -156,6 +140,7 @@ public class WeatherMainFragment extends Fragment {
      * @param response the JSONObject retrieved from OpenWeatherMap API
      * @param zipcode the zipcode in which the JSONObject was retrieved for
      * @param model the WeatherZipcodeViewModel in which if JSONObject is valid, the zipcode and city will be stored there
+     * @param view the view associated with this weather main fragment
      */
     private void handleResultFromOpenWeatherMap(final JSONObject response,
                                                 final String zipcode,
@@ -171,15 +156,13 @@ public class WeatherMainFragment extends Fragment {
                         "Zipcode= " + zipcode + ", City= " + city + ", " +
                         "Latitude/Longitude=" + latitude + "," + longitude);
 
-                // Set the new WeatherZipcodeViewModel with the newest validated zipcode and city local
-                // Thus, display the new city name on WeatherMainFragment
-                //model.setZipcode(zipcode);
+                // Set the new WeatherZipcodeViewModel with the newest
+                // validated zipcode and the city associated with it.
+                // Thus, display the new city name on WeatherMainFragment.
                 model.setCity(city);
                 model.setLocation(latitude, longitude);
                 TextView cityText = view.findViewById(R.id.zipcode_queried_location);
                 cityText.setText(model.getCity());
-
-                //Log.d("WeatherMainFragment", "WeatherZipcodeViewModel now has " + model.getZipcode() + " and " + model.getCity());
 
                 // Refresh the currently selected tab with the new weather data
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
@@ -211,8 +194,6 @@ public class WeatherMainFragment extends Fragment {
                 }
                 ft.addToBackStack(null);
                 ft.commit();
-                //getActivity().recreate();
-
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("ERROR!", e.getMessage());

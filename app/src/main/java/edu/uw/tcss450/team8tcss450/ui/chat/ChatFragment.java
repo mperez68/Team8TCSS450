@@ -119,7 +119,9 @@ public class ChatFragment extends Fragment {
                 //resets lists and numbers for each time chatId's is returned to. Needed to refresh data.
                 mChatListViewModel.clearChatList();
                 mChatListViewModel.clearNicknameList();
+                mChatListViewModel.clearMessageMap();
                 mChatListViewModel.setTotalNumberOfChatIDs(0);
+
             }
         });
 

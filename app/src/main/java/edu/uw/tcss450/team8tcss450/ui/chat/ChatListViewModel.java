@@ -209,6 +209,9 @@ public class ChatListViewModel extends AndroidViewModel {
     public void clearChatList() {
         mChatList.setValue(new ArrayList<>());
     }
+    public void clearMessageMap() {
+        mMessageMap.setValue(new HashMap<>());
+    }
     /**
      * Handler method for a volley error for a bad json request.
      * @param theError

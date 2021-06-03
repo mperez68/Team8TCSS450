@@ -45,6 +45,7 @@ public class ContactSearchFragment extends Fragment {
         mContactListTabViewModel = new ViewModelProvider(getActivity()).get(ContactListTabViewModel.class);
     }
 
+
     /**
      * onCreate view that inflates the view with fragment contact search..
      *
@@ -93,7 +94,7 @@ public class ContactSearchFragment extends Fragment {
             mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
                 if (!filteredList.isEmpty()) {
                     binding.contactSearchListRoot.setAdapter(
-                            new ContactListTabRecyclerViewAdapter(filteredList)
+                            new ContactSearchListTabRecyclerViewAdapter(filteredList)
                     );
                 }
             });
@@ -102,7 +103,7 @@ public class ContactSearchFragment extends Fragment {
         mContactListTabViewModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.contactSearchListRoot.setAdapter(
-                        mContactListTabViewModel.getViewAdapter()
+                        mContactListTabViewModel.getSearchViewAdapter()
                 );
             }
         });

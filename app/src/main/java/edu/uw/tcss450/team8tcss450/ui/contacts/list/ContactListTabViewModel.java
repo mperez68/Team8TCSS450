@@ -38,6 +38,7 @@ public class ContactListTabViewModel extends AndroidViewModel {
     private MutableLiveData<List<Contact>> mContactList;
     private MutableLiveData<JSONObject> mResponse;
     private ContactListTabRecyclerViewAdapter mViewAdapter;
+    private ContactSearchListTabRecyclerViewAdapter mSearchViewAdapter;
 
     /**
      * Constructor the the contact list view model to instantiate instance fields.
@@ -49,6 +50,7 @@ public class ContactListTabViewModel extends AndroidViewModel {
         mContactList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
         mViewAdapter = new ContactListTabRecyclerViewAdapter(mContactList.getValue());
+        mSearchViewAdapter = new ContactSearchListTabRecyclerViewAdapter(mContactList.getValue());
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
@@ -80,6 +82,15 @@ public class ContactListTabViewModel extends AndroidViewModel {
      */
     public ContactListTabRecyclerViewAdapter getViewAdapter() {
         return mViewAdapter;
+    }
+
+    /**
+     * Get view adapter
+     *
+     * @return myViewAdapter
+     */
+    public ContactSearchListTabRecyclerViewAdapter getSearchViewAdapter() {
+        return mSearchViewAdapter;
     }
 
     public void connectPost(String theSender, String theEmail, String theJwt) {

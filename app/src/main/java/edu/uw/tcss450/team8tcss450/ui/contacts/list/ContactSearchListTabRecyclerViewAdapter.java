@@ -12,13 +12,14 @@ import java.util.List;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactListCardBinding;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentContactSearchListCardBinding;
 import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
 import edu.uw.tcss450.team8tcss450.ui.contacts.ContactsFragmentDirections;
 
 /**
  * Adapter for the contacts recycler view.
  */
-public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<ContactListTabRecyclerViewAdapter.ContactViewHolder> {
+public class ContactSearchListTabRecyclerViewAdapter extends RecyclerView.Adapter<ContactSearchListTabRecyclerViewAdapter.ContactViewHolder> {
 
     //Store all of the blogs to present
     private final List<Contact> mContacts;
@@ -28,7 +29,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
      *
      * @params theItems list of contacts to be instantiated.
      */
-    public ContactListTabRecyclerViewAdapter(List<Contact> theItems) {
+    public ContactSearchListTabRecyclerViewAdapter(List<Contact> theItems) {
         this.mContacts = theItems;
     }
 
@@ -45,7 +46,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup theParent, int theViewType) {
         return new ContactViewHolder(LayoutInflater
                 .from(theParent.getContext())
-                .inflate(R.layout.fragment_contact_list_card, theParent, false));
+                .inflate(R.layout.fragment_contact_search_list_card, theParent, false));
     }
 
     /**
@@ -57,7 +58,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
      * @return ContactViewHolder
      */
     @Override
-    public void onBindViewHolder(@NonNull ContactListTabRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
+    public void onBindViewHolder(@NonNull ContactSearchListTabRecyclerViewAdapter.ContactViewHolder theHolder, int thePosition) {
         theHolder.setContacts(mContacts.get(thePosition));
     }
 
@@ -76,7 +77,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
      */
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
-        public FragmentContactListCardBinding mBinding;
+        public FragmentContactSearchListCardBinding mBinding;
         private Contact mContact;
 
         /**
@@ -87,7 +88,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
         public ContactViewHolder(View theView) {
             super(theView);
             mView = theView;
-            mBinding = FragmentContactListCardBinding.bind(theView);
+            mBinding = FragmentContactSearchListCardBinding.bind(theView);
             theView.setOnClickListener(this);
         }
 
@@ -96,7 +97,7 @@ public class ContactListTabRecyclerViewAdapter extends RecyclerView.Adapter<Cont
             String a = mContact.getNickname();
             String b = mContact.getEmail();
             Navigation.findNavController(theView).navigate(
-                    ContactsFragmentDirections.actionNavigationContactsToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
+                    ContactSearchFragmentDirections.actionContactSearchFragmentToContactProfileFragment(mContact.getNickname(), mContact.getEmail())
 
 
 

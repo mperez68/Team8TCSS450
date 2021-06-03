@@ -22,6 +22,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.uw.tcss450.team8tcss450.databinding.ActivityMainBinding;
+import edu.uw.tcss450.team8tcss450.model.NewContactCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.PushyTokenViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
 //    end
+    private NewContactCountViewModel mNewContactModel;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class); //pushy messaging
+        mNewContactModel = new ViewModelProvider(this).get(NewContactCountViewModel.class); //pushy contact request
 
         //TODO change this accordingly for messages
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
@@ -116,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 //multiple chat rooms.
                 mNewMessageModel.reset();
             }
+            if (destination.getId() == R.id.navigation_contacts) {
+                mNewContactModel.reset();
+            }
         });
 
         mNewMessageModel.addMessageCountObserver(this, count -> {
@@ -123,6 +129,19 @@ public class MainActivity extends AppCompatActivity {
             badge.setMaxCharacterCount(2);
             if (count > 0) {
                 //new messages! update and show the notification badge.
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
+
+        mNewContactModel.addContactCountObserver(this, count -> {
+            BadgeDrawable badge = myBinding.navView.getOrCreateBadge(R.id.navigation_contacts);
+            badge.setMaxCharacterCount(2);
+            if (count > 0) {
                 badge.setNumber(count);
                 badge.setVisible(true);
             } else {
@@ -258,9 +277,18 @@ public class MainActivity extends AppCompatActivity {
                 if (nd.getId() != R.id.navigation_chat) {
                     mNewMessageModel.increment();
                 }
+//                if (nd.getId() != R.id.navigation_contacts) {
+//                    mNewContactModel.increment();
+//                }
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+            }
+
+            if (intent.hasExtra("contactRequest")) {
+                if (nd.getId() != R.id.navigation_contacts) {
+                    mNewContactModel.increment();
+                }
             }
         }
     }

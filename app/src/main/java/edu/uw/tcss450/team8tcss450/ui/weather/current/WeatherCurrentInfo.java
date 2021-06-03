@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.weather;
+package edu.uw.tcss450.team8tcss450.ui.weather.current;
 
 import android.graphics.Bitmap;
 

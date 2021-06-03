@@ -100,7 +100,4 @@ public class WeatherDayRecyclerViewAdapter extends
                     .setText(infoList.getHighTemperature() + "\u00B0F");
         }
     }
-
-
-
 }

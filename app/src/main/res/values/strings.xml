@@ -185,5 +185,6 @@
     <string name="text_settings_new_password">New Password</string>
     <string name="text_settings_con_password">Confirm New Password</string>
     <string name="button_settings_update">Update Password</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

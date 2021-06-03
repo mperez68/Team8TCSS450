@@ -25,7 +25,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * A fragment that lists and displays the 10-day weather forecast predictions
  *
  * @author Brandon Kennedy
- * @version 22 May 2021
+ * @version 2 June 2021
  */
 public class WeatherDayPredictionListFragment extends Fragment {
 
@@ -45,23 +45,6 @@ public class WeatherDayPredictionListFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherDayPredictionViewModel.class);
-
-        WeatherZipcodeViewModel model = new ViewModelProvider(getActivity())
-                .get(WeatherZipcodeViewModel.class);
-
-        Log.d("WeatherDayPredictionListFragment.onCreate()",
-                "Zipcode from Args is " + model.getZipcode() + ".  City is " + model.getCity());
-
-        // If the saved zipcode in WeatherDayPredictionViewModel does not match the zipcode
-        // in WeatherZipcodeViewModel, then connect to the OpenWeatherMap API to
-        // retrieve current weather data for the zipcode in WeatherZipcodeViewModel.
-        // Otherwise, display information already saved in WeatherDayPredictionViewModel
-        if (!mViewModel.getZipcode().equals(model.getZipcode())) {
-            if (!mViewModel.isEmpty())
-                mViewModel.clearList();
-            mViewModel.connectToWeatherBit(model.getZipcode());
-        }
-
         Log.v("WeatherDayPredictionListFragment.java","onCreate() finished");
     }
 
@@ -77,6 +60,15 @@ public class WeatherDayPredictionListFragment extends Fragment {
         FragmentWeatherDayPredictionListBinding binding
                 = FragmentWeatherDayPredictionListBinding.bind(getView());
 
+        WeatherZipcodeViewModel model = new ViewModelProvider(getActivity())
+                .get(WeatherZipcodeViewModel.class);
+
+        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
+                !mViewModel.getLongitude().equals(model.getLongitude())) {
+            mViewModel.clearList();
+            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
+        }
+
         mViewModel.addWeatherDayListObserver(getViewLifecycleOwner(), postList -> {
             if (!postList.isEmpty()) {
                 binding.dayPredictionListRoot.setAdapter(new WeatherDayRecyclerViewAdapter(postList));
@@ -88,20 +80,19 @@ public class WeatherDayPredictionListFragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        WeatherZipcodeViewModel model = new ViewModelProvider(
-                getActivity()).get(WeatherZipcodeViewModel.class);
-/*
-        if (!model.getZipcode().equals(mViewModel.getZipcode())) {
-            mViewModel.clearList();
-            mViewModel.connectToWeatherBit(model.getZipcode());
-        }
-
- */
-
-        Log.v("WeatherDayPredictionListFragment.java","onResume() finished");
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//        WeatherZipcodeViewModel model = new ViewModelProvider(
+//                getActivity()).get(WeatherZipcodeViewModel.class);
+//
+//        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
+//                !mViewModel.getLongitude().equals(model.getLongitude())) {
+//            mViewModel.clearList();
+//            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
+//        }
+//
+//        Log.v("WeatherDayPredictionListFragment.java","onResume() finished");
+//        super.onResume();
+//    }
 
 }

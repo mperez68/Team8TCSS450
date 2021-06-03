@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_weather_current_scene"
-    tools:context=".ui.weather.WeatherCurrentFragment">
+    tools:context=".ui.weather.current.WeatherCurrentFragment">
 
     <TextView
         android:id="@+id/current_temperature_reading"

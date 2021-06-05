@@ -28,7 +28,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * A fragment that lists and displays the 24-hour weather forecast predictions
  *
  * @author Brandon Kennedy
- * @version 2 June 2021
+ * @version 4 June 2021
  */
 public class WeatherHourPredictionListFragment extends Fragment {
 
@@ -68,7 +68,7 @@ public class WeatherHourPredictionListFragment extends Fragment {
         if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
                 !mViewModel.getLongitude().equals(model.getLongitude())) {
             mViewModel.clearList();
-            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), model);
         }
 
         mViewModel.addWeatherHourListObserver(
@@ -81,19 +81,5 @@ public class WeatherHourPredictionListFragment extends Fragment {
             }
         );
     }
-
-//    @Override
-//    public void onResume() {
-//        WeatherZipcodeViewModel model = new ViewModelProvider(
-//                getActivity()).get(WeatherZipcodeViewModel.class);
-//        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
-//                !mViewModel.getLongitude().equals(model.getLongitude())) {
-//            mViewModel.clearList();
-//            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude());
-//        }
-//
-//        Log.v("WeatherHourPredictionListFragment.java","onResume() finished");
-//        super.onResume();
-//    }
 
 }

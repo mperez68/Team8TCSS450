@@ -9,14 +9,14 @@ import java.io.Serializable;
  * statistics of the weather conditions of the current day
  *
  * @author Brandon Kennedy
- * @version 21 May 2021
+ * @version 4 June 2021
  */
 public class WeatherCurrentInfo implements Serializable {
 
     private String mCity;
     private String mTemperature;
     private String mOutlook;
-    private Bitmap mOutlookIcon;
+    private Integer mOutlookIconResId;
     private String mHumidity;
     private String mWindSpeed;
     private String mWindDirection;
@@ -32,6 +32,7 @@ public class WeatherCurrentInfo implements Serializable {
         this.mCity = builder.mCity;
         this.mTemperature = builder.mTemperature;
         this.mOutlook = builder.mOutlook;
+        this.mOutlookIconResId = builder.mOutlookIconResId;
         this.mHumidity = builder.mHumidity;
         this.mWindSpeed = builder.mWindSpeed;
         this.mWindDirection = builder.mWindDirection;
@@ -66,12 +67,12 @@ public class WeatherCurrentInfo implements Serializable {
     }
 
     /**
-     * Return the outlook icon of the current weather instance
+     * Return the outlook icon resource id of the current weather instance
      *
-     * @return the outlook icon of the current weather instance
+     * @return the outlook icon resource id of the current weather instance
      */
-    public Bitmap getOutlookIcon() {
-        return this.mOutlookIcon;
+    public Integer getOutlookIconResId() {
+        return this.mOutlookIconResId;
     }
 
     /**
@@ -111,26 +112,17 @@ public class WeatherCurrentInfo implements Serializable {
     }
 
     /**
-     * Set the outlook icon of the current weather instance
-     *
-     * @param outlookIcon the outlook icon being stored with the current weather instance
-     */
-    public void setOutlookIcon(final Bitmap outlookIcon) {
-        this.mOutlookIcon = outlookIcon;
-    }
-
-    /**
      * Helper class for building credentials of the current weather instance
      *
      * @author Brandon Kennedy
-     * @version 21 May 2021
+     * @version 4 June 2021
      */
     public static class WeatherCurrentInfoBuilder {
 
         private String mCity;
         private String mTemperature;
         private String mOutlook;
-        private Bitmap mOutlookIcon;
+        private Integer mOutlookIconResId;
         private String mHumidity;
         private String mWindSpeed;
         private String mWindDirection;
@@ -156,14 +148,8 @@ public class WeatherCurrentInfo implements Serializable {
             return this;
         }
 
-        /**
-         * Add an outlook image icon for display on the current weather display
-         *
-         * @param outlookIcon the image of the outlook icon
-         * @return the builder of this current weather info
-         */
-        public WeatherCurrentInfoBuilder addOutlookIcon(final Bitmap outlookIcon) {
-            this.mOutlookIcon = outlookIcon;
+        public WeatherCurrentInfoBuilder addOutlookIconResId(final Integer outlookIconResId) {
+            this.mOutlookIconResId = outlookIconResId;
             return this;
         }
 

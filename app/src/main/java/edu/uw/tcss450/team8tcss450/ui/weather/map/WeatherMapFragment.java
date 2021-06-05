@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
@@ -54,7 +55,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * The page for the weather map
  *
  * @author Brandon Kennedy
- * @version 31 May 2021
+ * @version 4 June 2021
  */
 public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -146,8 +147,6 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentWeatherMapBinding binding = FragmentWeatherMapBinding.bind(getView());
-
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherMapViewModel.class);
         mViewModel.addLocationObserver(getViewLifecycleOwner(), location -> {
@@ -188,9 +187,10 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
         }
     }
 
+    /**
+     * Requests the device location from the API
+     */
     private void requestLocation() {
-        // requests the device location from the API
-
         FragmentActivity activity = getActivity();
 
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -211,12 +211,6 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                                         .get(WeatherMapViewModel.class);
                             }
                             mViewModel.setLocation(location);
-                            //WeatherZipcodeViewModel model = new ViewModelProvider(
-                            //        getActivity()).get(WeatherZipcodeViewModel.class);
-                            //model.setLocation(
-                            //        String.valueOf(location.getLatitude()),
-                            //        String.valueOf(location.getLongitude())
-                            //);
                         }
                     }
                 });
@@ -266,9 +260,6 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
     public void onMapClick(@NonNull LatLng latLng) {
         Log.d("LAT/LONG", latLng.toString());
         mMap.clear();
-        //Marker marker = mMap.addMarker(new MarkerOptions()
-        //        .position(latLng)
-        //        .title("New Marker"));
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
@@ -286,19 +277,21 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                                                 final LatLng latLng) {
         if (validateRetrievedJSONObject(response)) {
             try {
+                IntFunction<String> getString =
+                        getActivity().getResources()::getString;
                 WeatherZipcodeViewModel model = new ViewModelProvider(
                         getActivity()).get(WeatherZipcodeViewModel.class);
-                String city = response.getString("name");
+                String city = response.getString(getString.apply(R.string.keys_json_weathermap_name));
                 String latitude = String.valueOf(latLng.latitude);
                 String longitude = String.valueOf(latLng.longitude);
-                Log.i("WeatherPrimaryFragment.java", "Zipcode from search query is valid");
-                Log.i("WeatherPrimaryFragment.java",
+                Log.i("WeatherMapFragment.java", "Zipcode from search query is valid");
+                Log.i("WeatherMapFragment.java",
                         "City= " + city + ", " +
                                 "Latitude/Longitude=" + latitude + "," + longitude);
 
-                // Set the new WeatherZipcodeViewModel with the newest validated zipcode and city local
-                // Thus, display the new city name on WeatherMainFragment
-                //model.setZipcode(zipcode);
+                // Set the new WeatherZipcodeViewModel with the newest
+                // validated lat/long coordinates and city location name.
+                // Thus, display the new location city name on WeatherMainFragment
                 model.setCity(city);
                 mMap.addMarker(new MarkerOptions()
                         .position(latLng)
@@ -308,9 +301,7 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
                 WeatherMainFragment parent = (WeatherMainFragment) WeatherMapFragment.this.getParentFragment();
                 TextView cityName = parent.getView().findViewById(R.id.zipcode_queried_location);
                 cityName.setText(model.getCity());
-                //TextView cityText = getView().findViewById(R.id.zipcode_queried_location);
-                //cityText.setText(model.getCity());
-                //getActivity().recreate();
+                parent.refreshWeatherDisplay(parent.getView());
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("ERROR!", e.getMessage());
@@ -326,15 +317,17 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
      * @return the boolean that tells if the retrieved JSONObject tells that the queried zipcode is valid or not
      */
     private Boolean validateRetrievedJSONObject(final JSONObject response) {
-        if (response.length() > 0 && !response.has("error")) {
-            Log.i("WeatherMainFragment.java", "We have a JSON. Now we open it to look for 'cod' key");
-            if (response.has("cod")) {
-                Log.i("WeatherMainFragment.java", "JSON object has 'cod' key, 'cod': "
-                        + String.valueOf(response.optInt("cod", 400)));
-                if ( response.optInt("cod", 400) == 200  ) {
+        IntFunction<String> getString =
+                getActivity().getResources()::getString;
+        if (response.length() > 0 && !response.has(getString.apply(R.string.keys_json_weathermap_error))) {
+            Log.i("WeatherMapFragment.java", "We have a JSON. Now we open it to look for 'cod' key");
+            if (response.has(getString.apply(R.string.keys_json_weathermap_cod))) {
+                Log.i("WeatherMapFragment.java", "JSON object has 'cod' key, 'cod': "
+                        + String.valueOf(response.optInt(getString.apply(R.string.keys_json_weathermap_cod), 400)));
+                if ( response.optInt(getString.apply(R.string.keys_json_weathermap_cod), 400) == 200  ) {
                     return true;
                 } else {
-                    Log.e("WeatherPrimaryFragment.java",
+                    Log.e("WeatherMapFragment.java",
                             "Looks like cod is not equal to 200. This JSON file has no data.");
                     return false;
                 }
@@ -357,7 +350,7 @@ public class WeatherMapFragment extends Fragment implements OnMapReadyCallback, 
      */
     private void connectToOpenWeatherMap(final LatLng latLng) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/validate_lat_lon";
-        Log.i("WeatherMainViewModel.java", "Connecting to OpenWeatherMap API current weather conditions");
+        Log.i("WeatherMapModel.java", "Connecting to OpenWeatherMap API current weather conditions");
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,

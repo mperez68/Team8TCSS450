@@ -98,6 +98,8 @@ public class HomeFragment extends Fragment {
                         "-122.4575"))
                 .get(WeatherZipcodeViewModel.class);
 
+        Log.d("HomeFragment.java", "Package name for activity is " + getActivity().getPackageName());
+
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
         model.setCity("Tacoma");

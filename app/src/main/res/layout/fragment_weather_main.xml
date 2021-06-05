@@ -16,33 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <!--
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/current_weather_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Weather" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/twenty_four_hour_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="24-Hour Forecast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/ten_day_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10-Day Forecast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/weather_map_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weather Map" />
--->
-
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -75,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
         android:text="@string/text_weathermain_zipcodequeriedlocation"
         android:textSize="40sp"
         android:visibility="visible"

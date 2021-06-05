@@ -12,6 +12,7 @@
         android:id="@+id/current_temperature_reading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
         android:text="@string/text_weathercurrent_tempreading"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/current_outlook"
@@ -65,8 +66,9 @@
     <include
         android:id="@+id/current_outlook"
         layout="@layout/fragment_weather_outlook"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/current_temperature_reading"
         app:layout_constraintStart_toStartOf="parent"

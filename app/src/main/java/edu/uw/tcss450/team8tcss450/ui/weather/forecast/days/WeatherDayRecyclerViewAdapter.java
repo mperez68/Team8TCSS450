@@ -19,7 +19,7 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherDayPredictionCardB
  * card fragments in a consecutive list
  *
  * @author Brandon Kennedy
- * @version 16 May 2021
+ * @version 4 June 2021
  */
 public class WeatherDayRecyclerViewAdapter extends
         RecyclerView.Adapter<WeatherDayRecyclerViewAdapter.WeatherDayViewHolder> {
@@ -60,7 +60,7 @@ public class WeatherDayRecyclerViewAdapter extends
      * for this recycler view adapter class
      *
      * @author Brandon Kennedy
-     * @version 21 May 2021
+     * @version 4 June 2021
      */
     public class WeatherDayViewHolder extends RecyclerView.ViewHolder {
 
@@ -90,7 +90,7 @@ public class WeatherDayRecyclerViewAdapter extends
             mInfoDayList = infoList;
             binding.dayPredictionCardSpecificDay.setText(infoList.getDate());
 
-            binding.dayPredictionCardOutlook.outlookOutlookIcon.setImageBitmap(infoList.getOutlookIcon());
+            binding.dayPredictionCardOutlook.outlookOutlookIcon.setImageResource(infoList.getOutlookIconResId());
 
             binding.dayPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
 

@@ -13,14 +13,14 @@ import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPostInfo;
  * a specific hour in a 24-hour forecast.
  *
  * @author Brandon Kennedy
- * @version 21 May 2021
+ * @version 4 June 2021
  */
 public class WeatherHourPostInfo implements Serializable {
 
     private final String mDate;
     private final String mTime;
     private final String mOutlook;
-    private Bitmap mOutlookIcon;
+    private final Integer mOutlookIconResId;
     private final String mTemperature;
 
     /**
@@ -33,6 +33,7 @@ public class WeatherHourPostInfo implements Serializable {
         this.mDate = builder.mDate;
         this.mTime = builder.mTime;
         this.mOutlook = builder.mOutlook;
+        this.mOutlookIconResId = builder.mOutlookIconResId;
         this.mTemperature = builder.mTemperature;
     }
 
@@ -64,12 +65,12 @@ public class WeatherHourPostInfo implements Serializable {
     }
 
     /**
-     * Return the outlook image icon of the weather hour post
+     * Return the outlook icon resource id of the weather hour post
      *
-     * @return the outlook image icon of the weather hour post
+     * @return the outlook icon resource id of the weather hour post
      */
-    public Bitmap getOutlookIcon() {
-        return mOutlookIcon;
+    public Integer getOutlookIconResId() {
+        return mOutlookIconResId;
     }
 
     /**
@@ -81,27 +82,17 @@ public class WeatherHourPostInfo implements Serializable {
         return mTemperature;
     }
 
-
-    /**
-     * Set the outlook icon of the weather hour post
-     *
-     * @param outlookIcon the outlook icon of the weather hour post
-     */
-    public void setOutlookIcon(Bitmap outlookIcon) {
-        this.mOutlookIcon = outlookIcon;
-    }
-
     /**
      * Helper class for building credentials of the weather forecast hour post
      *
      * @author Brandon Kennedy
-     * @version 21 May 2021
+     * @version 4 June 2021
      */
     public static class WeatherHourInfoBuilder {
         private final String mDate;
         private final String mTime;
         private String mOutlook;
-        private Image mOutlookIcon;
+        private Integer mOutlookIconResId;
         private String mTemperature;
 
         /**
@@ -127,13 +118,13 @@ public class WeatherHourPostInfo implements Serializable {
         }
 
         /**
-         * Add an outlook image icon for display on the weather forecast hour post
+         * Add an outlook icon resource id for display on the weather forecast hour post
          *
-         * @param outlookIcon the image icon of the outlook image icon
+         * @param outlookIconResId the outlook icon resource id
          * @return the builder of this weather forecast hour post
          */
-        public WeatherHourInfoBuilder addOutlookIcon(final Image outlookIcon) {
-            this.mOutlookIcon = outlookIcon;
+         public WeatherHourInfoBuilder addOutlookIconResId(final Integer outlookIconResId) {
+            this.mOutlookIconResId = outlookIconResId;
             return this;
         }
 

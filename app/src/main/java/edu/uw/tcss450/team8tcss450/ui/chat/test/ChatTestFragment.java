@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -20,9 +21,16 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentChatTestBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
+import edu.uw.tcss450.team8tcss450.ui.chat.ChatRecyclerViewAdapter;
+import edu.uw.tcss450.team8tcss450.ui.contacts.Contact;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragmentDirections;
+import edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactSearchListTabRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -190,6 +198,19 @@ public class ChatTestFragment extends Fragment {
                             binding.editMessage.getText().toString());
                 });
 
+                //Listener for the search contact button.
+                binding.chatRoomLeave.setOnClickListener(button -> {
+                    mChatModel.deleteChatRoom(myChatID, mUserModel.getmJwt());
+                });
+
+
+                mChatModel.addDeleteSuccessObserver(getViewLifecycleOwner(), deleteBool -> {
+                    if (deleteBool) {
+                        Navigation.findNavController(getView()).navigate(
+                                ChatTestFragmentDirections.actionChatTestFragmentToNavigationHome());
+                        mChatModel.setDeleteBoolean(false);
+                    }
+                });
                 //restart so listener does not use previous chatID value.
                 mChatModel.setMyChatID(-1);
             }
@@ -198,6 +219,7 @@ public class ChatTestFragment extends Fragment {
         //when we get the response back from the server, clear the edittext
         mSendModel.addResponseObserver(getViewLifecycleOwner(), response ->
                 binding.editMessage.setText(""));
+
 
     }
 }

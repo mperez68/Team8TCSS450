@@ -3,6 +3,7 @@ package edu.uw.tcss450.team8tcss450.ui.home;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,13 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -27,33 +21,50 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentHomeBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherCurrentBinding;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
-import edu.uw.tcss450.team8tcss450.ui.weather.map.WeatherMapViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HOME";
+    private HomeViewModel mHomeViewModel;
+    private UserInfoViewModel mUserInfoViewModel;
+
     private static final int MY_PERMISSIONS_LOCATIONS = 8414;
 
     //Use a FusedLocationProviderClient to request the location
     private FusedLocationProviderClient mFusedLocationClient;
+    private boolean hasContacts;
+    private boolean hasMessages;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate that binds the contact list view model and connects to the get endpoint on the server.
+     *
+     * @param
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,21 +75,85 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mUserInfoViewModel = new ViewModelProvider(getActivity())
+                .get(UserInfoViewModel.class);
+        mHomeViewModel = new ViewModelProvider(getActivity())
+                .get(HomeViewModel.class);
+        mHomeViewModel.connectGet(mUserInfoViewModel.getmJwt());
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         //Local access to the ViewBinding object. No need to create as Instance Var as it is only
         //used here.
         FragmentHomeBinding binding = FragmentHomeBinding.bind(getView());
-        //Note argument sent to the ViewModelProvider constructor. It is the Activity that
-        //holds this fragment.
-        UserInfoViewModel model = new ViewModelProvider(getActivity())
-                .get(UserInfoViewModel.class);
-        binding.textEmail.setText(model.getEmail()); //textEmail will change when fragment is created.
+
+        binding.textEmail.setText(mUserInfoViewModel.getEmail()); //textEmail will change when fragment is created.
+
+
+        mHomeViewModel.addResponseObserver(getViewLifecycleOwner(), response -> updateNotificationBell(response));
+
+        binding.imageNotification.setOnClickListener(button -> {
+            // TODO show user notifications.
+            binding.imageNotification.clearColorFilter();
+            if (hasContacts) {
+                Navigation.findNavController(getView()).navigate(
+                        HomeFragmentDirections.actionNavigationHomeToNavigationContacts()
+                );
+                hasContacts = false;
+                if (!hasMessages) this.resetContactNotifications();
+            } else if (hasMessages) {
+                Navigation.findNavController(getView()).navigate(
+                        HomeFragmentDirections.actionNavigationHomeToNavigationChat()
+                );
+                hasMessages = false;
+                this.resetMessageNotifications();
+            }
+        });
     }
+
+    private void updateNotificationBell(JSONObject response) {
+        hasContacts = false;
+        hasMessages = false;
+        try {
+            if (getNumContacts(response) > 0){
+                hasContacts = true;
+                FragmentHomeBinding.bind(getView()).imageNotification.setColorFilter(Color.RED);
+            }
+            if (getNumMessages(response) > 0){
+                hasMessages = true;
+                FragmentHomeBinding.bind(getView()).imageNotification.setColorFilter(Color.RED);
+            }
+//            Log.d("HOME", "Contacts: " + getNumContacts(response));
+//            Log.d("HOME", "Messages: " + getNumMessages(response));
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getNumContacts(JSONObject response) throws JSONException{
+        JSONArray arr = response.getJSONArray("notifications");
+        int count = 0;
+        for (int i = 0; i < arr.length(); i++){
+            if (arr.get(i).toString().contains("Contact")) count++;
+        }
+        return count;
+    }
+
+    private int getNumMessages(JSONObject response) throws JSONException{
+        JSONArray arr = response.getJSONArray("notifications");
+        int count = 0;
+        for (int i = 0; i < arr.length(); i++){
+            if (arr.get(i).toString().contains("Message")) count++;
+        }
+        return count;
+    }
+
+    private void resetContactNotifications(){ mHomeViewModel.connectPost("Contact", mUserInfoViewModel.getmJwt()); }
+    private void resetMessageNotifications(){ mHomeViewModel.connectPost("Message", mUserInfoViewModel.getmJwt()); }
 
     /**
      * Create weather notification by getting data about current weather condition.

@@ -53,7 +53,7 @@ public class WeatherCurrentFragment extends Fragment {
         // Otherwise, display information already saved in WeatherCurrentViewModel
         if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
                 !mViewModel.getLongitude().equals(model.getLongitude())) {
-            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding);
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding, model);
         } else {
             mViewModel.displayInformation(binding, mViewModel.getWeatherInfo());
         }
@@ -77,7 +77,7 @@ public class WeatherCurrentFragment extends Fragment {
 
         if (!model.getLatitude().equals(mViewModel.getLatitude()) &&
                 !model.getLongitude().equals(mViewModel.getLongitude())) {
-            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding);
+            mViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), binding, model);
         } else {
             mViewModel.displayInformation(binding, mViewModel.getWeatherInfo());
         }

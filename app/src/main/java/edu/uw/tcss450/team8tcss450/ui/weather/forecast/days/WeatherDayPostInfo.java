@@ -11,13 +11,13 @@ import java.io.Serializable;
  * a specific day in a 10-day forecast.
  *
  * @author Brandon Kennedy
- * @version 21 May 2021
+ * @version 4 June 2021
  */
 public class WeatherDayPostInfo implements Serializable {
 
     private final String mDate;
     private final String mOutlook;
-    private Bitmap mOutlookIcon;
+    private final Integer mOutlookIconResId;
     private final String mHighTemperature;
     private final String mLowTemperature;
 
@@ -30,6 +30,7 @@ public class WeatherDayPostInfo implements Serializable {
     private WeatherDayPostInfo(final WeatherDayInfoBuilder builder) {
         this.mDate = builder.mDate;
         this.mOutlook = builder.mOutlook;
+        this.mOutlookIconResId = builder.mOutlookIconResId;
         this.mHighTemperature = builder.mHighTemperature;
         this.mLowTemperature = builder.mLowTemperature;
     }
@@ -53,11 +54,11 @@ public class WeatherDayPostInfo implements Serializable {
     }
 
     /**
-     * Return the outlook icon image of the weather day post
-     * @return the outlook icon image of the weather day post
+     * Return the outlook icon resource id of the weather day post
+     * @return the outlook icon resource id of the weather day post
      */
-    public Bitmap getOutlookIcon() {
-        return mOutlookIcon;
+    public Integer getOutlookIconResId() {
+        return mOutlookIconResId;
     }
 
     /**
@@ -77,25 +78,15 @@ public class WeatherDayPostInfo implements Serializable {
     public String getLowTemperature() { return mLowTemperature; }
 
     /**
-     * Set the outlook icon of the weather day post
-     *
-     * @param outlookIcon the outlook icon being stored with the weather day post
-     */
-    public void setOutlookIcon(final Bitmap outlookIcon) {
-        this.mOutlookIcon = outlookIcon;
-    }
-
-
-    /**
      * Helper class for building credentials of the weather forecast day post
      *
      * @author Brandon Kennedy
-     * @version 21 May 2021
+     * @version 4 June 2021
      */
     public static class WeatherDayInfoBuilder {
         private final String mDate;
         private String mOutlook;
-        private Bitmap mOutlookIcon;
+        private Integer mOutlookIconResId;
         private String mHighTemperature;
         private String mLowTemperature;
 
@@ -120,12 +111,12 @@ public class WeatherDayPostInfo implements Serializable {
         }
 
         /**
-         * Add an outlook image icon for display on the weather forecast day post
-         * @param outlookIcon the image of the outlook icon
+         * Add an outlook image resource id for display on the weather forecast day post
+         * @param outlookIconResId the outlook image resource id
          * @return the builder of this weather forecast day post
          */
-        public WeatherDayInfoBuilder addOutlookIcon(final Bitmap outlookIcon) {
-            this.mOutlookIcon = outlookIcon;
+         public WeatherDayInfoBuilder addOutlookIconResId(final Integer outlookIconResId) {
+            this.mOutlookIconResId = outlookIconResId;
             return this;
         }
 

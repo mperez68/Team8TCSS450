@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.ui.weather.current.WeatherCurrentFragment;
@@ -40,7 +41,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.map.WeatherMapFragment;
  * the parent fragment for the child tab weather fragments.
  *
  * @author Brandon Kennedy
- * @version 2 June 2021
+ * @version 4 June 2021
  */
 public class WeatherMainFragment extends Fragment {
 
@@ -71,7 +72,7 @@ public class WeatherMainFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Weather Map"};
+        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Search From Map"};
         for (int i = 0; i < tabNames.length; i++) {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             tab.setText(tabNames[i]);
@@ -106,10 +107,16 @@ public class WeatherMainFragment extends Fragment {
                                                 WeatherZipcodeViewModel model,
                                                 final View view) {
         if (validateRetrievedJSONObject(response)) {
+            IntFunction<String> getString =
+                    getActivity().getResources()::getString;
             try {
-                String city = response.getString("name");
-                String latitude = String.valueOf(response.getJSONObject("coord").getDouble("lat"));
-                String longitude = String.valueOf(response.getJSONObject("coord").getDouble("lon"));
+                String city = response.getString(getString.apply(R.string.keys_json_weathermain_name));
+                String latitude = String.valueOf(response.getJSONObject(
+                        getString.apply(R.string.keys_json_weathermain_coord)).getDouble(
+                                getString.apply(R.string.keys_json_weathermain_lat)));
+                String longitude = String.valueOf(response.getJSONObject(
+                        getString.apply(R.string.keys_json_weathermain_coord)).getDouble(
+                                getString.apply(R.string.keys_json_weathermain_lon)));
                 Log.i("WeatherPrimaryFragment.java", "Zipcode from search query is valid");
                 Log.i("WeatherPrimaryFragment.java",
                         "Zipcode= " + zipcode + ", City= " + city + ", " +
@@ -123,36 +130,8 @@ public class WeatherMainFragment extends Fragment {
                 TextView cityText = view.findViewById(R.id.zipcode_queried_location);
                 cityText.setText(model.getCity());
 
-                // Refresh the currently selected tab with the new weather data
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.setReorderingAllowed(true);
-                if (mViewPager.getCurrentItem() == 0) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherCurrentFragment");
-                    ft.detach(mPageAdapter.getItem(0)).attach(new WeatherCurrentFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherCurrentFragment());
-                } else if (mViewPager.getCurrentItem() == 1) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherHourPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherHourPredictionListFragment());
-                } else if (mViewPager.getCurrentItem() == 2) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherDayPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherDayPredictionListFragment());
-                } else if (mViewPager.getCurrentItem() == 3) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherMapFragment");
-                    ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherMapFragment());
-                }
-                ft.addToBackStack(null);
-                ft.commit();
+                refreshWeatherDisplay(view);
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("ERROR!", e.getMessage());
@@ -162,6 +141,31 @@ public class WeatherMainFragment extends Fragment {
             zipcodeField.setError("Invalid Entry. Please enter another zipcode.");
             Log.e("WeatherPrimaryFragment.java", "Zipcode from search query isn't valid");
         }
+    }
+
+    /**
+     * Refresh the main weather fragment and the
+     * tab fragments by re-initializing the tab layout,
+     * view pager, and page adapter, but keep view pager
+     * on the currently selected tab
+     *
+     * @param view the view of the weather main fragment
+     */
+    public void refreshWeatherDisplay(View view) {
+        int currentTabPosition = mTabLayout.getSelectedTabPosition();
+
+        mPageAdapter = new WeatherPageAdapter(getChildFragmentManager());
+        mViewPager = view.findViewById(R.id.weather_view_pager);
+        mViewPager.setAdapter(mPageAdapter);
+        mTabLayout = view.findViewById(R.id.weather_tab_layout);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Search From Map"};
+        for (int i = 0; i < tabNames.length; i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            tab.setText(tabNames[i]);
+        }
+        mTabLayout.selectTab(mTabLayout.getTabAt(currentTabPosition));
     }
 
     /**

@@ -170,8 +170,8 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                     calendar.set(Calendar.DAY_OF_WEEK, calendarDay + i + 1);
                     Date date = calendar.getTime();
                     String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
-                    String day = dayOfWeek.toUpperCase() + " " + dailyInterval.getString(getString.apply(
-                            R.string.keys_json_weatherdailyprediction_validdate)).substring(5);
+                    String day = dayOfWeek.toUpperCase();
+                            //+ " " + dailyInterval.getString(getString.apply(R.string.keys_json_weatherdailyprediction_validdate)).substring(5);
 
                     String outlook = dailyInterval.getJSONObject(getString.apply(
                         R.string.keys_json_weatherdailyprediction_weather)).getString(

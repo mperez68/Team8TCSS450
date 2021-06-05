@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.uw.tcss450.team8tcss450.R;
+import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
 import edu.uw.tcss450.team8tcss450.ui.weather.current.WeatherCurrentFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.forecast.days.WeatherDayPredictionListFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours.WeatherHourPredictionListFragment;
@@ -71,17 +72,17 @@ public class WeatherMainFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Weather Map"};
+        String[] tabNames = {"Forecast", "Map"};
         for (int i = 0; i < tabNames.length; i++) {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             tab.setText(tabNames[i]);
         }
 
+        FragmentWeatherMainBinding binding = FragmentWeatherMainBinding.bind(getView());
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
 
-        Button searchZipcode = view.findViewById(R.id.button_search_zipcode);
-        searchZipcode.setOnClickListener(v -> {
+        binding.buttonSearchZipcode.setOnClickListener(v -> {
             TextView zipcodeField = view.findViewById(R.id.zipcode_search_field);
             Log.i("Search Button Pushed", "Zipcode query is " + zipcodeField.getText().toString());
             this.connectToOpenWeatherMap(zipcodeField.getText().toString(), model, view);
@@ -131,25 +132,21 @@ public class WeatherMainFragment extends Fragment {
                             "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherCurrentFragment");
                     ft.detach(mPageAdapter.getItem(0)).attach(new WeatherCurrentFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherCurrentFragment());
+//                } else if (mViewPager.getCurrentItem() == 1) {
+//                    Log.d("WeatherMainFragment",
+//                            "Current Item is " + mViewPager.getCurrentItem() +
+//                                    ", so we should be refreshing WeatherHourPredictionListFragment");
+//                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
+//                } else if (mViewPager.getCurrentItem() == 2) {
+//                    Log.d("WeatherMainFragment",
+//                            "Current Item is " + mViewPager.getCurrentItem() +
+//                                    ", so we should be refreshing WeatherDayPredictionListFragment");
+//                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
                 } else if (mViewPager.getCurrentItem() == 1) {
                     Log.d("WeatherMainFragment",
                             "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherHourPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherHourPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherHourPredictionListFragment());
-                } else if (mViewPager.getCurrentItem() == 2) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
-                                    ", so we should be refreshing WeatherDayPredictionListFragment");
-                    ft.detach(mPageAdapter.getItem(2)).attach(new WeatherDayPredictionListFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherDayPredictionListFragment());
-                } else if (mViewPager.getCurrentItem() == 3) {
-                    Log.d("WeatherMainFragment",
-                            "Current Item is " + mViewPager.getCurrentItem() +
                                     ", so we should be refreshing WeatherMapFragment");
-                    ft.detach(mPageAdapter.getItem(3)).attach(new WeatherMapFragment());
-                    //ft.replace(R.id.weather_view_pager, new WeatherMapFragment());
+                    ft.detach(mPageAdapter.getItem(1)).attach(new WeatherMapFragment());
                 }
                 ft.addToBackStack(null);
                 ft.commit();

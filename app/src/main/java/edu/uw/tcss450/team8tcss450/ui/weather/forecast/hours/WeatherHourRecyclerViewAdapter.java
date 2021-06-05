@@ -87,7 +87,7 @@ public class WeatherHourRecyclerViewAdapter extends
          */
         void setInfoList(final WeatherHourPostInfo infoList) {
             mInfoHourList = infoList;
-            binding.hourPredictionCardHour.setText(infoList.getTime() + " " + infoList.getDate());
+            binding.hourPredictionCardHour.setText(infoList.getTime()); // + " " + infoList.getDate());
 
             binding.hourPredictionCardOutlook.outlookOutlookIcon.setImageBitmap(infoList.getOutlookIcon());
 

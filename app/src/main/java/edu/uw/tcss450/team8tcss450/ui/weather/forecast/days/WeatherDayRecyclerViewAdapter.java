@@ -1,7 +1,5 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,9 +92,9 @@ public class WeatherDayRecyclerViewAdapter extends
 
             binding.dayPredictionCardOutlook.outlookOutlookReading.setText(infoList.getOutlook());
 
-            binding.dayPredictionCardTemperature.lowTemperatureReading
+            binding.lowTemperatureReading
                     .setText(infoList.getLowTemperature() + "\u00B0F");
-            binding.dayPredictionCardTemperature.highTemperatureReading
+            binding.highTemperatureReading
                     .setText(infoList.getHighTemperature() + "\u00B0F");
         }
     }

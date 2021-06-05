@@ -22,6 +22,7 @@ public class ContactRequestsTabFragment extends Fragment {
 
     private ContactRequestsTabViewModel mContactRequestsTabViewModel;
     private UserInfoViewModel mUserInfoViewModel;
+    private ContactRequestsTabRecyclerViewAdapter mViewAdapter;
 
     public ContactRequestsTabFragment() {
 
@@ -75,5 +76,7 @@ public class ContactRequestsTabFragment extends Fragment {
             binding.contactRequestsRoot.setAdapter(
                     mContactRequestsTabViewModel.getViewAdapter())
         );
+
+        mContactRequestsTabViewModel.getViewAdapter().notifyDataSetChanged();
     }
 }

@@ -76,7 +76,7 @@ public class WeatherHourPredictionListFragment extends Fragment {
             postList -> {
                 if (!postList.isEmpty()) {
                     binding.hourPredictionListRoot.setAdapter(new WeatherHourRecyclerViewAdapter(postList));
-                    binding.hourPredictionListRoot.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.hourPredictionListRoot.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 }
             }
         );

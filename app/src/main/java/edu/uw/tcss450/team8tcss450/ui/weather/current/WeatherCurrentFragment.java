@@ -69,9 +69,9 @@ public class WeatherCurrentFragment extends Fragment {
         // Otherwise, display information already saved in WeatherCurrentViewModel
         if (!mCurrentViewModel.getLatitude().equals(mZipcodeViewModel.getLatitude()) ||
                 !mCurrentViewModel.getLongitude().equals(mZipcodeViewModel.getLongitude())) {
-            mCurrentViewModel.connectToOpenWeatherMap(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude(), mBinding);
+            mCurrentViewModel.connectToOpenWeatherMap(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude(), mBinding, mZipcodeViewModel);
             mDayViewModel.clearList();
-            mDayViewModel.connectToWeatherBit(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude());
+            mDayViewModel.connectToWeatherBit(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude(), mZipcodeViewModel);
         } else {
             mCurrentViewModel.displayInformation(mBinding, mCurrentViewModel.getWeatherInfo());
         }
@@ -91,8 +91,12 @@ public class WeatherCurrentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mHourViewModel.clearList();
-        mHourViewModel.connectToOpenWeatherMap(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude());
+        if (!mHourViewModel.getLatitude().equals(mZipcodeViewModel.getLatitude()) &&
+                !mHourViewModel.getLongitude().equals(mZipcodeViewModel.getLongitude())) {
+            mHourViewModel.connectToOpenWeatherMap(mZipcodeViewModel.getLatitude(), mZipcodeViewModel.getLongitude(), mZipcodeViewModel);
+        } else {
+            mCurrentViewModel.displayInformation(mBinding, mCurrentViewModel.getWeatherInfo());
+        }
 
         mHourViewModel.addWeatherHourListObserver(getViewLifecycleOwner(), postList -> {
             if (!postList.isEmpty()) {
@@ -101,23 +105,4 @@ public class WeatherCurrentFragment extends Fragment {
             }
         });
     }
-
-//    @Override
-//    public void onResume() {
-//        WeatherZipcodeViewModel model = new ViewModelProvider(
-//                getActivity()).get(WeatherZipcodeViewModel.class);
-//
-//        mCurrentViewModel = new ViewModelProvider(getActivity())
-//                .get(WeatherCurrentViewModel.class);
-//
-//        if (!model.getLatitude().equals(mCurrentViewModel.getLatitude()) &&
-//                !model.getLongitude().equals(mCurrentViewModel.getLongitude())) {
-//            mCurrentViewModel.connectToOpenWeatherMap(model.getLatitude(), model.getLongitude(), mBinding);
-//        } else {
-//            mCurrentViewModel.displayInformation(mBinding, mCurrentViewModel.getWeatherInfo());
-//        }
-//
-//        Log.v("WeatherCurrentFragment.java","onResume() finished");
-//        super.onResume();
-//    }
 }

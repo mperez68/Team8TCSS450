@@ -2,6 +2,7 @@ package edu.uw.tcss450.team8tcss450.ui.weather.current;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -29,24 +30,20 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherCurrentBinding;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 
 /**
- * The view model for WeatherCurrentFragment that handles
- * a queried zipcode and determines whether or not it is
- * valid.  If it is valid, a connection is made to a
- * weather API to retrieve current weather condition data.
+ * The view model that holds information to be displayed
+ * on the current weather forecast fragment
  *
  * @author Brandon Kennedy
- * @version 25 May 2021
+ * @version 4 June 2021
  */
 public class WeatherCurrentViewModel extends AndroidViewModel {
 
     // The encapsulated data and statistics of the current weather conditions
     private MutableLiveData<WeatherCurrentInfo> mWeatherCurrentInfo;
 
-    // The saved zipcode for this WeatherCurrentViewModel
-    //private String mZipcode;
-
+    // The latitude and longitude coordinates in which
+    // the current weather fragment displays about
     private String mLatitude;
-
     private String mLongitude;
 
     /**
@@ -55,8 +52,6 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
     public WeatherCurrentViewModel(@NonNull Application application) {
         super(application);
         Log.v("WeatherCurrentViewModel", "The view model for WeatherCurrent is created");
-
-        //mZipcode = "";
 
         mLatitude = "";
         mLongitude = "";
@@ -68,31 +63,28 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
     }
 
     /**
-     * Return the saved zipcode for the current weather fragment
-     * @return the saved current weather zipcode
-    public String getZipcode() {
-        return this.mZipcode;
-    }
+     * Get the latitude coordinates saved in this view model
+     * @return the saved latitude coordinates
      */
-
-    /**
-     * Set the zipcode for the current weather fragment
-     * zipcode the zipcode
-    public void setZipcode(final String zipcode) {
-        this.mZipcode = zipcode;
-    }
-     */
-
-
     public String getLatitude() {
         return this.mLatitude;
     }
 
+    /**
+     * Get the longitude coordinates saved in this view model
+     * @return the saved longitude coordinates
+     */
     public String getLongitude() {
         return this.mLongitude;
     }
 
-    public void setLatLongCoordindates(final String latitude, final String longitude) {
+    /**
+     * Set the latitude and longitude coordinates for this view model
+     *
+     * @param latitude the latitude coordinates
+     * @param longitude the longitude coordinates
+     */
+    public void setLatLongCoordinates(final String latitude, final String longitude) {
         this.mLatitude = latitude;
         this.mLongitude = longitude;
     }
@@ -114,29 +106,17 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
      * @param response the JSONObject retrieved as a successful response from the OpenWeatherMap API
      */
     private void handleResultFromOpenWeatherMap(final JSONObject response,
-                                                //final String zipcode,
                                                 final String latitude,
                                                 final String longitude,
-                                                final FragmentWeatherCurrentBinding binding) {
+                                                final FragmentWeatherCurrentBinding binding,
+                                                WeatherZipcodeViewModel model) {
         if (validateResponseFromOpenWeatherMap(response)) {
-            //this.setZipcode(zipcode);
 
             // Get all needed information from JSONObject file and place it in WeatherCurrentInfo field
-            getInformationFromOpenWeatherMap(response);
+            getInformationFromOpenWeatherMap(response, model);
 
-            try {
-                // Get needed outlook icon from JSONObject file in order
-                // to be able to connect to the URL to retrieve needed outlook icon
-                IntFunction<String> getString =
-                        getApplication().getResources()::getString;
-                String outlookIconCode = response.getJSONArray(
-                        getString.apply(R.string.keys_json_weathercurrent_weather))
-                        .getJSONObject(0).getString(getString.apply(R.string.keys_json_weathercurrent_icon));
-                this.connectToOutlookIcon(outlookIconCode, binding, latitude, longitude);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e("ERROR!", e.getMessage());
-            }
+            this.setLatLongCoordinates(latitude, longitude);
+            this.displayInformation(binding, this.getWeatherInfo());
         } else {
             Log.e("ERROR from WeatherMainViewModel", "JSONObject from OpenWeatherMap is not valid.");
         }
@@ -179,7 +159,8 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
      *
      * @param root the JSONObject file from the OpenWeatherMap API
      */
-    private void getInformationFromOpenWeatherMap(final JSONObject root) {
+    private void getInformationFromOpenWeatherMap(final JSONObject root,
+                                                  WeatherZipcodeViewModel model) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
         try {
@@ -195,6 +176,16 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                     root.getJSONArray(getString.apply(R.string.keys_json_weathercurrent_weather))
                             .getJSONObject(0)
                             .getString(getString.apply(R.string.keys_json_weathercurrent_main)));
+
+            String outlookIconCode = root.getJSONArray(
+                    getString.apply(R.string.keys_json_weathercurrent_weather))
+                    .getJSONObject(0).getString(getString.apply(R.string.keys_json_weathercurrent_icon));
+            String outlookIconId = String.valueOf(root.getJSONArray(
+                    getString.apply(R.string.keys_json_weathercurrent_weather))
+                    .getJSONObject(0).getInt(getString.apply(R.string.keys_json_weathercurrent_id)));
+            Log.d("WeatherCurrentViewModel.getInformationFromOpenWeatherMap",
+                    "outlookIconId = " + outlookIconId + ", outlookIconCode = " + outlookIconCode);
+            Integer outlookIconResId = model.getWeatherIconResId(outlookIconId, outlookIconCode);
 
             String readHumidity = String.valueOf(
                     root.getJSONObject(getString.apply(R.string.keys_json_weathercurrent_main))
@@ -214,6 +205,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
             WeatherCurrentInfo currentInfo =
                     new WeatherCurrentInfo.WeatherCurrentInfoBuilder(city)
                             .addTemperature(readTemp)
+                            .addOutlookIconResId(outlookIconResId)
                             .addHumidity(readHumidity)
                             .addOutlook(readOutlook)
                             .addWind(windSpeed,windDirection)
@@ -227,34 +219,6 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
     }
 
     /**
-     * If connection to the WeatherBit API is successful, handle the
-     * image retrieved from that API and store with the current weather
-     * info being held in the MutableLiveData field
-     *
-     * @param response the bitmap retrieved from the WeatherBit API
-     */
-    public void setOutlookIcon(final Bitmap response) {
-        mWeatherCurrentInfo.getValue().setOutlookIcon(response);
-    }
-
-    /**
-     * If connection to the OpenWeatherMap API to retrieve outlook
-     * icon bitmap is successful, then store that icon with current weather info field
-     * and finally display all needed statistics and icon on fragment
-     *
-     * @param response the bitmap outlook icon retrieved from the WeatherBit API URL
-     * @param binding the binding of the WeatherMainFragment
-     */
-    private void handleResultFromOutlookIconConnect(final Bitmap response,
-                                                    final FragmentWeatherCurrentBinding binding,
-                                                    final String latitude,
-                                                    final String longitude) {
-        this.setOutlookIcon(response);
-        this.setLatLongCoordindates(latitude, longitude);
-        this.displayInformation(binding, this.getWeatherInfo());
-    }
-
-    /**
      * Display all needed information on the main weather fragment
      *
      * @param binding the binding of the WeatherMainFragment
@@ -265,8 +229,8 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
         String readTemp = currentInfo.getTemperature() + "\u00B0F";
         binding.currentTemperatureReading.setText(readTemp);
 
-        Bitmap outlookIcon = currentInfo.getOutlookIcon();
-        binding.currentOutlook.outlookOutlookIcon.setImageBitmap(outlookIcon);
+        Integer outlookIconResId = currentInfo.getOutlookIconResId();
+        binding.currentOutlook.outlookOutlookIcon.setImageResource(outlookIconResId);
 
         String readOutlook = currentInfo.getOutlook();
         binding.currentOutlook.outlookOutlookReading.setText(readOutlook);
@@ -320,10 +284,10 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
      *
      * zipcode the queried zipcode used to obtain weather data on
      */
-    public void connectToOpenWeatherMap(//final String zipcode,
-                                        final String latitude,
+    public void connectToOpenWeatherMap(final String latitude,
                                         final String longitude,
-                                        final FragmentWeatherCurrentBinding binding) {
+                                        final FragmentWeatherCurrentBinding binding,
+                                        WeatherZipcodeViewModel model) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/current/openweathermap";
         Log.i("WeatherMainViewModel.java", "Connecting to OpenWeatherMap API current weather conditions");
         Request request = new JsonObjectRequest(
@@ -331,8 +295,7 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 url,
                 null, //no body for this get request
                 result -> {
-                    //this.handleResultFromOpenWeatherMap(result, zipcode, model, binding);
-                    this.handleResultFromOpenWeatherMap(result, latitude, longitude, binding);
+                    this.handleResultFromOpenWeatherMap(result, latitude, longitude, binding, model);
                 },
                 this::handleError) {
             @Override
@@ -355,41 +318,4 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
                 .add(request);
     }
 
-    /**
-     * Connect to the WeatherBit API via Heroku app to obtain the
-     * current weather outlook icon JSON object
-     *
-     * @param iconCode the code used to get the specified weather icon image
-     * @param binding the binding of the WeatherMainFragment
-     */
-    public void connectToOutlookIcon(final String iconCode,
-                                     final FragmentWeatherCurrentBinding binding,
-                                     final String latitude,
-                                     final String longitude) {
-        String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/openweathermap";
-        Request request = new ImageRequest(
-                url,
-                result -> {
-                    this.handleResultFromOutlookIconConnect(result, binding, latitude, longitude);
-                },
-                60,
-                60,
-                ImageView.ScaleType.CENTER,
-                Bitmap.Config.RGB_565,
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("icon_code", iconCode);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
-    }
 }

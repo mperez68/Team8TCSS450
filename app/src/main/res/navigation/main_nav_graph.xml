@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_contactProfileFragment_to_chatTestFragment"
             app:destination="@id/chatTestFragment" />
+        <action
+            android:id="@+id/action_contactProfileFragment_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
     </fragment>
     <fragment
         android:id="@+id/chatTestFragment"
@@ -129,6 +132,9 @@
         <argument
             android:name="requestEmail"
             app:argType="string" />
+        <action
+            android:id="@+id/action_contactRequestOptionsFragment_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
     </fragment>
 
 </navigation>

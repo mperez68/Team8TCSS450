@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -75,11 +77,19 @@ public class ContactRequestOptionsFragment extends Fragment {
         ContactRequestsTabViewModel contactRequestsTabViewModel = new ViewModelProvider(getActivity())
                 .get(ContactRequestsTabViewModel.class);
 
-        mBinding.buttonRequestAccept.setOnClickListener(button ->
-            contactListTabViewModel.connectPost(mUserInfoViewModel.getEmail(), args.getRequestEmail(), mUserInfoViewModel.getmJwt()));
+        mBinding.buttonRequestAccept.setOnClickListener(button -> {
+            contactListTabViewModel.connectPost(mUserInfoViewModel.getEmail(), args.getRequestEmail(), mUserInfoViewModel.getmJwt());
+            Navigation.findNavController(getView()).navigate(
+                    ContactRequestOptionsFragmentDirections.actionContactRequestOptionsFragmentToNavigationContacts());
+            Toast.makeText(getActivity(), "Request has been accepted", Toast.LENGTH_SHORT).show();
+        });
 
-        mBinding.buttonRequestDecline.setOnClickListener(button ->
-            contactRequestsTabViewModel.connectDelete(args.getRequestEmail(), mUserInfoViewModel.getmJwt()));
+        mBinding.buttonRequestDecline.setOnClickListener(button -> {
+            contactRequestsTabViewModel.connectDelete(args.getRequestEmail(), mUserInfoViewModel.getmJwt());
+            Navigation.findNavController(getView()).navigate(
+                    ContactRequestOptionsFragmentDirections.actionContactRequestOptionsFragmentToNavigationContacts());
+            Toast.makeText(getActivity(), "Request has been removed", Toast.LENGTH_SHORT).show();
+        });
 
         mBinding.contactEmail.setText(args.getRequestEmail());
     }

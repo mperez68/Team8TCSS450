@@ -1,6 +1,8 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +27,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * A fragment that lists and displays the 10-day weather forecast predictions
  *
  * @author Brandon Kennedy
- * @version 2 June 2021
+ * @version 4 June 2021
  */
 public class WeatherDayPredictionListFragment extends Fragment {
 
@@ -46,6 +48,7 @@ public class WeatherDayPredictionListFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity())
                 .get(WeatherDayPredictionViewModel.class);
         Log.v("WeatherDayPredictionListFragment.java","onCreate() finished");
+
     }
 
     @Override
@@ -66,7 +69,7 @@ public class WeatherDayPredictionListFragment extends Fragment {
         if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
                 !mViewModel.getLongitude().equals(model.getLongitude())) {
             mViewModel.clearList();
-            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
+            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude(), model);
         }
 
         mViewModel.addWeatherDayListObserver(getViewLifecycleOwner(), postList -> {
@@ -77,22 +80,6 @@ public class WeatherDayPredictionListFragment extends Fragment {
                 Log.e("WeatherHourPredictionListFragment", "Turns out post list is empty: " + postList.isEmpty());
             }
         });
-
     }
-
-//    @Override
-//    public void onResume() {
-//        WeatherZipcodeViewModel model = new ViewModelProvider(
-//                getActivity()).get(WeatherZipcodeViewModel.class);
-//
-//        if (!mViewModel.getLatitude().equals(model.getLatitude()) ||
-//                !mViewModel.getLongitude().equals(model.getLongitude())) {
-//            mViewModel.clearList();
-//            mViewModel.connectToWeatherBit(model.getLatitude(), model.getLongitude());
-//        }
-//
-//        Log.v("WeatherDayPredictionListFragment.java","onResume() finished");
-//        super.onResume();
-//    }
 
 }

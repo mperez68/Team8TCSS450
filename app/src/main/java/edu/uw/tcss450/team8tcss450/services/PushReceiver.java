@@ -14,7 +14,7 @@ import org.json.JSONException;
 
 import edu.uw.tcss450.team8tcss450.AuthActivity;
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
+import edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatMessage;
 import me.pushy.sdk.Pushy;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
@@ -40,10 +40,10 @@ public class PushReceiver extends BroadcastReceiver {
     }
 
     private void handleMessageNotifications(Context context, Intent intent) {
-        ChatTestMessage message = null;
+        ChatMessage message = null;
         int chatId = -1;
         try{
-            message = ChatTestMessage.createFromJsonString(intent.getStringExtra("message"));
+            message = ChatMessage.createFromJsonString(intent.getStringExtra("message"));
             chatId = intent.getIntExtra("chatid", -1);
         } catch (JSONException e) {
             //Web service sent us something unexpected...I can't deal with this.

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.chat.test;
+package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
 import android.content.res.Resources;
 import android.view.Gravity;
@@ -23,9 +23,9 @@ import edu.uw.tcss450.team8tcss450.databinding.FragmentChatMessageTestBinding;
 /**
  * A recycler that holds a list of chat cards.
  */
-public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRecyclerViewAdapter.MessageViewHolder> {
+public class ChatRoomRecyclerViewAdapter extends RecyclerView.Adapter<ChatRoomRecyclerViewAdapter.MessageViewHolder> {
 
-    private final List<ChatTestMessage> mMessages;
+    private final List<ChatMessage> mMessages;
     private final String mEmail;
 
     /**
@@ -34,7 +34,7 @@ public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRe
      * @param theMessages
      * @param theEmail
      */
-    public ChatTestRecyclerViewAdapter(List<ChatTestMessage> theMessages, String theEmail) {
+    public ChatRoomRecyclerViewAdapter(List<ChatMessage> theMessages, String theEmail) {
         this.mMessages = theMessages;
         mEmail = theEmail;
     }
@@ -100,7 +100,7 @@ public class ChatTestRecyclerViewAdapter extends RecyclerView.Adapter<ChatTestRe
          * @param theMessage
          *
          */
-        void setMessage(final ChatTestMessage theMessage) {
+        void setMessage(final ChatMessage theMessage) {
             final Resources res = mView.getContext().getResources();
             final MaterialCardView card = binding.cardRoot;
 

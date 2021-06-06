@@ -45,7 +45,6 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  */
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = "HOME";
     private HomeViewModel mHomeViewModel;
     private UserInfoViewModel mUserInfoViewModel;
 
@@ -97,7 +96,6 @@ public class HomeFragment extends Fragment {
         mHomeViewModel.addResponseObserver(getViewLifecycleOwner(), response -> updateNotificationBell(response));
 
         binding.imageNotification.setOnClickListener(button -> {
-            // TODO show user notifications.
             binding.imageNotification.clearColorFilter();
             if (hasContacts) {
                 Navigation.findNavController(getView()).navigate(
@@ -127,8 +125,6 @@ public class HomeFragment extends Fragment {
                 hasMessages = true;
                 FragmentHomeBinding.bind(getView()).imageNotification.setColorFilter(Color.RED);
             }
-//            Log.d("HOME", "Contacts: " + getNumContacts(response));
-//            Log.d("HOME", "Messages: " + getNumMessages(response));
         }catch (JSONException e) {
             e.printStackTrace();
         }
@@ -172,6 +168,8 @@ public class HomeFragment extends Fragment {
                         "47.2643",
                         "-122.4575"))
                 .get(WeatherZipcodeViewModel.class);
+
+        Log.d("HomeFragment.java", "Package name for activity is " + getActivity().getPackageName());
 
         WeatherZipcodeViewModel model = new ViewModelProvider(
                 getActivity()).get(WeatherZipcodeViewModel.class);
@@ -218,15 +216,6 @@ public class HomeFragment extends Fragment {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             Log.d("LOCATION", location.toString());
-                            /*
-                            new ViewModelProvider(
-                                getActivity(),
-                                new WeatherZipcodeViewModel.WeatherZipcodeViewModelFactory(
-                                        String.valueOf(location.getLatitude()),
-                                        String.valueOf(location.getLongitude())
-                                )
-                            ).get(WeatherZipcodeViewModel.class);
-                            */
                             WeatherZipcodeViewModel model = new ViewModelProvider(
                                 getActivity()).get(WeatherZipcodeViewModel.class);
                             model.setLocation(
@@ -295,7 +284,6 @@ public class HomeFragment extends Fragment {
                                 Map<String, String> headers = new HashMap<>();
                                 // add headers <key,value>
                                 headers.put("Authorization", "6543ce89bd26ded32186bae89a6a071e");
-                                //headers.put("zipcode", zipcode);
                                 headers.put("latitude", latitude);
                                 headers.put("longitude", longitude);
                                 return headers;

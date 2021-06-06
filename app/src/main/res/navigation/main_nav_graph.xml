@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/contactProfileFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragment"
-        android:label="ContactProfileFragment" >
+        android:label="@string/title_mainnav_contactprofile">
         <action
             android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
             app:destination="@id/chatMessageFragment" />
@@ -85,12 +85,15 @@
         <action
             android:id="@+id/action_contactProfileFragment_to_chatTestFragment"
             app:destination="@id/chatTestFragment" />
+        <action
+            android:id="@+id/action_contactProfileFragment_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
     </fragment>
     <fragment
         android:id="@+id/chatTestFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatRoomFragment"
 
-        android:label="ChatTestFragment" >
+        android:label="@string/title_mainnav_chat">
         <argument
             android:name="contactEmail"
             app:argType="string" />
@@ -101,8 +104,8 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        android:label="@string/title_mainnav_settings"
+        tools:layout="@layout/fragment_settings">
 
         <action
             android:id="@+id/action_navigation_settings_to_changePasswordFragment"
@@ -111,11 +114,11 @@
     <fragment
         android:id="@+id/contactNewFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactNewFragment"
-        android:label="ContactNewFragment" />
+        android:label="@string/title_mainnav_contactnew" />
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.ChangePasswordFragment"
-        android:label="fragment_change_password"
+        android:label="@string/title_mainnav_changepassword"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/navigation_weather"
@@ -129,6 +132,9 @@
         <argument
             android:name="requestEmail"
             app:argType="string" />
+        <action
+            android:id="@+id/action_contactRequestOptionsFragment_to_navigation_contacts"
+            app:destination="@id/navigation_contacts" />
     </fragment>
 
 </navigation>

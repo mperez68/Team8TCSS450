@@ -39,13 +39,13 @@ public class WeatherPageAdapter extends FragmentStatePagerAdapter {
             case 0:
                 Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherCurrentFragment");
                 return new WeatherCurrentFragment();
+//            case 1:
+//                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherHourPredictionListFragment");
+//                return new WeatherHourPredictionListFragment();
+//            case 2:
+//                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherDayPredictionListFragment");
+//                return new WeatherDayPredictionListFragment();
             case 1:
-                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherHourPredictionListFragment");
-                return new WeatherHourPredictionListFragment();
-            case 2:
-                Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherDayPredictionListFragment");
-                return new WeatherDayPredictionListFragment();
-            case 3:
                 Log.i("WeatherPageAdapter", "Clicked " + position + ". Returned new WeatherMapFragment");
                 return new WeatherMapFragment();
             default:
@@ -55,7 +55,7 @@ public class WeatherPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 2;
     }
 
 }

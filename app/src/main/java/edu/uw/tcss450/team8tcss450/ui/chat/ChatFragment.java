@@ -86,10 +86,10 @@ public class ChatFragment extends Fragment {
 
         });
 
+        //listener for chatID list
         mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
-            int a = chatIDList.size();
-            int b = mChatListViewModel.getTotalNumberOfChatIDs();
-            if (chatIDList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && b != 0) {
+            int chatIdNums = mChatListViewModel.getTotalNumberOfChatIDs();
+            if (chatIDList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && chatIdNums != 0) {
                 for (int i = 0; i < chatIDList.size(); i++) { //DO I NEED THE FOR LOOP?
                     mChatListViewModel.connectMessages(chatIDList.get(i), mUserInfoViewModel.getmJwt());
                     //mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
@@ -97,6 +97,7 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        //listener for message map.
         mChatListViewModel.addMessageMapObserver(getViewLifecycleOwner(), messageMap -> {
             int listSize = messageMap.size();
             int totalChatRooms = mChatListViewModel.getTotalNumberOfChatIDs();
@@ -109,10 +110,10 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        //listener for chat list.
         mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-            int a = chatList.size();
-            int b = mChatListViewModel.getTotalNumberOfChatIDs();
-            if (chatList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && b != 0) { //if new data is not showing up, clear map here
+            int chatIdNums = mChatListViewModel.getTotalNumberOfChatIDs();
+            if (chatList.size() == mChatListViewModel.getTotalNumberOfChatIDs() && chatIdNums != 0) { //if new data is not showing up, clear map here
                 binding.listRoot.setAdapter(
                         new ChatRecyclerViewAdapter(chatList)
                 );
@@ -125,23 +126,7 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        //add lister for the chatID list
-//        mChatListViewModel.addChatIDListObserver(getViewLifecycleOwner(), chatIDList -> {
-//            if (!chatIDList.isEmpty()) {
-//                for (int i = 0; i < chatIDList.size(); i++) {
-//                    mChatListViewModel.connectGetUsernames(chatIDList.get(i), mUserInfoViewModel.getmJwt());
-//                }
-//            }
-//        });
-//
-//        mChatListViewModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
-//            int a = mChatListViewModel.getMaxNumberOfChatIDs();
-//            if (!chatList.isEmpty()) {
-//                binding.listRoot.setAdapter(
-//                        new ChatRecyclerViewAdapter(chatList)
-//                );
-//            }
-//        });
+
     }
 
 }

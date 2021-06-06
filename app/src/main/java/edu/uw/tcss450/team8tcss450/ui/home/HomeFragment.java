@@ -96,7 +96,6 @@ public class HomeFragment extends Fragment {
         mHomeViewModel.addResponseObserver(getViewLifecycleOwner(), response -> updateNotificationBell(response));
 
         binding.imageNotification.setOnClickListener(button -> {
-            // TODO show user notifications.
             binding.imageNotification.clearColorFilter();
             if (hasContacts) {
                 Navigation.findNavController(getView()).navigate(

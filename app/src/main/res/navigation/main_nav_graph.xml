@@ -104,8 +104,8 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        android:label="@string/title_mainnav_settings"
+        tools:layout="@layout/fragment_settings">
 
         <action
             android:id="@+id/action_navigation_settings_to_changePasswordFragment"
@@ -118,7 +118,7 @@
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.ChangePasswordFragment"
-        android:label="fragment_change_password"
+        android:label="@string/title_mainnav_changepassword"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/navigation_weather"

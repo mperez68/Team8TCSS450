@@ -53,7 +53,7 @@ public class ChatConversation implements Serializable {
         private final String mContact;
         private final String mEmail;
         private final String mTimeStamp;
-        private LinkedList<String> mMessage = new LinkedList<>(); // TODO change to message objects pt. 1
+        private LinkedList<String> mMessage = new LinkedList<>();
         private int myChatID;
 
         /**

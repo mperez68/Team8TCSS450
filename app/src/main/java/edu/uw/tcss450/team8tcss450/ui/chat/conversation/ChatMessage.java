@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.chat.test;
+package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
 import androidx.annotation.Nullable;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Class representing a chat message.
  */
-public class ChatTestMessage implements Serializable {
+public class ChatMessage implements Serializable {
 
     private final int mMessageId;
     private final String mMessage;
@@ -25,7 +25,7 @@ public class ChatTestMessage implements Serializable {
      * @param theSender
      * @param theTimeStamp
      */
-    public ChatTestMessage(int theMessageID, String theMessage, String theSender, String theTimeStamp) {
+    public ChatMessage(int theMessageID, String theMessage, String theSender, String theTimeStamp) {
         mMessageId = theMessageID;
         mMessage = theMessage;
         mSender = theSender;
@@ -39,9 +39,9 @@ public class ChatTestMessage implements Serializable {
      * @return a ChatMessage Object with the details contained in the JSON String.
      * @throws JSONException when cmAsString cannot be parsed into a ChatMessage.
      */
-    public static ChatTestMessage createFromJsonString(final String cmAsJson) throws JSONException {
+    public static ChatMessage createFromJsonString(final String cmAsJson) throws JSONException {
         final JSONObject msg = new JSONObject(cmAsJson);
-        return new ChatTestMessage(msg.getInt("messageid"),
+        return new ChatMessage(msg.getInt("messageid"),
                 msg.getString("message"),
                 msg.getString("email"),
                 msg.getString("timestamp"));
@@ -91,8 +91,8 @@ public class ChatTestMessage implements Serializable {
     @Override
     public boolean equals(@Nullable Object other) {
         boolean result = false;
-        if (other instanceof ChatTestMessage) {
-            result = mMessageId == ((ChatTestMessage) other).mMessageId;
+        if (other instanceof ChatMessage) {
+            result = mMessageId == ((ChatMessage) other).mMessageId;
         }
         return result;
     }

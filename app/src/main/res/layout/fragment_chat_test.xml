@@ -5,7 +5,7 @@
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment">
+    tools:context="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatRoomFragment">
 
 
     <EditText
@@ -57,7 +57,7 @@
             android:layout_marginEnd="8dp"
             android:orientation="vertical"
             app:layoutManager="LinearLayoutManager"
-            tools:context="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
+            tools:context="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatRoomFragment"
             tools:listitem="@layout/fragment_chat_message_test" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

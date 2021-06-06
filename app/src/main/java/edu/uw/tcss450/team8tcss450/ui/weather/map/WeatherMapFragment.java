@@ -1,24 +1,22 @@
 package edu.uw.tcss450.team8tcss450.ui.weather.map;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -34,7 +32,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -46,8 +43,6 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.team8tcss450.R;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMainBinding;
-import edu.uw.tcss450.team8tcss450.databinding.FragmentWeatherMapBinding;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherMainFragment;
 import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
 

@@ -8,89 +8,143 @@
     app:layoutDescription="@xml/fragment_weather_current_scene"
     tools:context=".ui.weather.current.WeatherCurrentFragment">
 
-    <TextView
-        android:id="@+id/current_temperature_reading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:text="@string/text_weathercurrent_tempreading"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/current_outlook"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/outlook_temp_section"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/current_outlook"
-        app:layout_constraintTop_toTopOf="@+id/current_outlook" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/current_humidity_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_weathercurrent_humidity"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_outlook" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_twothird"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="285dp" />
 
-    <TextView
-        android:id="@+id/current_humidity_reading"
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="190dp" />
+
+        <ImageView
+            android:id="@+id/outlook_outlook_icon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_temperature_reading"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/outlook_outlook_reading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="@string/text_weathercurrent_outlookreading"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/outlook_outlook_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/current_temperature_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_weathercurrent_tempreading"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/outlook_outlook_icon" />
+
+        <TextView
+            android:id="@+id/current_humidity_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/text_weathercurrent_humidity"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_text"
+            app:layout_constraintBottom_toTopOf="@+id/current_wind_tab"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/current_humidity_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_weathercurrent_humidityreading"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_twothird"
+            app:layout_constraintBottom_toTopOf="@+id/current_wind_reading"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/current_wind_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/text_weathercurrent_wind"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_text"
+            app:layout_constraintBottom_toTopOf="@+id/current_visibility_tab"
+            app:layout_constraintTop_toBottomOf="@+id/current_humidity_tab" />
+
+        <TextView
+            android:id="@+id/current_wind_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_weathercurrent_windreading"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_twothird"
+            app:layout_constraintBottom_toTopOf="@+id/current_visibility_reading"
+            app:layout_constraintTop_toBottomOf="@+id/current_humidity_reading"/>
+
+        <TextView
+            android:id="@+id/current_visibility_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/text_weathercurrent_visibility"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_text"
+            app:layout_constraintBottom_toBottomOf="@+id/outlook_temp_section"
+            app:layout_constraintTop_toBottomOf="@+id/current_wind_tab" />
+
+        <TextView
+            android:id="@+id/current_visibility_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_weathercurrent_visibilityreading"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_twothird"
+            app:layout_constraintBottom_toBottomOf="@+id/outlook_temp_section"
+            app:layout_constraintTop_toBottomOf="@+id/current_wind_reading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hour_prediction_list_root"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:text="@string/text_weathercurrent_humidityreading"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/current_humidity_tab"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/day_prediction_list_root"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/current_humidity_tab" />
-
-    <TextView
-        android:id="@+id/current_wind_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_weathercurrent_wind"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/current_humidity_tab"
-        app:layout_constraintTop_toBottomOf="@+id/current_humidity_tab" />
-
-    <TextView
-        android:id="@+id/current_wind_reading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_weathercurrent_windreading"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/current_wind_tab"
-        app:layout_constraintEnd_toEndOf="@+id/current_humidity_reading"
-        app:layout_constraintTop_toTopOf="@+id/current_wind_tab" />
-
-    <include
-        android:id="@+id/current_outlook"
-        layout="@layout/fragment_weather_outlook"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/current_temperature_reading"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/outlook_temp_section"
+        tools:listitem="@layout/fragment_weather_hour_prediction_card" />
 
-    <TextView
-        android:id="@+id/current_visibility_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_weathercurrent_visibility"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/current_wind_tab"
-        app:layout_constraintTop_toBottomOf="@+id/current_wind_tab" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/day_prediction_list_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/hour_prediction_list_root"
+        tools:listitem="@layout/fragment_weather_day_prediction_card" />
 
-    <TextView
-        android:id="@+id/current_visibility_reading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_weathercurrent_visibilityreading"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/current_visibility_tab"
-        app:layout_constraintEnd_toEndOf="@+id/current_wind_reading"
-        app:layout_constraintTop_toTopOf="@+id/current_visibility_tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

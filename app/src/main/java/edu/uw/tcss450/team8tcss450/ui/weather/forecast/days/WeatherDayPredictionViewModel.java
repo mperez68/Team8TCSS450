@@ -2,6 +2,7 @@ package edu.uw.tcss450.team8tcss450.ui.weather.forecast.days;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -43,7 +44,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * on the 10-day weather forecast fragment
  *
  * @author Brandon Kennedy
- * @version 2 June 2021
+ * @version 4 June 2021
  */
 public class WeatherDayPredictionViewModel extends AndroidViewModel {
 
@@ -151,10 +152,10 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
      */
     private void handleResultFromWeatherBitConnect(final JSONObject result,
                                                    final String latitude,
-                                                   final String longitude) {
+                                                   final String longitude,
+                                                   WeatherZipcodeViewModel model) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
-        List<String> outlookIconCodes = new ArrayList<>();
         try {
             JSONObject root = result;
             if (root.has(getString.apply(R.string.keys_json_weatherdailyprediction_data))) {
@@ -170,29 +171,39 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                     calendar.set(Calendar.DAY_OF_WEEK, calendarDay + i + 1);
                     Date date = calendar.getTime();
                     String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
-                    String day = dayOfWeek.toUpperCase() + " " + dailyInterval.getString(getString.apply(
-                            R.string.keys_json_weatherdailyprediction_validdate)).substring(5);
+                    String day = dayOfWeek.toUpperCase();
+                            //+ " " + dailyInterval.getString(getString.apply(R.string.keys_json_weatherdailyprediction_validdate)).substring(5);
 
                     String outlook = dailyInterval.getJSONObject(getString.apply(
                         R.string.keys_json_weatherdailyprediction_weather)).getString(
                             getString.apply(R.string.keys_json_weatherdailyprediction_description));
+
+                    String outlookIconCode = dailyInterval.getJSONObject(getString.apply(
+                        R.string.keys_json_weatherdailyprediction_weather)).getString(
+                            getString.apply(R.string.keys_json_weatherdailyprediction_icon));
+                    String outlookIconId = String.valueOf(dailyInterval.getJSONObject(getString.apply(
+                            R.string.keys_json_weatherdailyprediction_weather)).getInt(
+                            getString.apply(R.string.keys_json_weatherdailyprediction_code)));
+                    Log.d("WeatherDayPredictionViewModel.handleResultFromWeatherBitConnect",
+                            "outlookIconId = " + outlookIconId + ", outlookIconCode = " + outlookIconCode);
+                    Integer outlookIconResId = model.getWeatherIconResId(outlookIconId, outlookIconCode);
+
                     String highTemp = String.valueOf(dailyInterval.getInt(getString.apply(
                         R.string.keys_json_weatherdailyprediction_hightemp)));
+
                     String lowTemp = String.valueOf(dailyInterval.getInt(getString.apply(
                             R.string.keys_json_weatherdailyprediction_lowtemp)));
+
                     WeatherDayPostInfo dayPost =
                         new WeatherDayPostInfo.WeatherDayInfoBuilder(day)
                         .addOutlook(outlook)
+                        .addOutlookIconResId(outlookIconResId)
                         .addHighTemperature(highTemp)
                         .addLowTemperature(lowTemp)
                         .build();
                     if (!mWeatherDayPostList.getValue().contains(dayPost)) {
                         mWeatherDayPostList.getValue().add(dayPost);
                     }
-                    String outlookIconCode = dailyInterval.getJSONObject(getString.apply(
-                        R.string.keys_json_weatherdailyprediction_weather)).getString(
-                            getString.apply(R.string.keys_json_weatherdailyprediction_icon));
-                    outlookIconCodes.add(outlookIconCode);
                 }
             } else {
                 Log.e("ERROR!", "No daily forecast data");
@@ -201,43 +212,20 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
-        if (outlookIconCodes.size() == POSTS && mWeatherDayPostList.getValue().size() == POSTS) {
-            String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
-        }
-    }
-
-    /**
-     * If the connection to the WeatherBit API is successful,
-     * use the image that comes through this connection to be
-     * stored to the 10-day weather forecast predictions list
-     *
-     * @param response the bitmap outlook icon retrieved from WeatherBit API
-     * @param outlookIconCodes the list of icon codes retrieved from the daily JSONObject file
-     */
-    private void handleResultFromOutlookIconConnect(final Bitmap response,
-                                                    final List<String> outlookIconCodes,
-                                                    final String latitude,
-                                                    final String longitude) {
-        mWeatherDayPostList.getValue()
-            .get(POSTS - outlookIconCodes.size() - 1).setOutlookIcon(response);
-        if (!outlookIconCodes.isEmpty()) {
-            String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
-        } else {
-            mWeatherDayPostList.setValue(mWeatherDayPostList.getValue());
-            this.setLatLongCoordinates(latitude, longitude);
-        }
+        this.setLatLongCoordinates(latitude, longitude);
+        mWeatherDayPostList.setValue(mWeatherDayPostList.getValue());
     }
 
     /**
      * Connect to the WeatherBit API to obtain the needed data for the 10-day forecast fragment
      *
-     * @params zipcode the successfully validated zipcode used to obtain daily forecast weather information
+     * @params latitude the latitude coordinates used to get data from
+     * @params longitude the longitude coordinates used to get data from
+     * @model the WeatherZipcodeViewModel passed from a fragment
      */
-    public void connectToWeatherBit(//final String zipcode
-                                        final String latitude,
-                                        final String longitude) {
+    public void connectToWeatherBit(final String latitude,
+                                    final String longitude,
+                                    WeatherZipcodeViewModel model) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/daily";
         Log.i("WeatherDayPredictionViewModel.java", "Connecting to OpenWeatherMap API for Daily Forecast Weather");
         Request request = new JsonObjectRequest(
@@ -245,7 +233,7 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 url,
                 null, //no body for this get request
                 result -> {
-                    this.handleResultFromWeatherBitConnect(result, latitude, longitude);
+                    this.handleResultFromWeatherBitConnect(result, latitude, longitude, model);
                 },
                 this::handleError) {
             @Override
@@ -255,43 +243,6 @@ public class WeatherDayPredictionViewModel extends AndroidViewModel {
                 headers.put("Authorization", "37cb34eeb8df469796e2a87f43c7f9be");
                 headers.put("latitude", latitude);
                 headers.put("longitude", longitude);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
-    }
-
-    /**
-     * Connect to the WeatherBit API via Heroku app to obtain the
-     * current weather outlook icon bitmap object
-     *
-     * @param iconCode the code used to get the specified weather icon image
-     */
-    public void connectToOutlookIcon(final String iconCode,
-                                     final List<String> outlookIconCodes,
-                                     final String latitude,
-                                     final String longitude) {
-        String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/weatherbit";
-        Request request = new ImageRequest(
-                url,
-                result -> {
-                    this.handleResultFromOutlookIconConnect(result, outlookIconCodes, latitude, longitude);
-                },
-                60,
-                60,
-                ImageView.ScaleType.CENTER,
-                Bitmap.Config.RGB_565,
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("icon_code", iconCode);
                 return headers;
             }
         };

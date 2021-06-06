@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/weather_primary_root_layout"
@@ -15,72 +16,49 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!--
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/current_weather_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Weather" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/twenty_four_hour_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="24-Hour Forecast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/ten_day_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10-Day Forecast" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/weather_map_tab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weather Map" />
--->
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_search_zipcode"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_weathermain_search"
-        app:layout_constraintBottom_toBottomOf="@+id/zipcode_search_field"
-        app:layout_constraintEnd_toStartOf="@+id/zipcode_search_field"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/weather_tab_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/zipcode_search_field" />
+        app:layout_constraintEnd_toEndOf="parent" >
 
-    <EditText
-        android:id="@+id/zipcode_search_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/hint_weathermain_zipcode"
-        android:inputType="textPersonName"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_search_zipcode"
-        app:layout_constraintTop_toBottomOf="@+id/weather_tab_layout" />
+        <EditText
+            android:id="@+id/zipcode_search_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/hint_weathermain_zipcode"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_search_zipcode"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_search_black_24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/zipcode_queried_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/text_weathermain_zipcodequeriedlocation"
-        android:textSize="40sp"
+        android:textSize="32dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zipcode_search_field" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/weather_view_pager"
@@ -90,8 +68,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zipcode_queried_location">
-
-    </androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toBottomOf="@+id/zipcode_queried_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

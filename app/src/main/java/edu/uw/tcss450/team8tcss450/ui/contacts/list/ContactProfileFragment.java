@@ -87,6 +87,8 @@ public class ContactProfileFragment extends Fragment {
             builder.setTitle("Delete contact?");
             builder.setPositiveButton("Delete", (dialog, id) -> {
                         contactListTabViewModel.connectDelete(args.getContactEmail(), mUserInfoViewModel.getmJwt());
+                        Navigation.findNavController(getView()).navigate(
+                                ContactProfileFragmentDirections.actionContactProfileFragmentToNavigationContacts());
                         Toast.makeText(getActivity(), "Contact has been removed", Toast.LENGTH_SHORT).show();
                     });
             builder.setNegativeButton("Cancel", (dialog, id) ->

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/hour_prediction_card_card_root"
-    android:layout_width="match_parent"
+    android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp">
@@ -16,34 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/hour_prediction_card_outlook"
-            layout="@layout/fragment_weather_outlook"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hour_prediction_card_hour" />
-
         <TextView
             android:id="@+id/hour_prediction_card_hour"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/Accent"
             android:text="@string/text_weatherhourcard_hourinterval"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textSize="12dp"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/hour_prediction_card_outlook"
+            layout="@layout/fragment_weather_outlook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hour_prediction_card_hour" />
 
         <TextView
             android:id="@+id/hour_prediction_card_temperature_reading"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_weatherhourlist_temperature_reading"
-            android:textSize="48sp"
-            app:layout_constraintBottom_toBottomOf="@+id/hour_prediction_card_outlook"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/hour_prediction_card_outlook"
-            app:layout_constraintTop_toTopOf="@+id/hour_prediction_card_outlook" />
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/hour_prediction_card_outlook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

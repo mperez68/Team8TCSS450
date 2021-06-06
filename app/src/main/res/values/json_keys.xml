@@ -17,6 +17,12 @@
     <string name="keys_json_blogs_teaser">teaser</string>
     <string name="keys_json_blogs_url">url</string>
 
+    <!-- JSON Weather Main Keys -->
+    <string name="keys_json_weathermain_name">name</string>
+    <string name="keys_json_weathermain_coord">coord</string>
+    <string name="keys_json_weathermain_lat">lat</string>
+    <string name="keys_json_weathermain_lon">lon</string>
+
     <!-- JSON Weather Current keys -->
     <string name="keys_json_weathercurrent_data">data</string>
     <string name="keys_json_weathercurrent_weather">weather</string>
@@ -28,6 +34,7 @@
     <string name="keys_json_weathercurrent_deg">deg</string>
     <string name="keys_json_weathercurrent_visibility">visibility</string>
     <string name="keys_json_weathercurrent_icon">icon</string>
+    <string name="keys_json_weathercurrent_id">id</string>
 
     <!-- JSON Weather Hourly Prediction keys -->
     <string name="keys_json_weatherhourlyprediction_data">data</string>
@@ -49,4 +56,10 @@
     <string name="keys_json_weatherdailyprediction_hightemp">high_temp</string>
     <string name="keys_json_weatherdailyprediction_lowtemp">low_temp</string>
     <string name="keys_json_weatherdailyprediction_icon">icon</string>
+    <string name="keys_json_weatherdailyprediction_code">code</string>
+
+    <!-- JSON Weather Map keys -->
+    <string name="keys_json_weathermap_name">name</string>
+    <string name="keys_json_weathermap_error">error</string>
+    <string name="keys_json_weathermap_cod">cod</string>
 </resources>

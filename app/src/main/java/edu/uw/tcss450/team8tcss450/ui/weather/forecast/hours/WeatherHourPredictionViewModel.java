@@ -2,6 +2,8 @@ package edu.uw.tcss450.team8tcss450.ui.weather.forecast.hours;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -39,7 +41,7 @@ import edu.uw.tcss450.team8tcss450.ui.weather.WeatherZipcodeViewModel;
  * on the 24-hour weather forecast fragment
  *
  * @author Brandon Kennedy
- * @version 2 June 2021
+ * @version 4 June 2021
  */
 public class WeatherHourPredictionViewModel extends AndroidViewModel {
 
@@ -137,13 +139,15 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      *
      * @param result the JSON file and data containing the need info for the 24-hour forecast fragment
      */
-    private void handleResultFromOpenWeatherMap(final JSONObject result, final String latitude, final String longitude) {
+    private void handleResultFromOpenWeatherMap(final JSONObject result,
+                                                final String latitude,
+                                                final String longitude,
+                                                WeatherZipcodeViewModel model) {
         Log.i("WeatherHourPredictionViewModel.java", "We now handle response to JSON Object retrieved from WeatherBit API");
         Log.i("WeatherHourPredictionViewModel.java", result.toString());
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
 
-        List<String> outlookIconCodes = new ArrayList<>();
         try {
             JSONObject root = result;
             if (root.has(getString.apply(R.string.keys_json_weatherhourlyprediction_hourly))) {
@@ -168,6 +172,17 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                     String temp = String.valueOf(hourInterval.getInt(
                             getString.apply(R.string.keys_json_weatherhourlyprediction_temp)));
 
+                    String outlookIconName = String.valueOf(hourInterval.getJSONArray(
+                            getString.apply(R.string.keys_json_weatherhourlyprediction_weather))
+                            .getJSONObject(0).getString(getString.apply(R.string.keys_json_weatherhourlyprediction_icon)));
+                    String outlookIconId = String.valueOf(hourInterval.getJSONArray(
+                            getString.apply(R.string.keys_json_weatherhourlyprediction_weather))
+                            .getJSONObject(0).getInt(getString.apply(R.string.keys_json_weatherhourlyprediction_id)));
+
+                    Log.d("WeatherHourPredictionViewModel.handleResultFromOpenWeatherMap",
+                            "outlookIconId = " + outlookIconId + ", outlookIconName = " + outlookIconName);
+                    Integer outlookIconResId = model.getWeatherIconResId(outlookIconId, outlookIconName);
+
                     WeatherHourPostInfo hourPost =
                         new WeatherHourPostInfo.WeatherHourInfoBuilder(
                             formattedDate,
@@ -175,21 +190,12 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                         )
                         .addOutlook(main)
                         .addTemperature(temp)
+                        .addOutlookIconResId(outlookIconResId)
                         .build();
 
                     if (!mWeatherHourPostList.getValue().contains(hourPost)) {
                         mWeatherHourPostList.getValue().add(hourPost);
                     }
-
-                    String outlookIcon = String.valueOf(hourInterval.getJSONArray(
-                        getString.apply(R.string.keys_json_weatherhourlyprediction_weather))
-                            .getJSONObject(0).getString(getString.apply(R.string.keys_json_weatherhourlyprediction_icon)));
-
-                    outlookIconCodes.add(outlookIcon);
-                    Log.v("WeatherHourPredictionViewModel.java",
-                            hourPost.getDate() + ", " + hourPost.getTime() + ", "
-                                    + hourPost.getOutlook() + ", " + hourPost.getTemperature() + ", "
-                                        + outlookIcon);
                 }
             } else {
                 Log.e("ERROR!", "No hourly forecast data");
@@ -198,34 +204,8 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
-        if (outlookIconCodes.size() == POSTS && mWeatherHourPostList.getValue().size() == POSTS) {
-            String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
-        }
-    }
-
-    /**
-     * If connection to the OpenWeatherMap API is successful, handle the
-     * image retrieved from that API and store it with the outlook
-     * icon list in the MutableLiveData field
-     *
-     * @param response the bitmap retrieved from the OpenWeatherMap API
-     */
-    private void handleResultFromOpenWeatherMapIconRetrieval(final Bitmap response,
-                                                             final List<String> outlookIconCodes,
-                                                             final String latitude,
-                                                             final String longitude) {
-        Log.i("WeatherHourPredictionViewModel", "Got outlook icon from API");
-        mWeatherHourPostList.getValue()
-                .get(POSTS - outlookIconCodes.size() - 1).setOutlookIcon(response);
-        if (!outlookIconCodes.isEmpty()) {
-            String iconCode = outlookIconCodes.remove(0);
-            this.connectToOutlookIcon(iconCode, outlookIconCodes, latitude, longitude);
-        } else {
-            mWeatherHourPostList.setValue(mWeatherHourPostList.getValue());
-            Log.i("WeatherHourPredictionViewModel", "Got all needed outlook icons");
-            this.setLatLongCoordinates(latitude, longitude);
-        }
+        mWeatherHourPostList.setValue(mWeatherHourPostList.getValue());
+        this.setLatLongCoordinates(latitude, longitude);
     }
 
     /**
@@ -237,9 +217,11 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
      *
      * @params latitude the latitude coordinates of the validated zipcode
      * @params longitude the longitude coordinates of the validated zipcode
+     * @params model the WeatherZipcodeViewModel passed from a fragment
      */
     public void connectToOpenWeatherMap(final String latitude,
-                                        final String longitude) {
+                                        final String longitude,
+                                        WeatherZipcodeViewModel model) {
         String url = "https://team8-tcss450-app.herokuapp.com/weather/hourly";
         Log.i("WeatherHourPredictionViewModel.java", "Connecting to OpenWeatherMap API for Hourly Forecast Weather");
         Request request = new JsonObjectRequest(
@@ -247,7 +229,7 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                 url,
                 null, //no body for this get request
                 result -> {
-                    this.handleResultFromOpenWeatherMap(result, latitude, longitude);
+                    this.handleResultFromOpenWeatherMap(result, latitude, longitude, model);
                 },
                 this::handleError) {
             @Override
@@ -257,45 +239,6 @@ public class WeatherHourPredictionViewModel extends AndroidViewModel {
                 headers.put("Authorization", "6543ce89bd26ded32186bae89a6a071e");
                 headers.put("latitude", latitude);
                 headers.put("longitude", longitude);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
-    }
-
-    /**
-     * Connect to the OpenWeatherMap API via Heroku app to obtain the
-     * current weather outlook icon bitmap object
-     *
-     * @param iconCode the code used to get the specified weather icon image
-     */
-    public void connectToOutlookIcon(final String iconCode,
-                                     final List<String> outlookIconCodes,
-                                     final String latitude,
-                                     final String longitude) {
-        Log.i("WeatherHourPredictionViewModel.connectToOutlookIcon", "About to connect to get outlook icon.");
-        String url = "https://team8-tcss450-app.herokuapp.com/weather/icon/openweathermap";
-        Request request = new ImageRequest(
-                url,
-                result -> {
-                    this.handleResultFromOpenWeatherMapIconRetrieval(result, outlookIconCodes, latitude, longitude);
-                },
-                60,
-                60,
-                ImageView.ScaleType.CENTER,
-                Bitmap.Config.RGB_565,
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-
-                headers.put("icon_code", iconCode);
                 return headers;
             }
         };

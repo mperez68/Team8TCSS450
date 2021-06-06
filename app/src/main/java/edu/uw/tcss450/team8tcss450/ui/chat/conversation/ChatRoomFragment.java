@@ -93,7 +93,6 @@ public class ChatRoomFragment extends Fragment {
 
         final RecyclerView rv = binding.recyclerMessages;
 
-
         mChatModel.addChatIDObserver(this, chatID -> {
             if (chatID != -1) {
                 myChatID = mChatModel.getChatID();

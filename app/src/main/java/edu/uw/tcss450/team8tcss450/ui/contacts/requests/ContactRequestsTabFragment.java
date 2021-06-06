@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import edu.uw.tcss450.team8tcss450.R;
 import edu.uw.tcss450.team8tcss450.databinding.FragmentContactRequestsBinding;
@@ -22,6 +23,7 @@ public class ContactRequestsTabFragment extends Fragment {
 
     private ContactRequestsTabViewModel mContactRequestsTabViewModel;
     private UserInfoViewModel mUserInfoViewModel;
+    private ContactRequestsTabRecyclerViewAdapter mViewAdapter;
 
     public ContactRequestsTabFragment() {
 
@@ -68,12 +70,14 @@ public class ContactRequestsTabFragment extends Fragment {
         super.onViewCreated(theView, theSavedInstanceState);
         FragmentContactRequestsBinding binding = FragmentContactRequestsBinding.bind(getView());
 
+        final RecyclerView rv = binding.contactRequestsRoot;
+        rv.setAdapter(new ContactRequestsTabRecyclerViewAdapter(mContactRequestsTabViewModel.getRequestList().getValue()));
+
         mContactRequestsTabViewModel.getRequestList().getValue().clear();
         mContactRequestsTabViewModel.connectGet(mUserInfoViewModel.getEmail(), mUserInfoViewModel.getmJwt());
 
-        mContactRequestsTabViewModel.addContactRequestObserver(getViewLifecycleOwner(), requestList ->
-            binding.contactRequestsRoot.setAdapter(
-                    mContactRequestsTabViewModel.getViewAdapter())
-        );
+        mContactRequestsTabViewModel.addContactRequestObserver(this, requestList -> {
+            rv.getAdapter().notifyDataSetChanged();
+        });
     }
 }

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.chat.test;
+package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
 import android.app.Application;
 import android.util.Log;
@@ -33,14 +33,14 @@ import edu.uw.tcss450.team8tcss450.io.RequestQueueSingleton;
 /**
  * A view model that stores teh state of the chats.
  */
-public class ChatTestViewModel extends AndroidViewModel {
+public class ChatRoomViewModel extends AndroidViewModel {
 
     /**
      * A Map of Lists of Chat Messages.
      * The Key represents the Chat ID
      * The value represents the List of (known) messages for that that room.
      */
-    private Map<Integer, MutableLiveData<List<ChatTestMessage>>> mMessages;
+    private Map<Integer, MutableLiveData<List<ChatMessage>>> mMessages;
 
     private MutableLiveData<Integer> myChatID;
 
@@ -53,7 +53,7 @@ public class ChatTestViewModel extends AndroidViewModel {
      *
      * @param theApplication
      */
-    public ChatTestViewModel(@NonNull Application theApplication) {
+    public ChatRoomViewModel(@NonNull Application theApplication) {
         super(theApplication);
         mMessages = new HashMap<>();
 
@@ -88,7 +88,7 @@ public class ChatTestViewModel extends AndroidViewModel {
      */
     public void addMessageObserver(int theChatId,
                                    @NonNull LifecycleOwner theOwner,
-                                   @NonNull Observer<? super List<ChatTestMessage>> theObserver) {
+                                   @NonNull Observer<? super List<ChatMessage>> theObserver) {
         getOrCreateMapEntry(theChatId).observe(theOwner, theObserver);
     }
 
@@ -119,7 +119,7 @@ public class ChatTestViewModel extends AndroidViewModel {
      * @param theChatID the id of the chat room List to retrieve
      * @return a reference to the list of messages
      */
-    public List<ChatTestMessage> getMessageListByChatId(final int theChatID) {
+    public List<ChatMessage> getMessageListByChatId(final int theChatID) {
         return getOrCreateMapEntry(theChatID).getValue();
     }
 
@@ -136,7 +136,7 @@ public class ChatTestViewModel extends AndroidViewModel {
      *
      * @param theChatID
      */
-    private MutableLiveData<List<ChatTestMessage>> getOrCreateMapEntry(final int theChatID) {
+    private MutableLiveData<List<ChatMessage>> getOrCreateMapEntry(final int theChatID) {
         if(!mMessages.containsKey(theChatID)) {
             mMessages.put(theChatID, new MutableLiveData<>(new ArrayList<>()));
         }
@@ -237,14 +237,14 @@ public class ChatTestViewModel extends AndroidViewModel {
      * @param theChatID
      * @param theMessage
      */
-    public void addMessage(final int theChatID, final ChatTestMessage theMessage) {
-        List<ChatTestMessage> list = getMessageListByChatId(theChatID);
+    public void addMessage(final int theChatID, final ChatMessage theMessage) {
+        List<ChatMessage> list = getMessageListByChatId(theChatID);
         list.add(theMessage);
         getOrCreateMapEntry(theChatID).setValue(list);
     }
 
     private void handelSuccess(final JSONObject response) {
-        List<ChatTestMessage> list;
+        List<ChatMessage> list;
         if (!response.has("chatId")) {
             throw new IllegalStateException("Unexpected response in ChatViewModel: " + response);
         }
@@ -253,7 +253,7 @@ public class ChatTestViewModel extends AndroidViewModel {
             JSONArray messages = response.getJSONArray("rows");
             for(int i = 0; i < messages.length(); i++) {
                 JSONObject message = messages.getJSONObject(i);
-                ChatTestMessage cMessage = new ChatTestMessage(
+                ChatMessage cMessage = new ChatMessage(
                         message.getInt("messageid"),
                         message.getString("message"),
                         message.getString("email"),
@@ -438,10 +438,19 @@ public class ChatTestViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * handle success for add users endpoint.
+     * @param jsonObject success obj
+     */
     private void handleAddUsers(JSONObject jsonObject) {
         Log.e("Success", "PUT User into chat was successful");
     }
 
+    /**
+     * delete chat room.
+     * @param theChatID
+     * @param theJwt
+     */
     public void deleteChatRoom(int theChatID, String theJwt) {
         String url = "https://team8-tcss450-app.herokuapp.com/chats/chatRoom/" + theChatID ;
         //print statement for debugging
@@ -473,6 +482,10 @@ public class ChatTestViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * handle delete success.
+     * @param theResponse success obj
+     */
     private void handleDeleteSuccess(JSONObject theResponse) {
         IntFunction<String> getString =
                 getApplication().getResources()::getString;

@@ -112,6 +112,7 @@ public class ChatRecyclerViewAdapter extends
          */
         @Override
         public void onClick(View theView) {
+            ChatConversation b = myConversation;
             String a = myConversation.getmEmail();
             Navigation.findNavController(theView).navigate(
                     ChatFragmentDirections.actionNavigationChatToChatTestFragment(myConversation.getmEmail())); //send contact name and chat ID as parameters

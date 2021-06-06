@@ -1,4 +1,4 @@
-package edu.uw.tcss450.team8tcss450.ui.chat.test;
+package edu.uw.tcss450.team8tcss450.ui.chat.conversation;
 
 import android.app.Application;
 import android.util.Log;
@@ -28,7 +28,7 @@ import edu.uw.tcss450.team8tcss450.io.RequestQueueSingleton;
 /**
  * A view model that stores the states of the sent chats.
  */
-public class ChatTestSendViewModel extends AndroidViewModel {
+public class ChatSendViewModel extends AndroidViewModel {
 
     private final MutableLiveData<JSONObject> mResponse;
 
@@ -37,7 +37,7 @@ public class ChatTestSendViewModel extends AndroidViewModel {
      *
      * @Param theApplication
      */
-    public ChatTestSendViewModel(@NonNull Application theApplication) {
+    public ChatSendViewModel(@NonNull Application theApplication) {
         super(theApplication);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());

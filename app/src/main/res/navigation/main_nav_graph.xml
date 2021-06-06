@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatTestFragment"
-        android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
+        android:name="edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatRoomFragment"
 
         android:label="@string/title_mainnav_chat">
         <argument

@@ -27,8 +27,8 @@ import edu.uw.tcss450.team8tcss450.model.NewMessageCountViewModel;
 import edu.uw.tcss450.team8tcss450.model.PushyTokenViewModel;
 import edu.uw.tcss450.team8tcss450.model.UserInfoViewModel;
 import edu.uw.tcss450.team8tcss450.services.PushReceiver;
-import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestMessage;
-import edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestViewModel;
+import edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatMessage;
+import edu.uw.tcss450.team8tcss450.ui.chat.conversation.ChatRoomViewModel;
 import edu.uw.tcss450.team8tcss450.utils.ColorTheme;
 
 
@@ -257,9 +257,9 @@ public class MainActivity extends AppCompatActivity {
          */
     private class MainPushMessageReceiver extends BroadcastReceiver {
 
-        private ChatTestViewModel mModel =
+        private ChatRoomViewModel mModel =
                 new ViewModelProvider(MainActivity.this)
-                        .get(ChatTestViewModel.class);
+                        .get(ChatRoomViewModel.class);
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (intent.hasExtra("chatMessage")) {
 
-                ChatTestMessage cm = (ChatTestMessage) intent.getSerializableExtra("chatMessage");
+                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
 
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model

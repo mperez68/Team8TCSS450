@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/contactProfileFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactProfileFragment"
-        android:label="ContactProfileFragment" >
+        android:label="@string/title_mainnav_contactprofile">
         <action
             android:id="@+id/action_contactProfileFragment_to_chatMessageFragment"
             app:destination="@id/chatMessageFragment" />
@@ -90,7 +90,7 @@
         android:id="@+id/chatTestFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.chat.test.ChatTestFragment"
 
-        android:label="ChatTestFragment" >
+        android:label="@string/title_mainnav_chat">
         <argument
             android:name="contactEmail"
             app:argType="string" />
@@ -111,7 +111,7 @@
     <fragment
         android:id="@+id/contactNewFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.contacts.list.ContactNewFragment"
-        android:label="ContactNewFragment" />
+        android:label="@string/title_mainnav_contactnew" />
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="edu.uw.tcss450.team8tcss450.ui.settings.ChangePasswordFragment"

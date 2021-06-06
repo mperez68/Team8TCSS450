@@ -230,10 +230,10 @@ public class WeatherCurrentViewModel extends AndroidViewModel {
         binding.currentTemperatureReading.setText(readTemp);
 
         Integer outlookIconResId = currentInfo.getOutlookIconResId();
-        binding.currentOutlook.outlookOutlookIcon.setImageResource(outlookIconResId);
+        binding.outlookOutlookIcon.setImageResource(outlookIconResId);
 
         String readOutlook = currentInfo.getOutlook();
-        binding.currentOutlook.outlookOutlookReading.setText(readOutlook);
+        binding.outlookOutlookReading.setText(readOutlook);
 
         String readHumidity = currentInfo.getHumidity();
         binding.currentHumidityReading.setText(readHumidity);

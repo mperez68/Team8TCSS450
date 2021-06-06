@@ -40,6 +40,8 @@
     <string name="title_mainnav_chat">Chat</string>
     <string name="title_mainnav_weather">Weather</string>
     <string name="title_mainnav_contactsearch">Search Contacts</string>
+    <string name="title_mainnav_contactnew">Add Contact</string>
+    <string name="title_mainnav_contactprofile">Contact Profile</string>
     <string name="title_mainnav_weathermap">Weather Map</string>
 
     <!-- Bottom Navigation Labels -->

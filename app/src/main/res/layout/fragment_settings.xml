@@ -7,10 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_fifty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="366dp" />
 
+    <!--
     <Button
         android:id="@+id/button_changenickname"
-
         android:layout_width="305dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -20,54 +26,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_theme" />
-
-    <Button
-        android:id="@+id/button_changepassword"
-        android:layout_width="305dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/button_settings_changepassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_changenickname" />
+        -->
 
     <TextView
         android:id="@+id/text_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/text_settings_theme"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/radiogroup_container"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_fifty" />
 
     <RadioGroup
         android:id="@+id/radiogroup_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="90dp"
-        android:orientation='horizontal'
+        android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/text_theme"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/button_applytheme"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_fifty" >
 
         <RadioButton
             android:id="@+id/radio_alttheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_settings_alttheme"
-            tools:layout_editor_absoluteX="97dp"
-            tools:layout_editor_absoluteY="396dp" />
+            android:text="@string/radio_settings_alttheme" />
 
         <RadioButton
             android:id="@+id/radio_deftheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_settings_deftheme"
-            tools:layout_editor_absoluteX="97dp"
-            tools:layout_editor_absoluteY="396dp" />
+            android:text="@string/radio_settings_deftheme" />
 
     </RadioGroup>
 
@@ -75,10 +66,21 @@
         android:id="@+id/button_applytheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="85dp"
         android:text="@string/button_settings_apply"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radiogroup_container"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline_fifty" />
+
+    <Button
+        android:id="@+id/button_changepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_settings_changepassword"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_fifty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,7 +69,7 @@ public class WeatherMainFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        String[] tabNames = {"Forecast", "Map"};
+        String[] tabNames = {"Forecast", "Search By Map"};
         for (int i = 0; i < tabNames.length; i++) {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             tab.setText(tabNames[i]);
@@ -183,7 +183,7 @@ public class WeatherMainFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.weather_tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        String[] tabNames = {"Current Weather", "24-Hour Forecast", "10-day Forecast", "Search From Map"};
+        String[] tabNames = {"Forecast", "Search By Map"};
         for (int i = 0; i < tabNames.length; i++) {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             tab.setText(tabNames[i]);
